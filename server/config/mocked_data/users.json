@@ -1,0 +1,23 @@
+[
+  {
+    "username": "admin",
+    "email": "admin@gmail.com",
+    "password": "ffffffff",
+    "role": "admin"
+  },
+  {
+    "username": "morre",
+    "email": "publisher@gmail.com",
+    "password": "ffffffff"
+  },
+  {
+    "username": "fedy97",
+    "email": "f@ff.it",
+    "password": "ffffffff"
+  },
+  {
+    "username": "fedy 97c",
+    "email": "f@f.it",
+    "password": "ffffffff"
+  }
+]
