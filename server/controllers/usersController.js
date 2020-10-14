@@ -1,6 +1,8 @@
 const factory = require('../controllers/handlerFactory');
 const User = require('../models/user');
 const catchAsync = require('../utils/catchAsync');
+const AppError = require("../utils/appError");
+const {filterBody} = require("../utils/filterBody");
 
 const functions = {
     getAllUsers: factory.getAll(User),
@@ -9,12 +11,16 @@ const functions = {
         return res.status(200).json({status: "success", user: req.user});
     }),
     updateDetails: catchAsync(async (req, res, next) => {
-        //Filtered out unwanted fields names that are not allowed to be updated
-        const filteredBody = filterObj(req.body, 'email', 'firstName', 'lastName', 'phone', 'address', 'gender', 'city', 'role', 'available', 'birth', 'nationality');
+        //if you become 'other' you must specify phone and city
+        if (req.body.role != null && req.body.role === 'other') {
+            if (req.body.phone == null && req.user.phone == null)
+                return next(new AppError('you must specify your phone number!', 400));
+            if (req.body.city == null && req.user.city == null)
+                return next(new AppError('you must specify your city!', 400));
+        }
+        //if (req.file) req.body.photo = req.file.filename;
 
-        //if (req.file) filteredBody.photo = req.file.filename;
-
-        const user = await User.findByIdAndUpdate(req.user._id, filteredBody, {
+        const user = await User.findByIdAndUpdate(req.user._id, req.body, {
             new: true,
             runValidators: true,
         });
@@ -25,20 +31,5 @@ const functions = {
         });
     })
 }
-
-const filterObj = (obj, ...allowedFields) => {
-    const newObj = {};
-    Object.keys(obj).forEach(el => {
-        let canBeAdded = true;
-        if (allowedFields.includes(el)) {
-            //cannot become an admin
-            if (el === 'role' && obj.role !== 'other' && obj.role !== 'user')
-                canBeAdded = false;
-            if (canBeAdded) newObj[el] = obj[el];
-        }
-    });
-
-    return newObj;
-};
 
 module.exports = functions;

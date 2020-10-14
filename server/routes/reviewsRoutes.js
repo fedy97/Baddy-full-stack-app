@@ -2,6 +2,7 @@ const express = require('express');
 
 const reviewController = require('../controllers/reviewsController');
 const authController = require('../controllers/authController');
+const {filterBody} = require("../utils/filterBody");
 
 const router = express.Router({mergeParams: true});
 
@@ -16,7 +17,7 @@ router
         authController.restrictTo('user', 'admin'),
         reviewController.setIds,
         reviewController.checkIfSameUser,
-        reviewController.sanitizeBody,
+        filterBody('review', 'rating', 'user', 'userReviewed'),
         reviewController.createReview
     );
 
@@ -28,7 +29,7 @@ router
     .patch(
         authController.restrictTo('user', 'admin'),
         reviewController.checkIfUserIsAuthor,
-        reviewController.sanitizeBody,
+        filterBody('review', 'rating', 'user', 'userReviewed'),
         reviewController.updateReview
     )
     .delete(

@@ -32,16 +32,6 @@ const functions = {
     checkIfSameUser: checkIfSameUser,
     getAllReviews: handlerFactory.getAll(Review),
     getReview: handlerFactory.getOne(Review),
-    //TODO create a personalized body to pass here  with Review
-    sanitizeBody: function (req, res, next) {
-        req.body = {
-            review: req.body.review,
-            rating: req.body.rating,
-            user: req.body.user,
-            userReviewed: req.body.userReviewed
-        };
-        next();
-    },
     createReview: handlerFactory.createOne(Review),
     updateReview: handlerFactory.updateOne(Review),
     deleteReview: handlerFactory.deleteOne(Review),
