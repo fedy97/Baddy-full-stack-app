@@ -2,30 +2,38 @@ import '../enum/role.dart';
 import 'user.dart';
 
 class StandardUser extends User {
-  StandardUser({
-    username,
-    firstName,
-    lastName,
-    phone,
-    address,
-    email,
-    role,
-    ratingsQuantity,
-    ratingsAverage,
-    photo,
-    jwt,
-  }) : super(
+  StandardUser(
+      {birth,
+      gender,
+      username,
+      firstName,
+      lastName,
+      phone,
+      city,
+      email,
+      role,
+      ratingsQuantity,
+      ratingsAverage,
+      photo,
+      jwt,
+      available,
+      nationality})
+      : super(
+            birth: birth,
+            gender: gender,
             username: username,
             firstName: firstName,
             lastName: lastName,
             phone: phone,
-            address: address,
+            city: city,
             email: email,
             role: role,
             ratingsQuantity: ratingsQuantity,
             ratingsAverage: ratingsAverage,
             photo: photo,
-            jwt: jwt);
+            jwt: jwt,
+            available: available,
+            nationality: nationality);
 
   factory StandardUser.fromMap(Map<String, dynamic> payload, String jwt) {
     if (payload == null) return null;
@@ -39,10 +47,16 @@ class StandardUser extends User {
     var firstName = user["firstName"];
     var lastName = user["lastName"];
     var phone = user["phone"];
-    var address = user["address"];
+    var city = user["city"];
+    var available = user["available"] as bool;
+    //TODO convert this to right objects and pass them to constructor
+    var gender = user["gender"];
+    var nationality = user["nationality"];
+    var birth = user["birth"];
 
     return StandardUser(
-        address: address,
+        available: available,
+        city: city,
         email: email,
         firstName: firstName,
         lastName: lastName,

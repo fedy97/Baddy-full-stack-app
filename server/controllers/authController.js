@@ -7,14 +7,29 @@ var functions = {
     addNew: catchAsync(async function (req, res, next) {
         if ((!req.body.username) || (!req.body.password)) {
             return next(
-                new AppError('Fill all the fields!', 400)
+                new AppError('Fill both username and password!', 400)
             );
         } else {
-            const newUser = await User.create({
-                username: req.body.username,
-                password: req.body.password,
-                email: req.body.email
-            });
+            //the body must contain the role, either user or other
+            let newUser;
+            if (req.body.role == null || req.body.role === 'user')
+                newUser = await User.create({
+                    username: req.body.username,
+                    password: req.body.password,
+                    email: req.body.email
+                });
+            //if not a user, it is a "other", so city and phone must be provided
+            else if (req.body.phone != null && req.body.city != null)
+                newUser = await User.create({
+                    username: req.body.username,
+                    password: req.body.password,
+                    email: req.body.email,
+                    phone: req.body.phone,
+                    city: req.body.city,
+                    role: "other"
+                });
+            else
+                return next(new AppError('You have to provide phone and city too!', 400));
             // 3) If everything ok, send token to client
             createSendToken(newUser, 200, req, res);
         }

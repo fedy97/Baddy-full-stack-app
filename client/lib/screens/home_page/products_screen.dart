@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:polimi_app/models/user/user.dart';
 import 'package:polimi_app/services/access_manager.dart';
+import 'package:provider/provider.dart';
 
 import '../../auth_manager.dart';
 import '../../constants.dart';
@@ -18,10 +20,11 @@ class ProductsScreen extends StatelessWidget {
   }
 
   AppBar buildAppBar(context) {
+    User user = Provider.of<User>(context, listen: true);
     return AppBar(
       elevation: 0,
       centerTitle: false,
-      title: Text('Dashboard'),
+      title: Text(user.username),
       actions: <Widget>[
         IconButton(
           color: Colors.white,

@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:provider/provider.dart';
+
 import 'models/user/standardUser.dart';
 import 'models/user/user.dart';
 import 'screens/home_page/products_screen.dart';
@@ -28,9 +30,12 @@ class AuthManager extends StatelessWidget {
               var payload = json.decode(
                   ascii.decode(base64.decode(base64.normalize(jwt[1]))));
               User firstUser = StandardUser.fromMap(payload, str);
-              if (remember=="true" && DateTime.fromMillisecondsSinceEpoch(payload["exp"] * 1000)
-                  .isAfter(DateTime.now())) {
-                return ProductsScreen();
+              //print(firstUser.toString());
+              if (remember == "true" &&
+                  DateTime.fromMillisecondsSinceEpoch(payload["exp"] * 1000)
+                      .isAfter(DateTime.now())) {
+                return ChangeNotifierProvider<User>.value(
+                    value: firstUser, child: ProductsScreen());
               } else {
                 AccessManager.signOut().then((value) => SignInScreen());
               }

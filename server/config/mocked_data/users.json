@@ -2,8 +2,7 @@
   {
     "username": "admin",
     "email": "admin@gmail.com",
-    "password": "ffffffff",
-    "role": "admin"
+    "password": "ffffffff"
   },
   {
     "username": "morre",
@@ -19,5 +18,13 @@
     "username": "fedy 97c",
     "email": "f@f.it",
     "password": "ffffffff"
+  },
+  {
+    "username": "fedyother",
+    "email": "f@hfgbf.it",
+    "password": "ffffffff",
+    "role": "other",
+    "phone": "123456789",
+    "city": "MILANO"
   }
 ]

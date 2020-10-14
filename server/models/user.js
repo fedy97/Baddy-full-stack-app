@@ -56,6 +56,7 @@ const userSchema = new Schema({
         },
         city: {
             type: String,
+            set: (city) => city.toString().toUpperCase()
         },
         ratingsAverage: {
             type: Number,

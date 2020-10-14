@@ -10,7 +10,7 @@ const functions = {
     }),
     updateDetails: catchAsync(async (req, res, next) => {
         //Filtered out unwanted fields names that are not allowed to be updated
-        const filteredBody = filterObj(req.body, 'email', 'firstName', 'lastName', 'phone', 'address');
+        const filteredBody = filterObj(req.body, 'email', 'firstName', 'lastName', 'phone', 'address', 'gender', 'city', 'role', 'available', 'birth', 'nationality');
 
         //if (req.file) filteredBody.photo = req.file.filename;
 
@@ -29,8 +29,12 @@ const functions = {
 const filterObj = (obj, ...allowedFields) => {
     const newObj = {};
     Object.keys(obj).forEach(el => {
+        let canBeAdded = true;
         if (allowedFields.includes(el)) {
-            newObj[el] = obj[el];
+            //cannot become an admin
+            if (el === 'role' && obj.role !== 'other' && obj.role !== 'user')
+                canBeAdded = false;
+            if (canBeAdded) newObj[el] = obj[el];
         }
     });
 
