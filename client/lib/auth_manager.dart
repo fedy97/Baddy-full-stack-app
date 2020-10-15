@@ -39,7 +39,8 @@ class AuthManager extends StatelessWidget {
               } else {
                 AccessManager.signOut().then((value) => SignInScreen());
               }
-              return ProductsScreen();
+              return ChangeNotifierProvider<User>.value(
+                  value: firstUser, child: ProductsScreen());
             }
           } else {
             return SplashScreen();

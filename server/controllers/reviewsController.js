@@ -6,12 +6,12 @@ const catchAsync = require('../utils/catchAsync')
 
 const setIds = catchAsync(async (req, res, next) => {
     req.body.user = req.user;
-    req.body.userReviewed = await User.findOne({name: req.body.userReviewed});
+    req.body.userReviewed = await User.findOne({username: req.body.userReviewed});
     next();
 });
 
 const checkIfSameUser = async (req, res, next) => {
-    if (req.user.role !== 'admin' && req.body.userReviewed.name === req.user.name)
+    if (req.user.role !== 'admin' && req.body.userReviewed.username === req.user.username)
         return next(new AppError(`You cannot write a review for yourself`, 403));
     next();
 };
@@ -36,13 +36,25 @@ const functions = {
     updateReview: handlerFactory.updateOne(Review),
     deleteReview: handlerFactory.deleteOne(Review),
     getReviewsPerUser: catchAsync(async function (req, res, next) {
-        const name = req.params.name;
-        const userToFind = await User.findOne({name});
+        const name = req.params.username;
+        const userToFind = await User.findOne({username: name});
         const reviews = await Review.find({userReviewed: userToFind}).select('-userReviewed -__v');
 
         return res.status(200).json({
             status: 'success',
-            user: userToFind.name,
+            user: userToFind.username,
+            results: reviews.length,
+            reviews: reviews
+        });
+    }),
+    getReviewsWrittenByUser: catchAsync(async function (req, res, next) {
+        const name = req.params.username;
+        const userToFind = await User.findOne({username: name});
+        const reviews = await Review.find({user: userToFind}).select('-user -__v');
+
+        return res.status(200).json({
+            status: 'success',
+            user: userToFind.username,
             results: reviews.length,
             reviews: reviews
         });

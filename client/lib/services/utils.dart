@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:polimi_app/models/enum/role.dart';
 
 class Utils {
   static Future<void> showAlertOneButton(
@@ -23,12 +24,8 @@ class Utils {
           );
         });
   }
-  ///this return some errors from firebase,
-  ///for example if the email is badly formatted during the sign up process
-  static String printError(String errorToParse) {
-    String errorTrimmed = errorToParse.split("]")[1];
-    if (errorTrimmed != null)
-      return errorTrimmed;
-    return errorToParse;
+
+  static Role stringToRole({String string}) {
+    return Role.values.firstWhere((element) => element.toString() == string);
   }
 }

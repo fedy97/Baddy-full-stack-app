@@ -49,6 +49,7 @@ class StandardUser extends User {
     var phone = user["phone"];
     var city = user["city"];
     var available = user["available"] as bool;
+    var jwtToStore = jwt;
     //TODO convert this to right objects and pass them to constructor
     var gender = user["gender"];
     var nationality = user["nationality"];
@@ -60,7 +61,7 @@ class StandardUser extends User {
         email: email,
         firstName: firstName,
         lastName: lastName,
-        jwt: jwt,
+        jwt: jwtToStore,
         phone: phone,
         photo: photo,
         ratingsAverage: ratingsAverage,

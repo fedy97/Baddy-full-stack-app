@@ -10,6 +10,14 @@ const functions = {
     me: catchAsync(async function (req, res, next) {
         return res.status(200).json({status: "success", user: req.user});
     }),
+    getAvailableUsers: catchAsync(async function (req, res, next) {
+        //find only available excluding myself
+        let users = await User.find({available: true, username: {$ne: req.user.username}}).select('-email');
+        return res.status(200).json({
+            status: "success",
+            data: users
+        })
+    }),
     updateDetails: catchAsync(async (req, res, next) => {
         //if you become 'other' you must specify phone and city
         if (req.body.role != null && req.body.role === 'other') {

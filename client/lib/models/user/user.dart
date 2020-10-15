@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:polimi_app/models/enum/gender.dart';
+import 'package:polimi_app/models/review.dart';
 
 import '../enum/role.dart';
 
-abstract class User extends ChangeNotifier {
+abstract class User with ChangeNotifier {
   DateTime birth;
   String nationality;
   Gender gender;
@@ -20,6 +21,12 @@ abstract class User extends ChangeNotifier {
   String photo;
   String jwt;
 
+  //store reviews about me
+  List<Review> reviewsAboutMe;
+
+  //store available users
+  List<User> availableUsers;
+
   User(
       {@required this.jwt,
       @required this.email,
@@ -35,7 +42,8 @@ abstract class User extends ChangeNotifier {
       this.firstName,
       this.lastName,
       this.phone,
-      this.city});
+      this.city})
+      : reviewsAboutMe = List();
 
   @override
   String toString() {

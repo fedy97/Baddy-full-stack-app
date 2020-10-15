@@ -3,7 +3,7 @@ const authController = require('../controllers/authController');
 const usersController = require('../controllers/usersController');
 const {filterBody} = require("../utils/filterBody");
 const router = express.Router();
-
+//endpoint: api/v1/users
 router.post('/signup', authController.addNew);
 router.post('/login', authController.authenticate);
 
@@ -13,9 +13,11 @@ router.use(authController.protect);
 
 router.get('/me', usersController.me);
 router.patch('/updateDetails',
-    filterBody('email', 'firstName', 'lastName', 'phone', 'gender', 'city', 'role', 'available', 'birth', 'nationality'),
+    filterBody('photo', 'email', 'firstName', 'lastName', 'phone', 'gender', 'city', 'role', 'available', 'birth', 'nationality'),
     usersController.updateDetails);
 router.patch('/updateMyPassword', authController.updatePassword);
+
+router.get('/available', usersController.getAvailableUsers);
 
 //to perform actions from here on you must be admin
 router.use(authController.restrictTo('admin'));

@@ -14,14 +14,14 @@ router
     .route('/')
     .get(reviewController.getAllReviews)
     .post(
-        authController.restrictTo('user', 'admin'),
         reviewController.setIds,
         reviewController.checkIfSameUser,
         filterBody('review', 'rating', 'user', 'userReviewed'),
         reviewController.createReview
     );
 
-router.route('/user/:name').get(reviewController.getReviewsPerUser);
+router.route('/user/:username').get(reviewController.getReviewsPerUser);
+router.route('/user/myreviews/:username').get(reviewController.getReviewsWrittenByUser);
 
 router
     .route('/:id')

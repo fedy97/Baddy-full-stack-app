@@ -21,7 +21,7 @@ const reviewSchema = new mongoose.Schema(
         userReviewed: {
             type: mongoose.Schema.ObjectId,
             ref: 'User',
-            required: [true, 'Review must be addressed to a user'],
+            required: [true, 'Review must be addressed to an existing user'],
         },
         user: {
             type: mongoose.Schema.ObjectId,
@@ -40,11 +40,11 @@ reviewSchema.index({userReviewed: 1, user: 1}, {unique: true});
 reviewSchema.pre(/^find/, function (next) {
     this.populate({
         path: 'user',
-        select: 'name photo',
+        select: 'username photo',
     });
     this.populate({
         path: 'userReviewed',
-        select: 'name photo',
+        select: 'username photo',
     });
     next();
 });
