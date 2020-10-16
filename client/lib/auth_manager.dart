@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:polimi_app/services/utils.dart';
 import 'package:provider/provider.dart';
 
 import 'models/user/standardUser.dart';
@@ -19,30 +20,34 @@ class AuthManager extends StatelessWidget {
     return FutureBuilder(
         future: jwtOrEmpty,
         builder: (context, snapshot) {
-          if (!snapshot.hasData) return CircularProgressIndicator();
+          if (!snapshot.hasData) return Utils.loadingWidget();
           if (snapshot.data["jwt"] != null) {
             var str = snapshot.data["jwt"];
             var jwt = str.split(".");
             var remember = snapshot.data["remember"];
             if (jwt.length != 3) {
+              //jwt format not valid
               return SignInScreen();
             } else {
+              //jwt formatted correctly, let's decode it
               var payload = json.decode(
                   ascii.decode(base64.decode(base64.normalize(jwt[1]))));
               User firstUser = StandardUser.fromMap(payload, str);
-              //print(firstUser.toString());
               if (remember == "true" &&
                   DateTime.fromMillisecondsSinceEpoch(payload["exp"] * 1000)
                       .isAfter(DateTime.now())) {
+                //goes here if jwt is valid
                 return ChangeNotifierProvider<User>.value(
                     value: firstUser, child: ProductsScreen());
               } else {
+                //goes here if jwt is no longer valid or user did not press remember me
                 AccessManager.signOut().then((value) => SignInScreen());
               }
               return ChangeNotifierProvider<User>.value(
                   value: firstUser, child: ProductsScreen());
             }
           } else {
+            //jwt missing
             return SplashScreen();
           }
         });

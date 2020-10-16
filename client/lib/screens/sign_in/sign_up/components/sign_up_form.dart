@@ -59,14 +59,15 @@ class _SignUpFormState extends State<SignUpForm> {
             press: () async {
               if (_formKey.currentState.validate()) {
                 try {
+                  Utils.showProgress(context);
                   _formKey.currentState.save();
                   Response response =
                       await AccessManager.createUserWithEmailAndPassword(
                           email, password, username);
                   if (response.data["status"] == "success")
-                    Navigator.pushNamed(
-                        context, RegisterSuccessScreen.routeName);
+                    Utils.popEverythingAndPush(context: context, routeName: RegisterSuccessScreen.routeName);
                   else {
+                    Navigator.pop(context);
                     await Utils.showAlertOneButton(
                         buttonText: "Ok",
                         content: response.data["message"],
@@ -74,6 +75,7 @@ class _SignUpFormState extends State<SignUpForm> {
                         context: context);
                   }
                 } catch (e) {
+                  Navigator.pop(context);
                   await Utils.showAlertOneButton(
                       buttonText: "Ok",
                       content: "check your internet connection",

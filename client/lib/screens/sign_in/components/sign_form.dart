@@ -77,11 +77,14 @@ class _SignFormState extends State<SignForm> {
             press: () async {
               if (_formKey.currentState.validate()) {
                 try {
-                  Response response = await AccessManager.signIn(username, password, remember);
+                  Utils.showProgress(context);
+                  Response response =
+                      await AccessManager.signIn(username, password, remember);
                   if (response.data["status"] == "success")
-                    Navigator.of(context)
-                        .pushNamedAndRemoveUntil(AuthManager.routeName, (Route<dynamic> route) => false);
+                    Utils.popEverythingAndPush(
+                        context: context, routeName: AuthManager.routeName);
                   else {
+                    Navigator.pop(context);
                     await Utils.showAlertOneButton(
                         buttonText: "Ok",
                         content: response.data["message"],
@@ -89,6 +92,7 @@ class _SignFormState extends State<SignForm> {
                         context: context);
                   }
                 } catch (e) {
+                  Navigator.pop(context);
                   await Utils.showAlertOneButton(
                       buttonText: "Ok",
                       content: "check your internet connection",

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:polimi_app/components/default_button.dart';
+import 'package:polimi_app/services/utils.dart';
 
 import '../../../auth_manager.dart';
 import '../../../size_config.dart';
@@ -29,8 +30,7 @@ class Body extends StatelessWidget {
           child: DefaultButton(
             text: "Home Page",
             press: () {
-              Navigator.of(context)
-                  .pushNamedAndRemoveUntil(AuthManager.routeName, (Route<dynamic> route) => false);
+              Utils.popEverythingAndPush(context: context, routeName: AuthManager.routeName);
               //push to homepage
             },
           ),

@@ -1,17 +1,18 @@
-import 'package:dio/dio.dart' as dio;
+import 'package:dio/dio.dart';
 
 import '../constants.dart';
 
 class Apis {
-  static Future<bool> getAvailableUsers(String jwt) async {
+  static Future<Map> getAvailableUsers(String jwt) async {
     try {
-      var http = dio.Dio();
-      dio.Response response = await http.get(URL + usersRoute + "/available",
-          options: dio.Options(headers: {'Authorization': 'Token $jwt'}));
-      print(response);
-      return true;
-    } catch (e) {
-      return false;
+      var dio = Dio();
+      Response response = await dio.get(URL + usersRoute + "/available",
+          options: Options(headers: {'Authorization': 'Bearer $jwt'}));
+      print(response.data);
+      return response.data;
+    } on DioError catch (e) {
+      print(e.response);
+      return null;
     }
   }
 }
