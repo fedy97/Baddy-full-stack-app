@@ -9,14 +9,17 @@ const reviewsRoute = "api/v1/reviews";
 
 const updateDetails = "/updateDetails";
 
-const minCharPassword = 8;
+const minCharPassword = 6;
 
-const kPrimaryColor = Color(0xFF035AA6);
+const kPrimaryColor = Colors.purpleAccent;
 const kPrimaryLightColor = Color(0xFFFFECDF);
 const kPrimaryGradientColor = LinearGradient(
-  begin: Alignment.topLeft,
-  end: Alignment.bottomRight,
-  colors: [Color(0xFFFFA53E), Color(0xFFFF7643)],
+  //begin: Alignment.topLeft,
+  //end: Alignment.bottomRight,
+  colors: [Colors.purpleAccent, Color(0xFF473F97)],
+);
+const kSecondaryGradientColor = LinearGradient(
+  colors: [Color(0xFFFFFFFF), Colors.white],
 );
 const kSecondaryColor = Color(0xFFFFA41B);
 const kTextColor = Color(0xFF757575);

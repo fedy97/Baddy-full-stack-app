@@ -42,8 +42,7 @@ class ProductsScreen extends StatelessWidget {
           .username}'),
       actions: <Widget>[
         IconButton(
-          color: Colors.white,
-          icon: SvgPicture.asset("assets/icons/Log_out.svg"),
+          icon: SvgPicture.asset("assets/icons/Log_out.svg", color: Colors.white,),
           onPressed: () async {
             Utils.showProgress(context);
             await AccessManager.signOut();

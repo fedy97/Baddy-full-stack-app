@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:polimi_app/constants.dart';
 import 'package:polimi_app/models/enum/role.dart';
 
 class Utils {
@@ -29,7 +30,7 @@ class Utils {
   static Widget loadingWidget() {
     return Scaffold(
         backgroundColor: Colors.white,
-        body: SpinKitSquareCircle(color: Colors.blue));
+        body: SpinKitDoubleBounce(color: kPrimaryColor));
   }
 
   ///used when a page is waiting for something from the net.

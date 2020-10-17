@@ -1,0 +1,14 @@
+[
+  {
+    "review": "really good",
+    "rating": 4
+  },
+  {
+    "review": "not bad",
+    "rating": 3
+  },
+  {
+    "review": "really bad",
+    "rating": 1
+  }
+]
