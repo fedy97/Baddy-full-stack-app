@@ -15,6 +15,7 @@ const functions = {
         let users = await User.find({available: true, username: {$ne: req.user.username}}).select('-email');
         return res.status(200).json({
             status: "success",
+            length: users.length,
             data: users
         })
     }),
