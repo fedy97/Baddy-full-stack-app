@@ -90,9 +90,9 @@ class _SignUpFormState extends State<SignUpForm> {
                 } else {
                   //save values in model, in order to use them in another context
                   context.read<Model>().tempValues = {
-                    username: username,
-                    password: password,
-                    email: email
+                    "username": username,
+                    "password": password,
+                    "email": email
                   };
                   //register as badante
                   Navigator.pushNamed(context, CompleteProfileScreen.routeName);
