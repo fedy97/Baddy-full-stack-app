@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:polimi_app/components/customBottonRegister.dart';
 import 'package:polimi_app/constants.dart';
+import 'package:polimi_app/models/model.dart';
 import 'package:polimi_app/screens/sign_in/sign_up/sign_up_screen.dart';
-
+import 'package:provider/provider.dart';
 import '../../size_config.dart';
 
 class ChooseRolePage extends StatelessWidget {
@@ -51,6 +52,8 @@ class ChooseRolePage extends StatelessWidget {
                         descr: 'Badante',
                         image: 'doctor.png',
                         onTap: () {
+                          //put read if inside a tap function, otherwise watch
+                          context.read<Model>().isRegisteringAsStandard = false;
                           Navigator.pushNamed(context, SignUpScreen.routeName);
                         },
                         linearGradient: kPrimaryGradientColor,
@@ -65,6 +68,7 @@ class ChooseRolePage extends StatelessWidget {
                     descr: 'Cliente',
                     image: 'user.png',
                     onTap: () {
+                      context.read<Model>().isRegisteringAsStandard = true;
                       Navigator.pushNamed(context, SignUpScreen.routeName);
                     },
                     textColor: kPrimaryColor,

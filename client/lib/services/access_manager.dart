@@ -24,13 +24,43 @@ class AccessManager {
     }
   }
 
-  ///It creates a new user
-  static Future<Response> createUserWithEmailAndPassword(
+  static Future<Response> createStandardUser(
       String email, String password, String username) async {
     var signUpUrl = URL + usersRoute + "/signup";
     try {
       Response response = await Dio().post(signUpUrl,
           data: {"email": email, "username": username, "password": password});
+
+      var storage = FlutterSecureStorage();
+      await storage.write(key: 'jwt', value: response.data["token"]);
+      await storage.write(key: 'remember', value: "false");
+
+      return response;
+    } on DioError catch (e) {
+      return e.response;
+    }
+  }
+
+  ///It creates a other role user
+  static Future<Response> createOtherUser(
+      {String email,
+      String password,
+      String username,
+      String name,
+      String surname,
+      String city,
+      String phone}) async {
+    var signUpUrl = URL + usersRoute + "/signup";
+    try {
+      Response response = await Dio().post(signUpUrl, data: {
+        "email": email,
+        "username": username,
+        "password": password,
+        "city": city,
+        "phone": phone,
+        "firstName": name,
+        "lastName": surname
+      });
 
       var storage = FlutterSecureStorage();
       await storage.write(key: 'jwt', value: response.data["token"]);

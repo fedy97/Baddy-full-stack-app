@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:polimi_app/screens/chooseRolePage/choose_role_page.dart';
+import 'package:polimi_app/screens/complete_profile/complete_profile_screen.dart';
 import 'auth_manager.dart';
 import 'screens/home_page/products_screen.dart';
 import 'screens/register_success/register_success_screen.dart';
@@ -16,5 +17,6 @@ final Map<String, WidgetBuilder> routes = {
   SignInScreen.routeName: (context) => SignInScreen(),
   RegisterSuccessScreen.routeName: (context) => RegisterSuccessScreen(),
   SignUpScreen.routeName: (context) => SignUpScreen(),
-  ChooseRolePage.routeName: (context) => ChooseRolePage()
+  ChooseRolePage.routeName: (context) => ChooseRolePage(),
+  CompleteProfileScreen.routeName: (context) => CompleteProfileScreen()
 };

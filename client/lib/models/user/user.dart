@@ -20,12 +20,8 @@ abstract class User with ChangeNotifier {
   var ratingsAverage;
   String photo;
   String jwt;
-
   //store reviews about me
   List<Review> reviewsAboutMe;
-
-  //store available users
-  List<User> availableUsers;
 
   User(
       {@required this.jwt,
@@ -45,6 +41,7 @@ abstract class User with ChangeNotifier {
       this.city})
       : reviewsAboutMe = List();
 
+  ///to map not required here, just a to string is ok
   @override
   String toString() {
     return {email, username, role, available}.toString();

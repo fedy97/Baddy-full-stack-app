@@ -1,7 +1,13 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:polimi_app/components/custom_surfix_icon.dart';
 import 'package:polimi_app/components/default_button.dart';
 import 'package:polimi_app/components/form_error.dart';
+import 'package:polimi_app/models/model.dart';
+import 'package:polimi_app/screens/register_success/register_success_screen.dart';
+import 'package:polimi_app/services/access_manager.dart';
+import 'package:polimi_app/services/utils.dart';
+import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -17,7 +23,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
   String firstName;
   String lastName;
   String phoneNumber;
-  String address;
+  String city;
 
   void addError({String error}) {
     if (!errors.contains(error))
@@ -45,14 +51,45 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
           SizedBox(height: getProportionateScreenHeight(30)),
           buildPhoneNumberFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
-          buildAddressFormField(),
+          buildCityFormField(),
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
-            text: "Update",
+            text: "Register",
             press: () async {
               if (_formKey.currentState.validate()) {
-
+                try {
+                  Utils.showProgress(context);
+                  _formKey.currentState.save();
+                  Map map = context.read<Model>().tempValues;
+                  Response response = await AccessManager.createOtherUser(
+                      username: map["username"],
+                      phone: phoneNumber,
+                      email: map['email'],
+                      city: city,
+                      name: firstName,
+                      surname: lastName,
+                      password: map['password']);
+                  if (response.data["status"] == "success")
+                    Utils.popEverythingAndPush(
+                        context: context,
+                        routeName: RegisterSuccessScreen.routeName);
+                  else {
+                    Navigator.pop(context);
+                    await Utils.showAlertOneButton(
+                        buttonText: "Ok",
+                        content: response.data["message"],
+                        title: "Error!",
+                        context: context);
+                  }
+                } catch (e) {
+                  Navigator.pop(context);
+                  await Utils.showAlertOneButton(
+                      buttonText: "Ok",
+                      content: "check your internet connection",
+                      title: "Error!",
+                      context: context);
+                }
               }
             },
           ),
@@ -61,11 +98,11 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
     );
   }
 
-  TextFormField buildAddressFormField() {
+  TextFormField buildCityFormField() {
     return TextFormField(
-      onSaved: (newValue) => address = newValue,
+      onSaved: (newValue) => city = newValue,
       onChanged: (value) {
-        address = value;
+        city = value;
         if (value.isNotEmpty) {
           removeError(error: kAddressNullError);
         }
@@ -79,8 +116,8 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "Address",
-        hintText: "Enter your phone address",
+        labelText: "City",
+        hintText: "Enter your city",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,

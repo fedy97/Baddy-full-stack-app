@@ -44,7 +44,7 @@ const String kShortPassError = "Password is too short";
 const String kMatchPassError = "Passwords don't match";
 const String kNamelNullError = "Please Enter your name";
 const String kPhoneNumberNullError = "Please Enter your phone number";
-const String kAddressNullError = "Please Enter your address";
+const String kAddressNullError = "Please Enter your city";
 const kBackgroundColor = Color(0xFFF1EFF1);
 const kTextLightColor = Color(0xFF747474);
 

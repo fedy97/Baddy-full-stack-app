@@ -26,7 +26,9 @@ var functions = {
                     email: req.body.email,
                     phone: req.body.phone,
                     city: req.body.city,
-                    role: "other"
+                    role: "other",
+                    fistName: req.body.firstName,
+                    lastName: req.body.lastName
                 });
             else
                 return next(new AppError('You have to provide phone and city too!', 400));

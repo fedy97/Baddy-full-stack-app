@@ -14,9 +14,18 @@ class Review {
         _userReviewed = userReviewed,
         _userReviewer = userReviewer;
 
+  ///used to create a new review object when I fetch reviews from server
   factory Review.fromMap(Map<String, dynamic> payload) {
     //TODO
     return null;
+  }
+
+  ///used when posting a new review
+  Map toMap() {
+    return {
+      "review" : _review,
+      "rating" : _rating,
+    };
   }
 
   String get review => _review;

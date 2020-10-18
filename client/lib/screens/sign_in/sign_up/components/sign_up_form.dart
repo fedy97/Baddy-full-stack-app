@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:polimi_app/components/custom_surfix_icon.dart';
 import 'package:polimi_app/components/default_button.dart';
 import 'package:polimi_app/components/form_error.dart';
+import 'package:polimi_app/models/model.dart';
+import 'package:polimi_app/screens/complete_profile/complete_profile_screen.dart';
 import 'package:polimi_app/screens/register_success/register_success_screen.dart';
 import 'package:polimi_app/services/access_manager.dart';
 import 'package:polimi_app/services/utils.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../constants.dart';
 import '../../../../size_config.dart';
@@ -58,29 +61,41 @@ class _SignUpFormState extends State<SignUpForm> {
             text: "Continue",
             press: () async {
               if (_formKey.currentState.validate()) {
-                try {
-                  Utils.showProgress(context);
-                  _formKey.currentState.save();
-                  Response response =
-                      await AccessManager.createUserWithEmailAndPassword(
-                          email, password, username);
-                  if (response.data["status"] == "success")
-                    Utils.popEverythingAndPush(context: context, routeName: RegisterSuccessScreen.routeName);
-                  else {
+                if (context.read<Model>().isRegisteringAsStandard) {
+                  try {
+                    Utils.showProgress(context);
+                    _formKey.currentState.save();
+                    Response response = await AccessManager.createStandardUser(
+                        email, password, username);
+                    if (response.data["status"] == "success")
+                      Utils.popEverythingAndPush(
+                          context: context,
+                          routeName: RegisterSuccessScreen.routeName);
+                    else {
+                      Navigator.pop(context);
+                      await Utils.showAlertOneButton(
+                          buttonText: "Ok",
+                          content: response.data["message"],
+                          title: "Error!",
+                          context: context);
+                    }
+                  } catch (e) {
                     Navigator.pop(context);
                     await Utils.showAlertOneButton(
                         buttonText: "Ok",
-                        content: response.data["message"],
+                        content: "check your internet connection",
                         title: "Error!",
                         context: context);
                   }
-                } catch (e) {
-                  Navigator.pop(context);
-                  await Utils.showAlertOneButton(
-                      buttonText: "Ok",
-                      content: "check your internet connection",
-                      title: "Error!",
-                      context: context);
+                } else {
+                  //save values in model, in order to use them in another context
+                  context.read<Model>().tempValues = {
+                    username: username,
+                    password: password,
+                    email: email
+                  };
+                  //register as badante
+                  Navigator.pushNamed(context, CompleteProfileScreen.routeName);
                 }
               }
             },
@@ -95,10 +110,10 @@ class _SignUpFormState extends State<SignUpForm> {
       obscureText: true,
       onSaved: (newValue) => confirm_password = newValue,
       onChanged: (value) {
-        confirm_password = value;
+        //confirm_password = value;
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
-        } else if (value.isNotEmpty && password == confirm_password) {
+        } else if (value.isNotEmpty && password == value) {
           removeError(error: kMatchPassError);
         }
         confirm_password = value;
@@ -107,7 +122,7 @@ class _SignUpFormState extends State<SignUpForm> {
         if (value.isEmpty) {
           addError(error: kPassNullError);
           return "";
-        } else if ((password != value)) {
+        } else if (password != value) {
           addError(error: kMatchPassError);
           return "";
         }
@@ -129,7 +144,7 @@ class _SignUpFormState extends State<SignUpForm> {
       obscureText: true,
       onSaved: (newValue) => password = newValue,
       onChanged: (value) {
-        password = value;
+        //password = value;
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
         } else if (value.length >= minCharPassword) {
@@ -166,7 +181,8 @@ class _SignUpFormState extends State<SignUpForm> {
         email = value;
         if (value.isNotEmpty) {
           removeError(error: kEmailNullError);
-        } else if (emailValidatorRegExp.hasMatch(value)) {
+        }
+        if (emailValidatorRegExp.hasMatch(value)) {
           removeError(error: kInvalidEmailError);
         }
         return null;

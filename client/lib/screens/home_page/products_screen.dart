@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:polimi_app/models/user/user.dart';
+import 'package:polimi_app/models/model.dart';
 import 'package:polimi_app/services/access_manager.dart';
 import 'package:polimi_app/services/apis.dart';
 import 'package:polimi_app/services/utils.dart';
@@ -27,22 +27,22 @@ class ProductsScreen extends StatelessWidget {
               else
                 return Text('lol');
             },
-            future: Apis.getAvailableUsers(context
-                .watch<User>()
-                .jwt)) //Body(),
-    );
+            future: Apis.getAvailableUsers(
+                context.watch<Model>().user.jwt)) //Body(),
+        );
   }
 
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
       elevation: 0,
       centerTitle: false,
-      title: Text('Benvenuto, ${context
-          .watch<User>()
-          .username}'),
+      title: Text('Benvenuto, ${context.watch<Model>().user.username}'),
       actions: <Widget>[
         IconButton(
-          icon: SvgPicture.asset("assets/icons/Log_out.svg", color: Colors.white,),
+          icon: SvgPicture.asset(
+            "assets/icons/Log_out.svg",
+            color: Colors.white,
+          ),
           onPressed: () async {
             Utils.showProgress(context);
             await AccessManager.signOut();
