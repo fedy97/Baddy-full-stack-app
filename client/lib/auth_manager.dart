@@ -34,7 +34,6 @@ class AuthManager extends StatelessWidget {
               var payload = json.decode(
                   ascii.decode(base64.decode(base64.normalize(jwt[1]))));
               User loggedUser = StandardUser.fromMap(payload, str);
-              print(loggedUser.username);
               context.watch<Model>().user = loggedUser;
               if (remember == "true" &&
                   DateTime.fromMillisecondsSinceEpoch(payload["exp"] * 1000)
@@ -45,6 +44,7 @@ class AuthManager extends StatelessWidget {
                 //goes here if jwt is no longer valid or user did not press remember me
                 AccessManager.signOut().then((value) => SignInScreen());
               }
+              //never goes here
               return ProductsScreen();
             }
           } else {

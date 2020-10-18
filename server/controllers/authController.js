@@ -28,7 +28,8 @@ var functions = {
                     city: req.body.city,
                     role: "other",
                     firstName: req.body.firstName,
-                    lastName: req.body.lastName
+                    lastName: req.body.lastName,
+                    available: true
                 });
             else
                 return next(new AppError('You have to provide phone and city too!', 400));

@@ -6,6 +6,7 @@ const validator = require('validator');
 const userSchema = new Schema({
         firstName: String,
         lastName: String,
+        price: Number,
         gender: {
             enum: ['male', 'female', 'other'],
             type: String
@@ -74,7 +75,7 @@ const userSchema = new Schema({
     }
 );
 
-userSchema.index({price: 1, ratingsAverage: -1});
+userSchema.index({ratingsAverage: -1});
 
 // Virtual Populate reviews, it is not stored, the field will be added virtually
 userSchema.virtual('reviews', {

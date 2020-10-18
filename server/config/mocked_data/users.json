@@ -2,30 +2,33 @@
   {
     "username": "admin",
     "email": "admin@gmail.com",
-    "password": "ffffffff",
+    "password": "ffffff",
     "role": "admin"
   },
   {
     "username": "morre",
     "email": "publisher@gmail.com",
-    "password": "ffffffff"
+    "password": "ffffff"
   },
   {
     "username": "fedy97",
     "email": "f@ff.it",
-    "password": "ffffffff"
+    "password": "ffffff"
   },
   {
     "username": "fedy 97c",
     "email": "f@f.it",
-    "password": "ffffffff"
+    "password": "ffffff"
   },
   {
     "username": "fedyother",
     "email": "f@hfgbf.it",
-    "password": "ffffffff",
+    "password": "ffffff",
     "role": "other",
     "phone": "123456789",
-    "city": "MILANO"
+    "city": "MILANO",
+    "firstName": "fede",
+    "lastName": "morre",
+    "available": true
   }
 ]
