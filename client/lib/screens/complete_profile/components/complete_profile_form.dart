@@ -62,7 +62,6 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
                   Utils.showProgress(context);
                   _formKey.currentState.save();
                   Map map = context.read<Model>().tempValues;
-                  print(map);
                   Response response = await AccessManager.createOtherUser(
                       username: map["username"],
                       phone: phoneNumber,

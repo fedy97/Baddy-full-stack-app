@@ -52,7 +52,7 @@ const userSchema = new Schema({
             default: 'default.jpg'
         },
         phone: {
-            type: Number
+            type: String
         },
         city: {
             type: String,

@@ -33,7 +33,7 @@ class AccessManager {
 
       var storage = FlutterSecureStorage();
       await storage.write(key: 'jwt', value: response.data["token"]);
-      await storage.write(key: 'remember', value: "false");
+      await storage.write(key: 'remember', value: "true");
 
       return response;
     } on DioError catch (e) {
@@ -53,6 +53,7 @@ class AccessManager {
     var signUpUrl = URL + usersRoute + "/signup";
     try {
       Response response = await Dio().post(signUpUrl, data: {
+        "role": "other",
         "email": email,
         "username": username,
         "password": password,
@@ -64,7 +65,7 @@ class AccessManager {
 
       var storage = FlutterSecureStorage();
       await storage.write(key: 'jwt', value: response.data["token"]);
-      await storage.write(key: 'remember', value: "false");
+      await storage.write(key: 'remember', value: "true");
 
       return response;
     } on DioError catch (e) {

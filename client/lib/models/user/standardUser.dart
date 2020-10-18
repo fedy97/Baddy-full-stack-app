@@ -38,6 +38,7 @@ class StandardUser extends User {
   factory StandardUser.fromMap(Map<String, dynamic> payload, String jwt) {
     if (payload == null) return null;
     Map user = payload["user"];
+    //print(user);
     var role = Role.standard;
     var photo = user["photo"];
     var ratingsQuantity = user["ratingsQuantity"];

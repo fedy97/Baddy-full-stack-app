@@ -27,7 +27,7 @@ var functions = {
                     phone: req.body.phone,
                     city: req.body.city,
                     role: "other",
-                    fistName: req.body.firstName,
+                    firstName: req.body.firstName,
                     lastName: req.body.lastName
                 });
             else

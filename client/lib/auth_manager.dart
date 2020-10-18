@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:polimi_app/services/utils.dart';
 import 'package:provider/provider.dart';
+
 import 'models/model.dart';
 import 'models/user/standardUser.dart';
 import 'models/user/user.dart';
@@ -33,6 +34,7 @@ class AuthManager extends StatelessWidget {
               var payload = json.decode(
                   ascii.decode(base64.decode(base64.normalize(jwt[1]))));
               User loggedUser = StandardUser.fromMap(payload, str);
+              print(loggedUser.username);
               context.watch<Model>().user = loggedUser;
               if (remember == "true" &&
                   DateTime.fromMillisecondsSinceEpoch(payload["exp"] * 1000)

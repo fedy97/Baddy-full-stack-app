@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'size_config.dart';
 
-const dev = false;
+const dev = true;
 const URL = dev ? "http://10.0.2.2:5001/" : "https://polimi-backend.herokuapp.com/";
 
 const usersRoute = "api/v1/users";
