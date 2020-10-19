@@ -14,18 +14,17 @@ abstract class User with ChangeNotifier {
   String lastName;
   String phone;
   String city;
-  String email;
   Role role;
   int ratingsQuantity;
   var ratingsAverage;
   String photo;
   String jwt;
+
   //store reviews about me
   List<Review> reviewsAboutMe;
 
   User(
       {@required this.jwt,
-      @required this.email,
       @required this.username,
       @required this.role,
       @required this.photo,
@@ -44,6 +43,15 @@ abstract class User with ChangeNotifier {
   ///to map not required here, just a to string is ok
   @override
   String toString() {
-    return {email, username, role, available}.toString();
+    return {
+      username,
+      firstName,
+      lastName,
+      ratingsAverage,
+      ratingsQuantity,
+      role,
+      available,
+      phone
+    }.toString();
   }
 }

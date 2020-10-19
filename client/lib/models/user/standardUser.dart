@@ -10,7 +10,6 @@ class StandardUser extends User {
       lastName,
       phone,
       city,
-      email,
       role,
       ratingsQuantity,
       ratingsAverage,
@@ -26,7 +25,6 @@ class StandardUser extends User {
             lastName: lastName,
             phone: phone,
             city: city,
-            email: email,
             role: role,
             ratingsQuantity: ratingsQuantity,
             ratingsAverage: ratingsAverage,
@@ -37,14 +35,16 @@ class StandardUser extends User {
 
   factory StandardUser.fromMap(Map<String, dynamic> payload, String jwt) {
     if (payload == null) return null;
-    Map user = payload["user"];
-    //print(user);
+    Map user;
+    if (jwt == "empty")
+      user = payload;
+    else
+      user = payload["user"];
     var role = Role.standard;
     var photo = user["photo"];
     var ratingsQuantity = user["ratingsQuantity"];
     var username = user["username"];
     var ratingsAverage = user["ratingsAverage"];
-    var email = user["email"];
     var firstName = user["firstName"];
     var lastName = user["lastName"];
     var phone = user["phone"];
@@ -59,7 +59,6 @@ class StandardUser extends User {
     return StandardUser(
         available: available,
         city: city,
-        email: email,
         firstName: firstName,
         lastName: lastName,
         jwt: jwtToStore,

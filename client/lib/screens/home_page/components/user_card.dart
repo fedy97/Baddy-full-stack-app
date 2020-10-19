@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:polimi_app/models/product.dart';
+import 'package:polimi_app/models/user/user.dart';
 
 import '../../../constants.dart';
 
-class ProductCard extends StatelessWidget {
-  const ProductCard({
+class UserCard extends StatelessWidget {
+  const UserCard({
     Key key,
     this.itemIndex,
-    this.product,
+    this.user,
     this.press,
   }) : super(key: key);
 
   final int itemIndex;
-  final Product product;
+  final User user;
   final Function press;
 
   @override
@@ -47,25 +47,25 @@ class ProductCard extends StatelessWidget {
                 ),
               ),
             ),
-            // our product image
+            // our user image
             Positioned(
               top: 0,
               right: 0,
               child: Hero(
-                tag: '${product.id}',
+                tag: '${user.username}',
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
                   height: 160,
                   // image is square but we add extra 20 + 20 padding thats why width is 200
                   width: 200,
                   child: Image.asset(
-                    product.image,
+                    "assets/images/girl.png",
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
             ),
-            // Product title and price
+            // User title and price
             Positioned(
               bottom: 0,
               left: 0,
@@ -76,13 +76,22 @@ class ProductCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Spacer(),
+                    SizedBox(height: 20,),
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: kDefaultPadding),
                       child: Text(
-                        product.title,
-                        style: Theme.of(context).textTheme.button,
+                        "Nome: ${user.firstName.toUpperCase()}",
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15,color: Colors.deepPurple),
+                      ),
+                    ),
+                    SizedBox(height: 20,),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: kDefaultPadding),
+                      child: Text(
+                        "Citta: ${user.city.toUpperCase()}",
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15,color: Colors.deepPurple),
                       ),
                     ),
                     // it use the available space
@@ -100,8 +109,8 @@ class ProductCard extends StatelessWidget {
                         ),
                       ),
                       child: Text(
-                        "\$${product.price}",
-                        style: Theme.of(context).textTheme.button,
+                        "\$${1}",
+                        style: TextStyle(color: Colors.white),
                       ),
                     ),
                   ],

@@ -9,7 +9,8 @@
     "lint": "eslint --fix src",
     "test": "mocha --exit",
     "populate": "node config/seeder.js -i",
-    "destroy": "node config/seeder.js -d"
+    "destroy": "node config/seeder.js -d",
+    "rePopulate": "node config/seeder.js -r"
   },
   "keywords": [],
   "author": "CJ R. <cj@null.computer> (https://w3cj.now.sh)",
