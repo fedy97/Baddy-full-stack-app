@@ -12,9 +12,13 @@ router.post('/login', authController.authenticate);
 router.use(authController.protect);
 
 router.get('/me', usersController.me);
+
 router.patch('/updateDetails',
     filterBody('photo', 'email', 'firstName', 'lastName', 'phone', 'gender', 'city', 'role', 'available', 'birth', 'nationality'),
+    //usersController.uploadUserPhoto,
+    //usersController.resizeUserPhoto,
     usersController.updateDetails);
+
 router.patch('/updateMyPassword', authController.updatePassword);
 
 router.get('/available', usersController.getAvailableUsers);
