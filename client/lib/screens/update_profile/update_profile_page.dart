@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:polimi_app/components/custom_surfix_icon.dart';
 import 'package:polimi_app/components/default_button.dart';
 import 'package:polimi_app/constants.dart';
@@ -33,9 +34,23 @@ class UpdateProfile extends StatelessWidget {
   }
 
   Widget _circleAvatar(BuildContext context) {
+    final model = Provider.of<Model>(context, listen: false);
     return GestureDetector(
-      onTap: () {
-        print('change image');
+      onTap: () async {
+        try {
+          PickedFile f = await ImagePicker()
+              .getImage(source: ImageSource.gallery, imageQuality: 50);
+          if (f != null) {
+            String res = await Apis.uploadImage(
+                image: f,
+                username: model.user.username,
+                timestamp: DateTime.now().millisecondsSinceEpoch,
+                jwt: model.user.jwt);
+            model.setUserPhoto(res);
+          }
+        } catch (e) {
+          //
+        }
       },
       child: Container(
         width: MediaQuery.of(context).size.width / 2,
@@ -47,7 +62,10 @@ class UpdateProfile extends StatelessWidget {
           color: Colors.white,
           image: DecorationImage(
             fit: BoxFit.cover,
-            image: AssetImage('assets/images/girl.png'),
+            image: context.select((Model model) => model.user.photo) ==
+                    'default.jpg'
+                ? AssetImage('assets/images/girl.png')
+                : NetworkImage(model.user.photo),
           ),
         ),
       ),
@@ -70,74 +88,74 @@ class UpdateProfile extends StatelessWidget {
 
   Widget _textFormFieldCalling(Model model, BuildContext context) {
     return Column(
-          children: [
-            SizedBox(height: getProportionateScreenHeight(20)),
-            _textFormField(
-              initialValue: model.user.firstName,
-              onChanged: (value) {
-                firstName = value;
-              },
-              hintText: 'Nome',
-              icon: "User.svg",
-            ),
-            SizedBox(height: getProportionateScreenHeight(12)),
-            _textFormField(
-              initialValue: model.user.lastName,
-              onChanged: (value) {
-                lastName = value;
-              },
-              hintText: 'Cognome',
-              icon: "User.svg",
-            ),
-            SizedBox(height: getProportionateScreenHeight(12)),
-            _textFormField(hintText: 'Available', icon: "Lock.svg"),
-            SizedBox(height: getProportionateScreenHeight(12)),
-            _textFormField(
-              hintText: 'Phone',
-              icon: "Phone.svg",
-            ),
-            SizedBox(height: getProportionateScreenHeight(12)),
-            _textFormField(
-              hintText: 'City',
-              icon: "Phone.svg",
-            ),
-            SizedBox(height: getProportionateScreenHeight(12)),
-            _textFormField(
-              hintText: 'Gender',
-              icon: "Phone.svg",
-            ),
-            SizedBox(height: getProportionateScreenHeight(12)),
-            _textFormField(
-              hintText: 'Nationality',
-              icon: "Phone.svg",
-            ),
-            SizedBox(height: getProportionateScreenHeight(12)),
-            _textFormField(
-              hintText: 'Birth',
-              icon: "Phone.svg",
-            ),
-            SizedBox(height: getProportionateScreenHeight(20)),
-            DefaultButton(
-              press: () async {
-                try {
-                  Utils.showProgress(context);
-                  model.user.firstName = firstName ?? model.user.firstName;
-                  model.user.lastName = lastName ?? model.user.lastName;
-                  //model.user.available = available ?? model.user.firstName;
-                  //model.user.lastName = firstName ?? model.user.lastName;
-                  Map response = await Apis.updateProfile(
-                      model.user.jwt, model.user.toMap());
-                  Navigator.pop(context);
-                  Utils.showSnack(key: _scaffoldKey, text: "Utente Aggiornato!");
-                } catch (e) {
-                  print(e);
-                }
-              },
-              text: "Aggiorna",
-            ),
-            SizedBox(height: getProportionateScreenHeight(20)),
-          ],
-        );
+      children: [
+        SizedBox(height: getProportionateScreenHeight(20)),
+        _textFormField(
+          initialValue: model.user.firstName,
+          onChanged: (value) {
+            firstName = value;
+          },
+          hintText: 'Nome',
+          icon: "User.svg",
+        ),
+        SizedBox(height: getProportionateScreenHeight(12)),
+        _textFormField(
+          initialValue: model.user.lastName,
+          onChanged: (value) {
+            lastName = value;
+          },
+          hintText: 'Cognome',
+          icon: "User.svg",
+        ),
+        SizedBox(height: getProportionateScreenHeight(12)),
+        _textFormField(hintText: 'Available', icon: "Lock.svg"),
+        SizedBox(height: getProportionateScreenHeight(12)),
+        _textFormField(
+          hintText: 'Phone',
+          icon: "Phone.svg",
+        ),
+        SizedBox(height: getProportionateScreenHeight(12)),
+        _textFormField(
+          hintText: 'City',
+          icon: "Phone.svg",
+        ),
+        SizedBox(height: getProportionateScreenHeight(12)),
+        _textFormField(
+          hintText: 'Gender',
+          icon: "Phone.svg",
+        ),
+        SizedBox(height: getProportionateScreenHeight(12)),
+        _textFormField(
+          hintText: 'Nationality',
+          icon: "Phone.svg",
+        ),
+        SizedBox(height: getProportionateScreenHeight(12)),
+        _textFormField(
+          hintText: 'Birth',
+          icon: "Phone.svg",
+        ),
+        SizedBox(height: getProportionateScreenHeight(20)),
+        DefaultButton(
+          press: () async {
+            try {
+              Utils.showProgress(context);
+              model.user.firstName = firstName ?? model.user.firstName;
+              model.user.lastName = lastName ?? model.user.lastName;
+              //model.user.available = available ?? model.user.firstName;
+              //model.user.lastName = firstName ?? model.user.lastName;
+              Map response =
+                  await Apis.updateProfile(model.user.jwt, model.user.toMap());
+              Navigator.pop(context);
+              Utils.showSnack(key: _scaffoldKey, text: "Utente Aggiornato!");
+            } catch (e) {
+              print(e);
+            }
+          },
+          text: "Aggiorna",
+        ),
+        SizedBox(height: getProportionateScreenHeight(20)),
+      ],
+    );
   }
 
   @override
@@ -146,54 +164,54 @@ class UpdateProfile extends StatelessWidget {
     final model = Provider.of<Model>(context, listen: false);
     SizeConfig().init(context);
     return Scaffold(
-      key: _scaffoldKey,
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        backgroundColor: kPrimaryColor,
-        elevation: 0.0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        centerTitle: true,
-      ),
-      body: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).unfocus();
-        },
-        child: Stack(
-        alignment: Alignment.center,
-        children: [
-          CustomPaint(
-            child: Container(
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [],
-                ),
-              ),
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-            ),
-            painter: HeaderCurvedContainer(),
+        key: _scaffoldKey,
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          backgroundColor: kPrimaryColor,
+          elevation: 0.0,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
-          SingleChildScrollView(
-            padding: EdgeInsets.symmetric(
-                horizontal: getProportionateScreenWidth(30)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                _profileText(),
-                _circleAvatar(context),
-                _textFormFieldCalling(model, context)
-              ],
-            ),
-          )
-        ],
-      ),)
-    );
+          centerTitle: true,
+        ),
+        body: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          },
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              CustomPaint(
+                child: Container(
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [],
+                    ),
+                  ),
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                ),
+                painter: HeaderCurvedContainer(),
+              ),
+              SingleChildScrollView(
+                padding: EdgeInsets.symmetric(
+                    horizontal: getProportionateScreenWidth(30)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    _profileText(),
+                    _circleAvatar(context),
+                    _textFormFieldCalling(model, context)
+                  ],
+                ),
+              )
+            ],
+          ),
+        ));
   }
 }
 

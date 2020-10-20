@@ -39,6 +39,10 @@ abstract class User with ChangeNotifier {
       this.city})
       : reviewsAboutMe = List();
 
+  void setPhoto(String photo) {
+    this.photo = photo;
+  }
+
   ///to map not required here, just a to string is ok
   @override
   String toString() {
@@ -60,7 +64,6 @@ abstract class User with ChangeNotifier {
       "firstName": firstName,
       "phone": phone,
       "available": available,
-      "gender": gender,
       "nationality": nationality,
       "birth": birth
     };

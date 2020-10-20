@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:polimi_app/models/user/user.dart';
+import 'package:polimi_app/size_config.dart';
 
 import '../../../constants.dart';
 
@@ -17,6 +18,7 @@ class UserCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     // It  will provide us total height and width of our screen
     Size size = MediaQuery.of(context).size;
     return Container(
@@ -49,18 +51,25 @@ class UserCard extends StatelessWidget {
             ),
             // our user image
             Positioned(
-              top: 0,
-              right: 0,
+              top: 36,
+              right: 30,
               child: Hero(
                 tag: '${user.username}',
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                  height: 160,
-                  // image is square but we add extra 20 + 20 padding thats why width is 200
-                  width: 200,
-                  child: Image.asset(
-                    "assets/images/girl.png",
-                    fit: BoxFit.cover,
+                  width: getProportionateScreenWidth(100),
+                  height: getProportionateScreenHeight(100),
+                  padding: EdgeInsets.all(10.0),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: itemIndex.isEven ? kPrimaryColor : kSecondaryColor, width: 2),
+                    shape: BoxShape.circle,
+                    color: Colors.white,
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: user.photo ==
+                          'default.jpg'
+                          ? AssetImage('assets/images/girl.png')
+                          : NetworkImage(user.photo),
+                    ),
                   ),
                 ),
               ),

@@ -11,6 +11,12 @@ class Model extends ChangeNotifier {
   bool _isRegisteringAsStandard;
   Map<String, String> tempValues;
 
+  void setUserPhoto(String photo) {
+    //called here in order to rebuild UI
+    user.setPhoto(photo);
+    notifyListeners();
+  }
+
   void storeAvailableUsers(Map payload) {
     //var length = payload["length"];
     List users = payload["data"];

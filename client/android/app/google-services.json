@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "504663046669",
+    "firebase_url": "https://baddy-f34f0.firebaseio.com",
+    "project_id": "baddy-f34f0",
+    "storage_bucket": "baddy-f34f0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:504663046669:android:67fa5b7a6b1ecf877e3344",
+        "android_client_info": {
+          "package_name": "com.polimi.app.morre.baddy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "504663046669-6mnm3hfbb1tvehas8r4ahpcm6jvn08u0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrTkfPUTEWe5hFazRmqP-IZMe39sk4gsM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "504663046669-6mnm3hfbb1tvehas8r4ahpcm6jvn08u0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
