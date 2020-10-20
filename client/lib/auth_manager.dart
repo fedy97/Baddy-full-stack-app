@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:polimi_app/services/apis.dart';
 import 'package:polimi_app/services/utils.dart';
 import 'package:provider/provider.dart';
 
@@ -25,6 +26,7 @@ class AuthManager extends StatelessWidget {
           if (!snapshot.hasData) return Utils.loadingWidget();
           if (snapshot.data["jwt"] != null) {
             var str = snapshot.data["jwt"];
+            var user = snapshot.data["user"];
             var jwt = str.split(".");
             var remember = snapshot.data["remember"];
             if (jwt.length != 3) {
@@ -34,7 +36,7 @@ class AuthManager extends StatelessWidget {
               //jwt formatted correctly, let's decode it
               var payload = json.decode(
                   ascii.decode(base64.decode(base64.normalize(jwt[1]))));
-              User loggedUser = StandardUser.fromMap(payload, str);
+              User loggedUser = StandardUser.fromMap(user, str);
               model.user = loggedUser;
               if (remember == "true" &&
                   DateTime.fromMillisecondsSinceEpoch(payload["exp"] * 1000)
@@ -57,10 +59,13 @@ class AuthManager extends StatelessWidget {
 
   Future<Map> get jwtOrEmpty async {
     Map jwtRemember = Map();
+    Map userRes;
     var storage = FlutterSecureStorage();
     var jwt = await storage.read(key: "jwt");
     var remember = await storage.read(key: "remember");
     if (jwt == null) return jwtRemember;
+    if (jwt != "invalid.value") userRes = (await Apis.getMe(jwt))["user"];
+    jwtRemember["user"] = userRes;
     jwtRemember["jwt"] = jwt;
     jwtRemember["remember"] = remember;
     return jwtRemember;

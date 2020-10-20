@@ -63,15 +63,31 @@ const deleteData = async () => {
         await User.deleteMany();
         await Review.deleteMany();
         console.log('Data Destroyed...'.red.inverse);
-        process.exit(0);
+        //process.exit(0);
     } catch (err) {
         console.error(err);
         process.exit(1);
     }
 };
 
-if (process.argv[2] === '-i') {
-    importData();
-} else if (process.argv[2] === '-d') {
-    deleteData();
+const doBoth = async () => {
+    try {
+        await deleteData();
+        await importData();
+    } catch (e) {
+        console.error(err);
+        process.exit(1);
+    }
 }
+
+if (process.argv[2] === '-i') {
+    importData().then(() => {
+        process.exit(0);
+    })
+
+} else if (process.argv[2] === '-d') {
+    deleteData().then(() => {
+        process.exit(0);
+    });
+} else
+    doBoth();

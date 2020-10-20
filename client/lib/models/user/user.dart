@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:polimi_app/models/enum/gender.dart';
 import 'package:polimi_app/models/review.dart';
 
 import '../enum/role.dart';
@@ -7,7 +6,7 @@ import '../enum/role.dart';
 abstract class User with ChangeNotifier {
   DateTime birth;
   String nationality;
-  Gender gender;
+  String gender;
   bool available;
   String username;
   String firstName;
@@ -53,5 +52,17 @@ abstract class User with ChangeNotifier {
       available,
       phone
     }.toString();
+  }
+
+  Map toMap() {
+    return {
+      "lastName": lastName,
+      "firstName": firstName,
+      "phone": phone,
+      "available": available,
+      "gender": gender,
+      "nationality": nationality,
+      "birth": birth
+    };
   }
 }

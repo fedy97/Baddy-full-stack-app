@@ -30,5 +30,49 @@
     "firstName": "fede",
     "lastName": "morre",
     "available": true
+  },
+  {
+    "username": "fedyother2",
+    "email": "f@hfg22bf.it",
+    "password": "ffffff",
+    "role": "other",
+    "phone": "123456789",
+    "city": "CATTOLICA",
+    "firstName": "fede2",
+    "lastName": "morre2",
+    "available": true
+  },
+  {
+    "username": "fedyother3",
+    "email": "f@hfdfgbf.it",
+    "password": "ffffff",
+    "role": "other",
+    "phone": "123456789",
+    "city": "CATTOLICA",
+    "firstName": "fedeve",
+    "lastName": "morre",
+    "available": true
+  },
+  {
+    "username": "fedyother4",
+    "email": "444f@hfgbf.it",
+    "password": "ffffff",
+    "role": "other",
+    "phone": "123456789",
+    "city": "MILANO",
+    "firstName": "federicoo",
+    "lastName": "morre",
+    "available": true
+  },
+  {
+    "username": "fedyother5",
+    "email": "444gggf@hfgbf.it",
+    "password": "ffffff",
+    "role": "other",
+    "phone": "123456789",
+    "city": "MILANO",
+    "firstName": "pietro",
+    "lastName": "morre",
+    "available": true
   }
 ]

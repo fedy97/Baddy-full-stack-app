@@ -35,11 +35,7 @@ class StandardUser extends User {
 
   factory StandardUser.fromMap(Map<String, dynamic> payload, String jwt) {
     if (payload == null) return null;
-    Map user;
-    if (jwt == "empty")
-      user = payload;
-    else
-      user = payload["user"];
+    Map user = payload;
     var role = Role.standard;
     var photo = user["photo"];
     var ratingsQuantity = user["ratingsQuantity"];
@@ -51,7 +47,6 @@ class StandardUser extends User {
     var city = user["city"];
     var available = user["available"] as bool;
     var jwtToStore = jwt;
-    //TODO convert this to right objects and pass them to constructor
     var gender = user["gender"];
     var nationality = user["nationality"];
     var birth = user["birth"];
@@ -64,6 +59,8 @@ class StandardUser extends User {
         jwt: jwtToStore,
         phone: phone,
         photo: photo,
+        nationality: nationality,
+        gender: gender,
         ratingsAverage: ratingsAverage,
         ratingsQuantity: ratingsQuantity,
         role: role,

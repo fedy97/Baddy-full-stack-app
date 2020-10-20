@@ -39,7 +39,7 @@ class Body extends StatelessWidget {
                 ListView.builder(
                   //use context.watch instead of model, so that we register this particular widget to UI changes,
                   //so only this will rebuild when the notifyListeners will be called from Model class
-                  itemCount: context.watch<Model>().filteredUsers.length,
+                  itemCount: context.select((Model modelWatch) => modelWatch.filteredUsers.length),
                   itemBuilder: (context, index) => UserCard(
                     itemIndex: index,
                     user: model.filteredUsers[index],

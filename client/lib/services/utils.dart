@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:polimi_app/constants.dart';
 import 'package:polimi_app/models/enum/role.dart';
+import 'package:polimi_app/size_config.dart';
 
 class Utils {
   static Future<void> showAlertOneButton(
@@ -47,5 +48,18 @@ class Utils {
   static void popEverythingAndPush({BuildContext context, String routeName}) {
     Navigator.of(context)
         .pushNamedAndRemoveUntil(routeName, (Route<dynamic> route) => false);
+  }
+
+  static void showSnack({GlobalKey<ScaffoldState> key, String text}) {
+    key.currentState.showSnackBar(SnackBar(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20))),
+      behavior: SnackBarBehavior.floating,
+      elevation: 6.0,
+      backgroundColor: kSecondaryColor,
+      padding:
+          EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(30)),
+      content: Text(text),
+    ));
   }
 }
