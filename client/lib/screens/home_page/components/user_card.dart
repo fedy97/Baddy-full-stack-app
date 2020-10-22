@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:polimi_app/components/rating_stars.dart';
 import 'package:polimi_app/models/user/user.dart';
 import 'package:polimi_app/size_config.dart';
 
@@ -60,7 +61,7 @@ class UserCard extends StatelessWidget {
                   height: getProportionateScreenHeight(100),
                   padding: EdgeInsets.all(10.0),
                   decoration: BoxDecoration(
-                    border: Border.all(color: itemIndex.isEven ? kPrimaryColor : kSecondaryColor, width: 2),
+                    border: Border.all(color: itemIndex.isEven ? kPrimaryColor : kSecondaryColor, width: 1),
                     shape: BoxShape.circle,
                     color: Colors.white,
                     image: DecorationImage(
@@ -105,23 +106,38 @@ class UserCard extends StatelessWidget {
                     ),
                     // it use the available space
                     Spacer(),
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: kDefaultPadding * 1.5, // 30 padding
-                        vertical: kDefaultPadding / 4, // 5 top and bottom
-                      ),
-                      decoration: BoxDecoration(
-                        color: kSecondaryColor,
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(22),
-                          topRight: Radius.circular(22),
+                    Row(children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: kDefaultPadding * 1.5, // 30 padding
+                          vertical: kDefaultPadding / 4, // 5 top and bottom
+                        ),
+                        decoration: BoxDecoration(
+                          color: kSecondaryColor,
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(22),
+                            topRight: Radius.circular(22),
+                          ),
+                        ),
+                        child: Text(
+                          "\$${1}",
+                          style: TextStyle(color: Colors.white),
                         ),
                       ),
-                      child: Text(
-                        "\$${1}",
-                        style: TextStyle(color: Colors.white),
+                      SizedBox(width: 10,),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 10),
+                        child: IconTheme(
+                          data: IconThemeData(
+                            color: Colors.amber,
+                            size: 20,
+                          ),
+                          child: RatingStars(rate: user.ratingsQuantity == 0 ? 0 : user.ratingsAverage),
+                        ),
                       ),
-                    ),
+
+                    ],),
+
                   ],
                 ),
               ),
