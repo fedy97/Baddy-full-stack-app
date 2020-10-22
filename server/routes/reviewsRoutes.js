@@ -14,6 +14,7 @@ router
     .route('/')
     .get(reviewController.getAllReviews)
     .post(
+        authController.restrictTo('user', 'admin'),
         reviewController.setIds,
         reviewController.checkIfSameUser,
         filterBody('review', 'rating', 'user', 'userReviewed'),

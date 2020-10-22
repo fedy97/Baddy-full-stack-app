@@ -43,7 +43,7 @@ const importData = async () => {
 const createReviews = async (reviews) => {
     let listUserIds = await fetchIds();
     for (let i = 0; i < reviews.length; i++) {
-        reviews[i].userReviewed = await User.findById(listUserIds[i]);
+        reviews[i].userReviewed = await User.findById(listUserIds[5]);
         reviews[i].user = await User.findById(listUserIds[i + 1]);
     }
     await Review.create(reviews);
