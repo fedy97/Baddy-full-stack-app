@@ -11,7 +11,6 @@ class ChooseRolePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double height = MediaQuery.of(context).size.height;
     return Scaffold(
         body: Container(
             color: kPrimaryColor,
@@ -19,7 +18,7 @@ class ChooseRolePage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  height: height * 0.55,
+                  height: SizeConfig.screenHeight * 0.55,
                   padding: EdgeInsets.symmetric(horizontal: 24, vertical: 36),
                   decoration: BoxDecoration(
                     boxShadow: [

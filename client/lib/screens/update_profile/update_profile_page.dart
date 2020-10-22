@@ -1,7 +1,11 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:polimi_app/components/alert_service.dart';
 import 'package:polimi_app/components/custom_surfix_icon.dart';
 import 'package:polimi_app/components/default_button.dart';
+import 'package:polimi_app/components/profile_widgets.dart';
 import 'package:polimi_app/constants.dart';
 import 'package:polimi_app/models/model.dart';
 import 'package:polimi_app/services/apis.dart';
@@ -19,66 +23,34 @@ class UpdateProfile extends StatelessWidget {
   static String city;
   static String gender;
 
-  Widget _profileText() {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Text(
-        'Profilo',
-        style: TextStyle(
-          fontSize: getProportionateScreenWidth(36),
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    );
-  }
-
-  Widget _circleAvatar(BuildContext context) {
-    final model = Provider.of<Model>(context, listen: false);
-    return GestureDetector(
-      onTap: () async {
-        try {
-          PickedFile f = await ImagePicker()
-              .getImage(source: ImageSource.gallery, imageQuality: 50);
-          if (f != null) {
-            String res = await Apis.uploadImage(
-                image: f,
-                username: model.user.username,
-                timestamp: DateTime.now().millisecondsSinceEpoch,
-                jwt: model.user.jwt);
-            model.setUserPhoto(res);
-          }
-        } catch (e) {
-          //
-        }
-      },
-      child: Container(
-        width: MediaQuery.of(context).size.width / 2,
-        height: MediaQuery.of(context).size.width / 2,
-        padding: EdgeInsets.all(10.0),
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.white, width: 5),
-          shape: BoxShape.circle,
-          color: Colors.white,
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            image: context.select((Model model) => model.user.photo) ==
-                    'default.jpg'
-                ? AssetImage('assets/images/girl.png')
-                : NetworkImage(model.user.photo),
-          ),
-        ),
-      ),
-    );
-  }
-
   Widget _textFormField(
       {String initialValue, String hintText, String icon, Function onChanged}) {
     return TextFormField(
+      style: TextStyle(
+        color: kSecondaryColor,
+      ),
       //put empty string if init value is null
       initialValue: initialValue ?? '',
       onChanged: onChanged,
       decoration: InputDecoration(
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide: BorderSide(
+            color: kSecondaryColor,
+            width: 1.0,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide: BorderSide(
+            color: kSecondaryColor,
+            width: 1.0,
+          ),
+        ),
+        hintStyle: TextStyle(color: kPrimaryColor),
+        //labelStyle: TextStyle(
+        //    color: kSecondaryColor
+        //),
         hintText: hintText,
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/$icon"),
@@ -146,9 +118,18 @@ class UpdateProfile extends StatelessWidget {
               Map response =
                   await Apis.updateProfile(model.user.jwt, model.user.toMap());
               Navigator.pop(context);
-              Utils.showSnack(key: _scaffoldKey, text: "Utente Aggiornato!");
+              AlertService().showAlert(
+                context: context,
+                message: 'Profilo aggiornato con successo!',
+                type: AlertType.success,
+              );
+              //Utils.showSnack(key: _scaffoldKey, text: "Utente Aggiornato!");
             } catch (e) {
-              print(e);
+              AlertService().showAlert(
+                context: context,
+                message: 'Controlla i dati inseriti',
+                type: AlertType.error,
+              );
             }
           },
           text: "Aggiorna",
@@ -156,6 +137,65 @@ class UpdateProfile extends StatelessWidget {
         SizedBox(height: getProportionateScreenHeight(20)),
       ],
     );
+  }
+
+  Widget _circleAvatar(BuildContext context) {
+    final model = Provider.of<Model>(context, listen: false);
+    return Stack(
+      children: [
+        photoProfile(photo: context.select((Model model) => model.user.photo), size: SizeConfig.screenWidth / 2),
+        Positioned(
+          bottom: 0,
+          right: 0,
+          child: Container(
+            child: IconButton(
+                icon: Icon(Icons.edit),
+                onPressed: () async {
+                  AwesomeDialog(
+                    context: context,
+                    headerAnimationLoop: false,
+                    animType: AnimType.BOTTOMSLIDE,
+                    btnOkText: "Camera",
+                    btnCancelText: "Gallery",
+                    btnOkColor: kSecondaryColor,
+                    btnCancelColor: kSecondaryColor,
+                    btnCancelOnPress: () async {
+                      PickedFile f = await ImagePicker().getImage(
+                          source: ImageSource.gallery, imageQuality: 10);
+                      _sendImage(model, f);
+                    },
+                    btnOkOnPress: () async {
+                      PickedFile f = await ImagePicker().getImage(
+                          source: ImageSource.camera, imageQuality: 10);
+                      _sendImage(model, f);
+                    },
+                    title: 'Select one',
+                    desc: 'Camera or Gallery?',
+                  )..show();
+                }),
+            decoration: BoxDecoration(
+                border: Border.all(color: kPrimaryColor, width: 2),
+                color: Colors.white,
+                shape: BoxShape.circle),
+          ),
+        )
+      ],
+    );
+  }
+
+  _sendImage(Model model, PickedFile f) async {
+    try {
+      if (f != null) {
+        String res = await Apis.uploadImage(
+            image: f,
+            username: model.user.username,
+            timestamp: DateTime.now().millisecondsSinceEpoch,
+            jwt: model.user.jwt);
+        model.setUserPhoto(res);
+      }
+    } catch (e) {
+      //
+    }
   }
 
   @override
@@ -182,7 +222,7 @@ class UpdateProfile extends StatelessWidget {
             FocusScope.of(context).unfocus();
           },
           child: Stack(
-            alignment: Alignment.center,
+            alignment: Alignment.topCenter,
             children: [
               CustomPaint(
                 child: Container(
@@ -192,8 +232,8 @@ class UpdateProfile extends StatelessWidget {
                       children: [],
                     ),
                   ),
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
+                  width: SizeConfig.screenWidth,
+                  height: SizeConfig.screenHeight,
                 ),
                 painter: HeaderCurvedContainer(),
               ),
@@ -203,7 +243,7 @@ class UpdateProfile extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    _profileText(),
+                    profileText(),
                     _circleAvatar(context),
                     _textFormFieldCalling(model, context)
                   ],
@@ -213,21 +253,4 @@ class UpdateProfile extends StatelessWidget {
           ),
         ));
   }
-}
-
-//Color(0xff555555)
-class HeaderCurvedContainer extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    Paint paint = Paint()..color = kPrimaryColor;
-    Path path = Path()
-      ..relativeLineTo(0, 150)
-      ..quadraticBezierTo(size.width / 2, 250.0, size.width, 150)
-      ..relativeLineTo(0, -150)
-      ..close();
-    canvas.drawPath(path, paint);
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) => false;
 }

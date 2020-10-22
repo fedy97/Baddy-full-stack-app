@@ -4,6 +4,7 @@ import 'package:polimi_app/models/user/user.dart';
 
 class Model extends ChangeNotifier {
   User _user;
+  User _selectedUser;
   List<User> _availableUsers;
   List<User> _filteredUsers;
 
@@ -15,6 +16,11 @@ class Model extends ChangeNotifier {
     //called here in order to rebuild UI
     user.setPhoto(photo);
     notifyListeners();
+  }
+
+  void setSelectedUser(User selected) {
+    _selectedUser = selected;
+    //notifyListeners();
   }
 
   void storeAvailableUsers(Map payload) {
@@ -56,4 +62,6 @@ class Model extends ChangeNotifier {
   }
 
   List<User> get availableUsers => _availableUsers;
+
+  User get selectedUser => _selectedUser;
 }

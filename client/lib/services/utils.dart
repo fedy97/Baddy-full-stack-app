@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:polimi_app/constants.dart';
@@ -10,22 +11,36 @@ class Utils {
       @required content,
       @required title,
       @required buttonText}) async {
-    return showDialog(
+
+      AwesomeDialog(
         context: context,
-        barrierDismissible: false,
-        builder: (context) {
-          return AlertDialog(
-            content: Text(content),
-            title: Text(title),
-            actions: [
-              FlatButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Text(buttonText))
-            ],
-          );
-        });
+        dialogType: DialogType.ERROR,
+        animType: AnimType.RIGHSLIDE,
+        headerAnimationLoop: false,
+        title: title,
+        desc:
+        content,
+        btnOkText: buttonText,
+        btnOkOnPress: () {},
+        btnOkIcon: Icons.cancel,
+        btnOkColor: Colors.red)
+      ..show();
+   //return showDialog(
+   //    context: context,
+   //    barrierDismissible: false,
+   //    builder: (context) {
+   //      return AlertDialog(
+   //        content: Text(content),
+   //        title: Text(title),
+   //        actions: [
+   //          FlatButton(
+   //              onPressed: () {
+   //                Navigator.pop(context);
+   //              },
+   //              child: Text(buttonText))
+   //        ],
+   //      );
+   //    });
   }
 
   static Widget loadingWidget() {
@@ -50,6 +65,7 @@ class Utils {
         .pushNamedAndRemoveUntil(routeName, (Route<dynamic> route) => false);
   }
 
+  //depracated, use alert_service.dart instead
   static void showSnack({GlobalKey<ScaffoldState> key, String text}) {
     key.currentState.showSnackBar(SnackBar(
       shape: RoundedRectangleBorder(

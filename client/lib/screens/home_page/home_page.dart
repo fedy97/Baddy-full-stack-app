@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:polimi_app/models/model.dart';
@@ -25,7 +26,6 @@ class HomePage extends StatelessWidget {
               if (!snapshot.hasData)
                 return Utils.loadingWidget();
               else if (snapshot.data != null) {
-                print('built homepage');
                 model.storeAvailableUsers(snapshot.data);
                 return Body();
               } else
@@ -57,10 +57,23 @@ class HomePage extends StatelessWidget {
             color: Colors.white,
           ),
           onPressed: () async {
-            Utils.showProgress(context);
-            await AccessManager.signOut();
-            Utils.popEverythingAndPush(
-                context: context, routeName: AuthManager.routeName);
+            AwesomeDialog(
+              context: context,
+              headerAnimationLoop: false,
+              animType: AnimType.BOTTOMSLIDE,
+              btnOkText: "Esci",
+              btnCancelText: "Cancella",
+              btnOkColor: Colors.red,
+              btnCancelColor: kSecondaryColor,
+              btnCancelOnPress: () async {},
+              btnOkOnPress: () async {
+                await AccessManager.signOut();
+                Utils.popEverythingAndPush(
+                    context: context, routeName: AuthManager.routeName);
+              },
+              title: 'Esci',
+              desc: 'Sei sicuro?',
+            )..show();
           },
         ),
       ],
