@@ -1,9 +1,9 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:polimi_app/components/alert_service.dart';
-import 'package:polimi_app/components/custom_surfix_icon.dart';
+import 'package:polimi_app/components/custom_input_decoration.dart';
 import 'package:polimi_app/components/default_button.dart';
 import 'package:polimi_app/components/profile_widgets.dart';
 import 'package:polimi_app/constants.dart';
@@ -32,29 +32,7 @@ class UpdateProfile extends StatelessWidget {
       //put empty string if init value is null
       initialValue: initialValue ?? '',
       onChanged: onChanged,
-      decoration: InputDecoration(
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30),
-          borderSide: BorderSide(
-            color: kSecondaryColor,
-            width: 1.0,
-          ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30),
-          borderSide: BorderSide(
-            color: kSecondaryColor,
-            width: 1.0,
-          ),
-        ),
-        hintStyle: TextStyle(color: kPrimaryColor),
-        //labelStyle: TextStyle(
-        //    color: kSecondaryColor
-        //),
-        hintText: hintText,
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/$icon"),
-      ),
+      decoration: customInputDecoration(title: hintText, iconName: icon),
     );
   }
 
@@ -68,7 +46,7 @@ class UpdateProfile extends StatelessWidget {
             firstName = value;
           },
           hintText: 'Nome',
-          icon: "User.svg",
+          icon: "User",
         ),
         SizedBox(height: getProportionateScreenHeight(12)),
         _textFormField(
@@ -77,63 +55,61 @@ class UpdateProfile extends StatelessWidget {
             lastName = value;
           },
           hintText: 'Cognome',
-          icon: "User.svg",
+          icon: "User",
         ),
         SizedBox(height: getProportionateScreenHeight(12)),
-        _textFormField(hintText: 'Available', icon: "Lock.svg"),
+        _textFormField(hintText: 'Available', icon: "Lock"),
         SizedBox(height: getProportionateScreenHeight(12)),
         _textFormField(
           hintText: 'Phone',
-          icon: "Phone.svg",
+          icon: "Phone",
         ),
         SizedBox(height: getProportionateScreenHeight(12)),
         _textFormField(
           hintText: 'City',
-          icon: "Phone.svg",
+          icon: "Phone",
         ),
         SizedBox(height: getProportionateScreenHeight(12)),
         _textFormField(
           hintText: 'Gender',
-          icon: "Phone.svg",
+          icon: "Phone",
         ),
         SizedBox(height: getProportionateScreenHeight(12)),
         _textFormField(
           hintText: 'Nationality',
-          icon: "Phone.svg",
+          icon: "Phone",
         ),
         SizedBox(height: getProportionateScreenHeight(12)),
         _textFormField(
           hintText: 'Birth',
-          icon: "Phone.svg",
+          icon: "Phone",
         ),
         SizedBox(height: getProportionateScreenHeight(20)),
         DefaultButton(
-          press: () async {
-            try {
-              Utils.showProgress(context);
-              model.user.firstName = firstName ?? model.user.firstName;
-              model.user.lastName = lastName ?? model.user.lastName;
-              //model.user.available = available ?? model.user.firstName;
-              //model.user.lastName = firstName ?? model.user.lastName;
-              Map response =
-                  await Apis.updateProfile(model.user.jwt, model.user.toMap());
-              Navigator.pop(context);
-              AlertService().showAlert(
-                context: context,
-                message: 'Profilo aggiornato con successo!',
-                type: AlertType.success,
-              );
-              //Utils.showSnack(key: _scaffoldKey, text: "Utente Aggiornato!");
-            } catch (e) {
-              AlertService().showAlert(
-                context: context,
-                message: 'Controlla i dati inseriti',
-                type: AlertType.error,
-              );
-            }
-          },
-          text: "Aggiorna",
-        ),
+            text: "Aggiorna",
+            press: (startLoading, stopLoading, btnState) async {
+              try {
+                startLoading();
+                //Utils.showProgress(context);
+                model.user.firstName = firstName ?? model.user.firstName;
+                model.user.lastName = lastName ?? model.user.lastName;
+                await Apis.updateProfile(model.user.jwt, model.user.toMap());
+                stopLoading();
+                AlertService().showAlert(
+                  context: context,
+                  message: 'Profilo aggiornato con successo!',
+                  type: AlertType.success,
+                );
+                //Utils.showSnack(key: _scaffoldKey, text: "Utente Aggiornato!");
+              } catch (e) {
+                stopLoading();
+                AlertService().showAlert(
+                  context: context,
+                  message: 'Controlla i dati inseriti',
+                  type: AlertType.error,
+                );
+              }
+            }),
         SizedBox(height: getProportionateScreenHeight(20)),
       ],
     );
@@ -143,7 +119,9 @@ class UpdateProfile extends StatelessWidget {
     final model = Provider.of<Model>(context, listen: false);
     return Stack(
       children: [
-        photoProfile(photo: context.select((Model model) => model.user.photo), size: SizeConfig.screenWidth / 2),
+        photoProfile(
+            photo: context.select((Model model) => model.user.photo),
+            size: SizeConfig.screenWidth / 2),
         Positioned(
           bottom: 0,
           right: 0,
@@ -200,28 +178,29 @@ class UpdateProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final detectKeyboard =
+        KeyboardVisibilityNotification().addNewListener(onHide: () {
+      FocusScope.of(context).unfocus();
+    });
     print('built update profile page');
     final model = Provider.of<Model>(context, listen: false);
     SizeConfig().init(context);
-    return Scaffold(
-        key: _scaffoldKey,
-        resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          backgroundColor: kPrimaryColor,
-          elevation: 0.0,
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.pop(context);
-            },
+    return GestureDetector(
+        onTap: () {
+          Utils.hideKeyboard(context: context);
+        },
+        child: Scaffold(
+          key: _scaffoldKey,
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            iconTheme: IconThemeData(
+              color: Colors.white, //change your color here
+            ),
+            backgroundColor: kPrimaryColor,
+            elevation: 0.0,
+            centerTitle: true,
           ),
-          centerTitle: true,
-        ),
-        body: GestureDetector(
-          onTap: () {
-            FocusScope.of(context).unfocus();
-          },
-          child: Stack(
+          body: Stack(
             alignment: Alignment.topCenter,
             children: [
               CustomPaint(

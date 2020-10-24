@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:polimi_app/components/no_account_text.dart';
 import 'package:polimi_app/components/socal_card.dart';
+import 'package:polimi_app/constants.dart';
 
 import '../../../size_config.dart';
 import 'sign_form.dart';
@@ -21,11 +23,7 @@ class Body extends StatelessWidget {
                   SizedBox(height: SizeConfig.screenHeight * 0.04),
                   Text(
                     "Welcome Back",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: getProportionateScreenWidth(28),
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: headingStyle,
                   ),
                   Text(
                     "Sign in with your email and password  \nor continue with social media",
@@ -53,6 +51,7 @@ class Body extends StatelessWidget {
                   ),
                   SizedBox(height: getProportionateScreenHeight(20)),
                   NoAccountText(),
+                  SizedBox(height: 20,)
                 ],
               ),
             ),

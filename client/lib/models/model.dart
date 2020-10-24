@@ -7,10 +7,19 @@ class Model extends ChangeNotifier {
   User _selectedUser;
   List<User> _availableUsers;
   List<User> _filteredUsers;
-
+  int _currentProfilePage;
   //used during registration phase, to decide which kind of registration form use
   bool _isRegisteringAsStandard;
   Map<String, String> tempValues;
+
+  Model() {
+    _currentProfilePage = 0;
+  }
+
+  void setCurrentProfilePage(int index) {
+    _currentProfilePage = index;
+    notifyListeners();
+  }
 
   void setUserPhoto(String photo) {
     //called here in order to rebuild UI
@@ -64,4 +73,8 @@ class Model extends ChangeNotifier {
   List<User> get availableUsers => _availableUsers;
 
   User get selectedUser => _selectedUser;
+
+  int get currentProfilePage => _currentProfilePage;
+
+
 }

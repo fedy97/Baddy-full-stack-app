@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:polimi_app/screens/chooseRolePage/choose_role_page.dart';
+import 'package:polimi_app/screens/choose_role_page/choose_role_page.dart';
 import 'package:polimi_app/screens/sign_in/sign_up/sign_up_screen.dart';
 
 import '../constants.dart';

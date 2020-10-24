@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:polimi_app/components/custom_input_decoration.dart';
 import 'package:polimi_app/components/custom_surfix_icon.dart';
 import 'package:polimi_app/components/default_button.dart';
 import 'package:polimi_app/components/form_error.dart';
@@ -59,20 +60,20 @@ class _SignUpFormState extends State<SignUpForm> {
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
             text: "Continue",
-            press: () async {
+            press: (start,stop,state) async {
               if (_formKey.currentState.validate()) {
                 if (context.read<Model>().isRegisteringAsStandard) {
+                  start();
                   try {
-                    Utils.showProgress(context);
                     _formKey.currentState.save();
                     Response response = await AccessManager.createStandardUser(
                         email, password, username);
+                    stop();
                     if (response.data["status"] == "success")
                       Utils.popEverythingAndPush(
                           context: context,
                           routeName: RegisterSuccessScreen.routeName);
                     else {
-                      Navigator.pop(context);
                       await Utils.showAlertOneButton(
                           buttonText: "Ok",
                           content: response.data["message"],
@@ -80,7 +81,7 @@ class _SignUpFormState extends State<SignUpForm> {
                           context: context);
                     }
                   } catch (e) {
-                    Navigator.pop(context);
+                    stop();
                     await Utils.showAlertOneButton(
                         buttonText: "Ok",
                         content: "check your internet connection",
@@ -107,6 +108,9 @@ class _SignUpFormState extends State<SignUpForm> {
 
   TextFormField buildConformPassFormField() {
     return TextFormField(
+      style: TextStyle(
+        color: kSecondaryColor,
+      ),
       obscureText: true,
       onSaved: (newValue) => confirm_password = newValue,
       onChanged: (value) {
@@ -128,19 +132,15 @@ class _SignUpFormState extends State<SignUpForm> {
         }
         return null;
       },
-      decoration: InputDecoration(
-        labelText: "Confirm Password",
-        hintText: "Re-enter your password",
-        // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Lock.svg"),
-      ),
+      decoration: customInputDecoration(title: "Confirm Password", iconName: "Lock"),
     );
   }
 
   TextFormField buildPasswordFormField() {
     return TextFormField(
+      style: TextStyle(
+        color: kSecondaryColor,
+      ),
       obscureText: true,
       onSaved: (newValue) => password = newValue,
       onChanged: (value) {
@@ -162,19 +162,15 @@ class _SignUpFormState extends State<SignUpForm> {
         }
         return null;
       },
-      decoration: InputDecoration(
-        labelText: "Password",
-        hintText: "Enter your password",
-        // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Lock.svg"),
-      ),
+      decoration: customInputDecoration(title: "Password", iconName: "Lock"),
     );
   }
 
   TextFormField buildEmailFormField() {
     return TextFormField(
+      style: TextStyle(
+        color: kSecondaryColor,
+      ),
       keyboardType: TextInputType.emailAddress,
       onSaved: (newValue) => email = newValue,
       onChanged: (value) {
@@ -197,19 +193,15 @@ class _SignUpFormState extends State<SignUpForm> {
         }
         return null;
       },
-      decoration: InputDecoration(
-        labelText: "Email",
-        hintText: "Enter your email",
-        // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Mail.svg"),
-      ),
+      decoration: customInputDecoration(title: "Mail", iconName: "Mail"),
     );
   }
 
   TextFormField buildNameFormField() {
     return TextFormField(
+      style: TextStyle(
+        color: kSecondaryColor,
+      ),
       onSaved: (newValue) => username = newValue,
       onChanged: (value) {
         username = value;
@@ -225,12 +217,7 @@ class _SignUpFormState extends State<SignUpForm> {
         }
         return null;
       },
-      decoration: InputDecoration(
-        labelText: "Username",
-        hintText: "Enter your username",
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
-      ),
+      decoration: customInputDecoration(title: "Username", iconName: "User"),
     );
   }
 }

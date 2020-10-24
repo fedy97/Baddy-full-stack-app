@@ -1,6 +1,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:polimi_app/models/model.dart';
 import 'package:polimi_app/screens/update_profile/update_profile_page.dart';
 import 'package:polimi_app/services/access_manager.dart';
@@ -18,7 +19,11 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<Model>(context, listen: false);
-    return Scaffold(
+    return GestureDetector(
+        onTap: () {
+          Utils.hideKeyboard(context: context);
+        },
+        child: Scaffold(
         appBar: buildAppBar(context),
         backgroundColor: kPrimaryColor,
         body: FutureBuilder(
@@ -32,7 +37,7 @@ class HomePage extends StatelessWidget {
                 return Text('lol');
             },
             future: Apis.getAvailableUsers(model.user.jwt)) //Body(),
-        );
+    ));
   }
 
   AppBar buildAppBar(BuildContext context) {
@@ -40,7 +45,7 @@ class HomePage extends StatelessWidget {
     return AppBar(
       elevation: 0,
       centerTitle: false,
-      title: Text('Benvenuto, ${model.user.username}'),
+      title: Text('Benvenuto, ${model.user.username}', style: GoogleFonts.montserrat(),),
       actions: <Widget>[
         IconButton(
           icon: SvgPicture.asset(

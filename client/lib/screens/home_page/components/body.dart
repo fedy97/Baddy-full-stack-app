@@ -11,8 +11,6 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('built homepage');
-    //here listen is set to false so that this widget will not be rebuilt
-    //if notifyListeners is called. only the sub-widget below commented will rebuild thanks to watch()
     final model = Provider.of<Model>(context, listen: false);
     return SafeArea(
       bottom: false,
@@ -36,19 +34,24 @@ class Body extends StatelessWidget {
                     ),
                   ),
                 ),
-                ListView.builder(
-                  itemCount: context.select(
-                      (Model modelWatch) => modelWatch.filteredUsers.length),
-                  itemBuilder: (context, index) => UserCard(
-                    itemIndex: index,
-                    user: model.filteredUsers[index],
-                    press: () async {
-                      model.setSelectedUser(model.filteredUsers[index]);
-                      await Navigator.pushNamed(context, ProfilePage.routeName);
-                      model.setSelectedUser(null);
-                    },
-                  ),
-                )
+                //rebuild only the listview. And only if filteredUsers.length changes,
+                //so if other attributes of Model changes, this will not rebuild.
+                Selector<Model, int>(
+                  selector: (_, model) => model.filteredUsers.length,
+                  builder: (_, data, child) => ListView.builder(
+                    itemCount: data,
+                    itemBuilder: (context, index) => UserCard(
+                      itemIndex: index,
+                      user: model.filteredUsers[index],
+                      press: () async {
+                        model.setSelectedUser(model.filteredUsers[index]);
+                        await Navigator.pushNamed(context, ProfilePage.routeName);
+                        model.setSelectedUser(null);
+                      },
+                    ),
+                  )
+                ),
+
               ],
             ),
           ),

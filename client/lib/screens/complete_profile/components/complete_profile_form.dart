@@ -56,10 +56,10 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
             text: "Register",
-            press: () async {
+            press: (start,stop,state) async {
               if (_formKey.currentState.validate()) {
+                start();
                 try {
-                  Utils.showProgress(context);
                   _formKey.currentState.save();
                   Map map = context.read<Model>().tempValues;
                   Response response = await AccessManager.createOtherUser(
@@ -70,12 +70,12 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
                       name: firstName,
                       surname: lastName,
                       password: map["password"]);
+                  stop();
                   if (response.data["status"] == "success")
                     Utils.popEverythingAndPush(
                         context: context,
                         routeName: RegisterSuccessScreen.routeName);
                   else {
-                    Navigator.pop(context);
                     await Utils.showAlertOneButton(
                         buttonText: "Ok",
                         content: response.data["message"],
@@ -83,7 +83,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
                         context: context);
                   }
                 } catch (e) {
-                  Navigator.pop(context);
+                  stop();
                   await Utils.showAlertOneButton(
                       buttonText: "Ok",
                       content: "check your internet connection",

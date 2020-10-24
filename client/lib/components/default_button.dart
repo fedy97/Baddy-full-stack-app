@@ -1,4 +1,7 @@
+import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../constants.dart';
 import '../size_config.dart';
@@ -8,27 +11,36 @@ class DefaultButton extends StatelessWidget {
     Key key,
     this.text,
     this.press,
+    this.textColor,
+    this.bgColor
   }) : super(key: key);
   final String text;
   final Function press;
+  final Color textColor;
+  final Color bgColor;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      height: getProportionateScreenHeight(56),
-      child: FlatButton(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        color: kPrimaryColor,
-        onPressed: press,
-        child: Text(
-          text,
-          style: TextStyle(
-            fontSize: getProportionateScreenWidth(18),
-            color: Colors.white,
+    return ArgonButton(
+      elevation: 5,
+      color: bgColor ?? kPrimaryColor,
+        loader: Container(
+          padding: EdgeInsets.all(10),
+          child: SpinKitRotatingCircle(
+            color: textColor ?? Colors.white,
+            // size: loaderWidth ,
           ),
         ),
-      ),
-    );
+        borderRadius: 50,
+        width: SizeConfig.screenWidth,
+        height: getProportionateScreenHeight(50),
+        child: Text(text,
+          style: GoogleFonts.montserrat(
+            fontSize: getProportionateScreenWidth(18),
+            color: textColor ?? Colors.white,
+          ),
+        ),
+        onTap: press
+        );
   }
 }

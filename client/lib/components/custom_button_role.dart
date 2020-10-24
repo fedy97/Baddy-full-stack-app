@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:polimi_app/constants.dart';
 
-class CustomBottonRegister extends StatelessWidget {
+class CustomButtonRole extends StatelessWidget {
   final String descr;
   final String image;
   final Function onTap;
   final LinearGradient linearGradient;
   final Color textColor;
 
-  CustomBottonRegister(
+  CustomButtonRole(
       {@required this.descr,
       @required this.image,
       @required this.onTap,
@@ -19,6 +21,7 @@ class CustomBottonRegister extends StatelessWidget {
     return GestureDetector(
         onTap: onTap,
         child: Container(
+          decoration: BoxDecoration(boxShadow: [kDefaultShadow]),
           height: 150,
           width: double.infinity,
           margin: EdgeInsets.symmetric(horizontal: 24),
@@ -35,16 +38,15 @@ class CustomBottonRegister extends StatelessWidget {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image.asset('assets/images/${image}'),
+                    Image.asset('assets/images/$image'),
                     SizedBox(
                       width: 45,
                     ),
                     Text(
                       '$descr',
-                      style: TextStyle(
+                      style: GoogleFonts.montserrat(
                         color: textColor,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                        fontSize: 22,
                       ),
                     ),
                   ],

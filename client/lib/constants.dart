@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'size_config.dart';
 
 const dev = false;
@@ -26,10 +27,10 @@ const kTextColor = Color(0xFF757575);
 
 const kAnimationDuration = Duration(milliseconds: 200);
 
-final headingStyle = TextStyle(
+final headingStyle = GoogleFonts.montserrat(
   fontSize: getProportionateScreenWidth(28),
   fontWeight: FontWeight.bold,
-  color: Colors.black,
+  color: kSecondaryColor,
   height: 1.5,
 );
 
@@ -52,8 +53,8 @@ const kDefaultPadding = 20.0;
 
 // our default Shadow
 const kDefaultShadow = BoxShadow(
-  offset: Offset(0, 10),
-  blurRadius: 5,
+  offset: Offset(10, 15),
+  blurRadius: 8,
   color: Colors.black12, // Black color with 12% opacity
 );
 

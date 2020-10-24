@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:polimi_app/components/default_button.dart';
+import 'package:polimi_app/constants.dart';
 import 'package:polimi_app/services/utils.dart';
 
 import '../../../auth_manager.dart';
@@ -18,18 +19,14 @@ class Body extends StatelessWidget {
         SizedBox(height: SizeConfig.screenHeight * 0.08),
         Text(
           "Register Success",
-          style: TextStyle(
-            fontSize: getProportionateScreenWidth(30),
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
+          style: headingStyle,
         ),
         Spacer(),
         SizedBox(
           width: SizeConfig.screenWidth * 0.6,
           child: DefaultButton(
             text: "Home Page",
-            press: () {
+            press: (start, stop, state) {
               Utils.popEverythingAndPush(context: context, routeName: AuthManager.routeName);
               //push to homepage
             },

@@ -11,36 +11,34 @@ class Utils {
       @required content,
       @required title,
       @required buttonText}) async {
-
-      AwesomeDialog(
+    AwesomeDialog(
         context: context,
         dialogType: DialogType.ERROR,
         animType: AnimType.RIGHSLIDE,
         headerAnimationLoop: false,
         title: title,
-        desc:
-        content,
+        desc: content,
         btnOkText: buttonText,
         btnOkOnPress: () {},
         btnOkIcon: Icons.cancel,
         btnOkColor: Colors.red)
       ..show();
-   //return showDialog(
-   //    context: context,
-   //    barrierDismissible: false,
-   //    builder: (context) {
-   //      return AlertDialog(
-   //        content: Text(content),
-   //        title: Text(title),
-   //        actions: [
-   //          FlatButton(
-   //              onPressed: () {
-   //                Navigator.pop(context);
-   //              },
-   //              child: Text(buttonText))
-   //        ],
-   //      );
-   //    });
+    //return showDialog(
+    //    context: context,
+    //    barrierDismissible: false,
+    //    builder: (context) {
+    //      return AlertDialog(
+    //        content: Text(content),
+    //        title: Text(title),
+    //        actions: [
+    //          FlatButton(
+    //              onPressed: () {
+    //                Navigator.pop(context);
+    //              },
+    //              child: Text(buttonText))
+    //        ],
+    //      );
+    //    });
   }
 
   static Widget loadingWidget() {
@@ -77,5 +75,9 @@ class Utils {
           EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(30)),
       content: Text(text),
     ));
+  }
+
+  static void hideKeyboard({@required BuildContext context}) {
+    FocusScope.of(context).unfocus();
   }
 }

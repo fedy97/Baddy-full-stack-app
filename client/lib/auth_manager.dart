@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:polimi_app/screens/onboarding_page/onboarding_page.dart';
 import 'package:polimi_app/services/apis.dart';
 import 'package:polimi_app/services/utils.dart';
 import 'package:provider/provider.dart';
@@ -31,7 +32,7 @@ class AuthManager extends StatelessWidget {
             var remember = snapshot.data["remember"];
             if (jwt.length != 3) {
               //jwt format not valid
-              return SignInScreen();
+              return SplashScreen();
             } else {
               //jwt formatted correctly, let's decode it
               var payload = json.decode(
@@ -48,7 +49,7 @@ class AuthManager extends StatelessWidget {
                 AccessManager.signOut().then((value) => SignInScreen());
               }
               //never goes here
-              return HomePage();
+              return SizedBox.shrink();
             }
           } else {
             //jwt missing

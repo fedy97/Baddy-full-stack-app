@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:polimi_app/components/customBottonRegister.dart';
+import 'package:polimi_app/components/custom_button_role.dart';
 import 'package:polimi_app/constants.dart';
 import 'package:polimi_app/models/model.dart';
 import 'package:polimi_app/screens/sign_in/sign_up/sign_up_screen.dart';
 import 'package:provider/provider.dart';
+
 import '../../size_config.dart';
 
 class ChooseRolePage extends StatelessWidget {
@@ -12,13 +13,20 @@ class ChooseRolePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          iconTheme: IconThemeData(
+            color: kSecondaryColor, //change your color here
+          ),
+        ),
         body: Container(
             color: kPrimaryColor,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  height: SizeConfig.screenHeight * 0.55,
+                  height: SizeConfig.screenHeight * 0.45,
                   padding: EdgeInsets.symmetric(horizontal: 24, vertical: 36),
                   decoration: BoxDecoration(
                     boxShadow: [
@@ -26,7 +34,8 @@ class ChooseRolePage extends StatelessWidget {
                         color: Colors.purple,
                         blurRadius: 2.0,
                         spreadRadius: 2.0,
-                        offset: Offset(2.0, 2.0), // shadow direction: bottom right
+                        offset:
+                            Offset(2.0, 2.0), // shadow direction: bottom right
                       )
                     ],
                     color: Colors.white,
@@ -38,16 +47,13 @@ class ChooseRolePage extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SizedBox(
-                        height: 10,
-                      ),
                       Text(
                         'Cosa sei?',
                         style: TextStyle(
                             fontSize: getProportionateScreenWidth(40),
-                            color: kPrimaryColor),
+                            color: kSecondaryColor),
                       ),
-                      CustomBottonRegister(
+                      CustomButtonRole(
                         descr: 'Badante',
                         image: 'doctor.png',
                         onTap: () {
@@ -63,14 +69,14 @@ class ChooseRolePage extends StatelessWidget {
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 24, vertical: 26),
-                  child: CustomBottonRegister(
+                  child: CustomButtonRole(
                     descr: 'Cliente',
                     image: 'user.png',
                     onTap: () {
                       context.read<Model>().isRegisteringAsStandard = true;
                       Navigator.pushNamed(context, SignUpScreen.routeName);
                     },
-                    textColor: kPrimaryColor,
+                    textColor: kSecondaryColor,
                     linearGradient: kSecondaryGradientColor,
                   ),
                 )

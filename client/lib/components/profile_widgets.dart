@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../constants.dart';
 import '../size_config.dart';
@@ -20,6 +21,36 @@ class HeaderCurvedContainer extends CustomPainter {
   bool shouldRepaint(CustomPainter oldDelegate) => false;
 }
 
+class RPSCustomPainter extends CustomPainter{
+
+  @override
+  void paint(Canvas canvas, Size size) {
+
+    Paint paint = new Paint()
+      ..color = kPrimaryColor
+      ..style = PaintingStyle.fill
+      ..strokeWidth = 1;
+
+    Path path = Path();
+    path.moveTo(0,size.height*1);
+    path.quadraticBezierTo(size.width*0.04,size.height*0.73,size.width*0.21,size.height*0.73);
+    path.cubicTo(size.width*0.36,size.height*0.73,size.width*0.64,size.height*0.73,size.width*0.79,size.height*0.73);
+    path.quadraticBezierTo(size.width*1,size.height*0.73,size.width,size.height*1);
+    path.lineTo(0,size.height*1);
+    path.close();
+
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
+  }
+
+}
+
+
 Widget profileText() {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -31,10 +62,7 @@ Widget profileText() {
         boxShadow: [kDefaultShadow]),
     child: Text(
       'Profilo',
-      style: TextStyle(
-          fontSize: getProportionateScreenWidth(28),
-          color: Colors.white,
-          fontWeight: FontWeight.bold),
+      style: GoogleFonts.montserrat(color: Colors.white, fontSize: getProportionateScreenWidth(30)),
     ),
   );
 }

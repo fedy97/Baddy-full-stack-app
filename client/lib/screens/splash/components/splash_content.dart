@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:polimi_app/constants.dart';
 
-import '../../../constants.dart';
 import '../../../size_config.dart';
 
 class SplashContent extends StatelessWidget {
@@ -13,20 +14,19 @@ class SplashContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 50),
+        child: Column(
       children: <Widget>[
-        Spacer(),
-        Text(
-          "BADDY",
-          style: TextStyle(
-            fontSize: getProportionateScreenWidth(36),
-            color: kPrimaryColor,
-            fontWeight: FontWeight.bold,
-          ),
+        SizedBox(
+          height: 50,
         ),
+        Text("BADDY",
+            style: GoogleFonts.montserrat(color: kPrimaryColor, fontSize: 50)),
         Text(
           text,
           textAlign: TextAlign.center,
+          style: GoogleFonts.montserrat(color: kPrimaryColor, ),
         ),
         Spacer(flex: 2),
         Image.asset(
@@ -35,6 +35,6 @@ class SplashContent extends StatelessWidget {
           width: getProportionateScreenWidth(400),
         ),
       ],
-    );
+    ));
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:polimi_app/components/profile_widgets.dart';
 import 'package:polimi_app/components/rating_stars.dart';
 import 'package:polimi_app/models/user/user.dart';
@@ -75,11 +76,8 @@ class UserCard extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: kDefaultPadding),
                       child: Text(
-                        "Nome: ${user.firstName.toUpperCase()}",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15,
-                            color: Colors.deepPurple),
+                        "Nome: ${user.firstName.length >= 10 ? user.firstName.toUpperCase().substring(0,9) : user.firstName.toUpperCase()}",
+                        style: GoogleFonts.montserrat(color: kSecondaryColor, fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                     ),
                     SizedBox(
@@ -102,8 +100,8 @@ class UserCard extends StatelessWidget {
                       children: [
                         Container(
                           padding: EdgeInsets.symmetric(
-                            horizontal: kDefaultPadding * 1.5, // 30 padding
-                            vertical: kDefaultPadding / 4, // 5 top and bottom
+                            horizontal: kDefaultPadding * 1.3, // 30 padding
+                            vertical: kDefaultPadding / 3, // 5 top and bottom
                           ),
                           decoration: BoxDecoration(
                             color: kSecondaryColor,
@@ -113,7 +111,7 @@ class UserCard extends StatelessWidget {
                             ),
                           ),
                           child: Text(
-                            "\$${1}",
+                            "${99}€/h",
                             style: TextStyle(color: Colors.white),
                           ),
                         ),
