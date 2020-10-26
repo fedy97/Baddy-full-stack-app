@@ -17,15 +17,15 @@ class Body extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: SizeConfig.screenHeight * 0.04), // 4%
+                SizedBox(height: MediaQuery.of(context).size.height * 0.04), // 4%
                 Text("Register Account", style: headingStyle),
                 Text(
                   "Complete your details or continue \nwith social media",
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: SizeConfig.screenHeight * 0.08),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.08),
                 SignUpForm(),
-                SizedBox(height: SizeConfig.screenHeight * 0.03),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.03),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

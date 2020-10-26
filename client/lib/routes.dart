@@ -11,16 +11,27 @@ import 'screens/sign_in/sign_up/sign_up_screen.dart';
 import 'screens/splash/splash_screen.dart';
 
 // We use name route
-// All our routes will be available here
+
+final home = HomePage();
+final auth = AuthManager();
+final splash = SplashScreen();
+final signin = SignInScreen();
+final registerSuccess = RegisterSuccessScreen();
+final signup = SignUpScreen();
+final chooseRole = ChooseRolePage();
+final completeProfile = CompleteProfileScreen();
+final updateProfile = UpdateProfile();
+final profile = ProfilePage();
+
 final Map<String, WidgetBuilder> routes = {
-  HomePage.routeName: (context) => HomePage(),
-  AuthManager.routeName: (context) => AuthManager(),
-  SplashScreen.routeName: (context) => SplashScreen(),
-  SignInScreen.routeName: (context) => SignInScreen(),
-  RegisterSuccessScreen.routeName: (context) => RegisterSuccessScreen(),
-  SignUpScreen.routeName: (context) => SignUpScreen(),
-  ChooseRolePage.routeName: (context) => ChooseRolePage(),
-  CompleteProfileScreen.routeName: (context) => CompleteProfileScreen(),
-  UpdateProfile.routeName: (context) => UpdateProfile(),
-  ProfilePage.routeName: (context) => ProfilePage()
+  HomePage.routeName: (context) => home,
+  AuthManager.routeName: (context) => auth,
+  SplashScreen.routeName: (context) => splash,
+  SignInScreen.routeName: (context) => signin,
+  RegisterSuccessScreen.routeName: (context) => registerSuccess,
+  SignUpScreen.routeName: (context) => signup,
+  ChooseRolePage.routeName: (context) => chooseRole,
+  CompleteProfileScreen.routeName: (context) => completeProfile,
+  UpdateProfile.routeName: (context) => updateProfile,
+  ProfilePage.routeName: (context) => profile
 };

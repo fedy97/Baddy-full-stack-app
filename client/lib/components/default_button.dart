@@ -32,7 +32,7 @@ class DefaultButton extends StatelessWidget {
           ),
         ),
         borderRadius: 50,
-        width: SizeConfig.screenWidth,
+        width: MediaQuery.of(context).size.width,
         height: getProportionateScreenHeight(50),
         child: Text(text,
           style: GoogleFonts.montserrat(

@@ -16,13 +16,13 @@ class Body extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: SizeConfig.screenHeight * 0.03),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.03),
                 Text("Complete Profile", style: headingStyle),
                 Text(
                   "Complete your details",
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: SizeConfig.screenHeight * 0.06),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.06),
                 CompleteProfileForm(),
                 SizedBox(height: getProportionateScreenHeight(30)),
                 Text(

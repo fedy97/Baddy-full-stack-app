@@ -11,19 +11,19 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(child: Column(
       children: [
-        SizedBox(height: SizeConfig.screenHeight * 0.04),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.04),
         Image.asset(
           "assets/images/success.png",
-          height: SizeConfig.screenHeight * 0.4, //40%
+          height: MediaQuery.of(context).size.height * 0.4, //40%
         ),
-        SizedBox(height: SizeConfig.screenHeight * 0.08),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.08),
         Text(
           "Register Success",
           style: headingStyle,
         ),
         Spacer(),
         SizedBox(
-          width: SizeConfig.screenWidth * 0.6,
+          width: MediaQuery.of(context).size.width * 0.6,
           child: DefaultButton(
             text: "Home Page",
             press: (start, stop, state) {

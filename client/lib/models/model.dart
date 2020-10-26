@@ -16,9 +16,9 @@ class Model extends ChangeNotifier {
     _currentProfilePage = 0;
   }
 
-  void setCurrentProfilePage(int index) {
+  void setCurrentProfilePage(int index, bool rebuild) {
     _currentProfilePage = index;
-    notifyListeners();
+    if (rebuild) notifyListeners();
   }
 
   void setUserPhoto(String photo) {

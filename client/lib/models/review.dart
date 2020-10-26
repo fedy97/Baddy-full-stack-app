@@ -23,6 +23,7 @@ class Review {
   ///used when posting a new review
   Map toMap() {
     return {
+      "userReviewed": _userReviewed.username,
       "review" : _review,
       "rating" : _rating,
     };
@@ -38,3 +39,5 @@ class Review {
 
   User get userReviewer => _userReviewer;
 }
+
+

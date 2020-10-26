@@ -21,24 +21,24 @@ class HeaderCurvedContainer extends CustomPainter {
   bool shouldRepaint(CustomPainter oldDelegate) => false;
 }
 
-class RPSCustomPainter extends CustomPainter{
-
+class RPSCustomPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-
     Paint paint = new Paint()
       ..color = kPrimaryColor
       ..style = PaintingStyle.fill
       ..strokeWidth = 1;
 
     Path path = Path();
-    path.moveTo(0,size.height*1);
-    path.quadraticBezierTo(size.width*0.04,size.height*0.73,size.width*0.21,size.height*0.73);
-    path.cubicTo(size.width*0.36,size.height*0.73,size.width*0.64,size.height*0.73,size.width*0.79,size.height*0.73);
-    path.quadraticBezierTo(size.width*1,size.height*0.73,size.width,size.height*1);
-    path.lineTo(0,size.height*1);
+    path.moveTo(0, size.height * 1);
+    path.quadraticBezierTo(size.width * 0.04, size.height * 0.73,
+        size.width * 0.21, size.height * 0.73);
+    path.cubicTo(size.width * 0.36, size.height * 0.73, size.width * 0.64,
+        size.height * 0.73, size.width * 0.79, size.height * 0.73);
+    path.quadraticBezierTo(
+        size.width * 1, size.height * 0.73, size.width, size.height * 1);
+    path.lineTo(0, size.height * 1);
     path.close();
-
 
     canvas.drawPath(path, paint);
   }
@@ -47,9 +47,7 @@ class RPSCustomPainter extends CustomPainter{
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
     return true;
   }
-
 }
-
 
 Widget profileText() {
   return Container(
@@ -62,7 +60,8 @@ Widget profileText() {
         boxShadow: [kDefaultShadow]),
     child: Text(
       'Profilo',
-      style: GoogleFonts.montserrat(color: Colors.white, fontSize: getProportionateScreenWidth(30)),
+      style: GoogleFonts.montserrat(
+          color: Colors.white, fontSize: getProportionateScreenWidth(30)),
     ),
   );
 }
@@ -71,7 +70,7 @@ Widget photoProfile({@required String photo, @required double size}) {
   return Container(
     child: ClipRRect(
       borderRadius: BorderRadius.circular(300.0),
-      child: photo == 'default.jpg'
+      child: (photo == null || photo == 'default.jpg')
           ? Image.asset('assets/images/girl.png')
           : CachedNetworkImage(
               fit: BoxFit.cover,

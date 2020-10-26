@@ -19,7 +19,7 @@ class SignForm extends StatefulWidget {
 
 class _SignFormState extends State<SignForm> {
   final storage = new FlutterSecureStorage();
-  final _formKey = GlobalKey<FormState>();
+  static final _formKey = GlobalKey<FormState>();
   String username;
   String password;
   bool remember = false;
@@ -149,7 +149,6 @@ class _SignFormState extends State<SignForm> {
         if (value.isNotEmpty) {
           removeError(error: kNameNullError);
         }
-        return null;
       },
       validator: (value) {
         if (value.isEmpty) {

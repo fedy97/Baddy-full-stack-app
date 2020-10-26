@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:polimi_app/services/access_manager.dart';
 
 import '../constants.dart';
 
@@ -44,6 +45,8 @@ class Apis {
       return response.data;
     } on DioError catch (e) {
       print(e.response);
+      if (e.response.data["error"]["statusCode"] == 401)
+        await AccessManager.signOut();
       return null;
     }
   }
@@ -76,5 +79,18 @@ class Apis {
   static String _createPath(String username, String timestamp) {
     //mail/timestampRecord/imagesList
     return "$username/$timestamp/" + "photo.jpg";
+  }
+
+  static Future<Map> sendReview(String jwt, Map body) async {
+    try {
+      var dio = Dio();
+      Response response = await dio.post(URL + reviewsRoute + "/",
+          data: jsonEncode(body),
+          options: Options(headers: {'Authorization': 'Bearer $jwt'}));
+      return response.data;
+    } on DioError catch (e) {
+      print(e.response);
+      return e.response.data;
+    }
   }
 }

@@ -26,7 +26,7 @@ class ChooseRolePage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  height: SizeConfig.screenHeight * 0.45,
+                  height: MediaQuery.of(context).size.height * 0.45,
                   padding: EdgeInsets.symmetric(horizontal: 24, vertical: 36),
                   decoration: BoxDecoration(
                     boxShadow: [

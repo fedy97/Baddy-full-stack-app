@@ -21,7 +21,6 @@ class UserCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     return Container(
       margin: EdgeInsets.symmetric(
         horizontal: kDefaultPadding,
@@ -65,7 +64,7 @@ class UserCard extends StatelessWidget {
               child: SizedBox(
                 height: 136,
                 // our image take 200 width, thats why we set out total width - 200
-                width: SizeConfig.screenWidth - 200,
+                width: MediaQuery.of(context).size.width - 200,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -128,7 +127,7 @@ class UserCard extends StatelessWidget {
                             child: RatingStars(
                                 rate: user.ratingsQuantity == 0
                                     ? 0
-                                    : user.ratingsAverage),
+                                    : user.ratingsAverage.toDouble()),
                           ),
                         ),
                       ],

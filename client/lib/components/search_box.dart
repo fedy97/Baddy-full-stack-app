@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../constants.dart';
-import 'package:keyboard_visibility/keyboard_visibility.dart';
 
 class SearchBox extends StatelessWidget {
   const SearchBox({
@@ -13,9 +12,9 @@ class SearchBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final detectKeyboard = KeyboardVisibilityNotification().addNewListener(onHide: () {
-      FocusScope.of(context).unfocus();
-    });
+    //final detectKeyboard = KeyboardVisibilityNotification().addNewListener(onHide: () {
+    //  FocusScope.of(context).unfocus();
+    //});
     return Container(
       margin: EdgeInsets.all(kDefaultPadding),
       padding: EdgeInsets.symmetric(

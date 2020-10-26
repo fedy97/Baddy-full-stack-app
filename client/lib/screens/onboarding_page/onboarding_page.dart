@@ -98,7 +98,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
         home: SafeArea(

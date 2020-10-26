@@ -5,6 +5,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:polimi_app/screens/onboarding_page/onboarding_page.dart';
 import 'package:polimi_app/services/apis.dart';
 import 'package:polimi_app/services/utils.dart';
+import 'package:polimi_app/size_config.dart';
 import 'package:provider/provider.dart';
 
 import 'models/model.dart';
@@ -17,7 +18,6 @@ import 'services/access_manager.dart';
 
 class AuthManager extends StatelessWidget {
   static String routeName = "/auth";
-
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<Model>(context, listen: false);

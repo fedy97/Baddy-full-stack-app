@@ -15,13 +15,12 @@ import 'components/body.dart';
 
 class HomePage extends StatelessWidget {
   static String routeName = '/products';
-
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<Model>(context, listen: false);
     return GestureDetector(
         onTap: () {
-          Utils.hideKeyboard(context: context);
+          //Utils.hideKeyboard(context: context);
         },
         child: Scaffold(
         appBar: buildAppBar(context),

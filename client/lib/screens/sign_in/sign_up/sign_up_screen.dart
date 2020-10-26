@@ -10,6 +10,10 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //final detectKeyboard =
+    //KeyboardVisibilityNotification().addNewListener(onHide: () {
+    //  FocusScope.of(context).unfocus();
+    //});
     return GestureDetector(
         onTap: () {
           Utils.hideKeyboard(context: context);
