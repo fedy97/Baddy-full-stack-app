@@ -1,3 +1,5 @@
+import 'package:polimi_app/models/model.dart';
+import 'package:polimi_app/models/user/standardUser.dart';
 import 'package:polimi_app/models/user/user.dart';
 
 class Review {
@@ -15,9 +17,19 @@ class Review {
         _userReviewer = userReviewer;
 
   ///used to create a new review object when I fetch reviews from server
-  factory Review.fromMap(Map<String, dynamic> payload) {
-    //TODO
-    return null;
+  factory Review.fromMap(Map<String, dynamic> payload, Model model) {
+    try {
+      return Review(
+          createdAt: DateTime.parse(payload['createdAt']),
+          userReviewed: model.selectedUser,
+          userReviewer: StandardUser(username: payload['user']['username']),
+          rating: payload['rating'].toDouble(),
+          review: payload['review']
+      );
+    }catch (e) {
+      print(e);
+      return null;
+    }
   }
 
   ///used when posting a new review

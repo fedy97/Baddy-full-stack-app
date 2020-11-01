@@ -20,7 +20,7 @@ abstract class User with ChangeNotifier {
   String jwt;
 
   //store reviews about me
-  List<Review> reviewsAboutMe;
+  Map reviewsAboutMe;
 
   User(
       {@required this.jwt,
@@ -36,8 +36,7 @@ abstract class User with ChangeNotifier {
       this.firstName,
       this.lastName,
       this.phone,
-      this.city})
-      : reviewsAboutMe = List();
+      this.city});
 
   void setPhoto(String photo) {
     this.photo = photo;

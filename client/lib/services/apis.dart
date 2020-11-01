@@ -93,4 +93,16 @@ class Apis {
       return e.response.data;
     }
   }
+
+  static Future<Map> getUserReviews(String username, String jwt) async {
+    try {
+      var dio = Dio();
+      Response response = await dio.get(URL + reviewsRoute + "/user/$username",
+          options: Options(headers: {'Authorization': 'Bearer $jwt'}));
+      return response.data;
+    } on DioError catch (e) {
+      print(e.response);
+      return e.response.data;
+    }
+  }
 }

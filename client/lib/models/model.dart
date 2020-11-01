@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:polimi_app/models/review.dart';
 import 'package:polimi_app/models/user/standardUser.dart';
 import 'package:polimi_app/models/user/user.dart';
+import 'package:polimi_app/services/apis.dart';
 
 class Model extends ChangeNotifier {
   User _user;
@@ -8,6 +12,7 @@ class Model extends ChangeNotifier {
   List<User> _availableUsers;
   List<User> _filteredUsers;
   int _currentProfilePage;
+
   //used during registration phase, to decide which kind of registration form use
   bool _isRegisteringAsStandard;
   Map<String, String> tempValues;
@@ -56,6 +61,25 @@ class Model extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<bool> get getReviewsByUser async {
+    if (_selectedUser.reviewsAboutMe == null) {
+      Map reviews = await Apis.getUserReviews(_selectedUser.username, _user.jwt);
+      _selectedUser.reviewsAboutMe = Map();
+      _selectedUser.reviewsAboutMe['length'] = reviews['results'];
+      _selectedUser.reviewsAboutMe['reviews'] = _buildReviews(reviews['reviews']);
+      return true;
+    } else
+      return true;
+  }
+
+  List<Review> _buildReviews(List r) {
+    var reviews = List<Review>();
+    r.forEach((review) {
+      reviews.add(new Review.fromMap(review, this));
+    });
+    return reviews;
+  }
+
   List<User> get filteredUsers => _filteredUsers;
 
   bool get isRegisteringAsStandard => _isRegisteringAsStandard;
@@ -75,6 +99,4 @@ class Model extends ChangeNotifier {
   User get selectedUser => _selectedUser;
 
   int get currentProfilePage => _currentProfilePage;
-
-
 }

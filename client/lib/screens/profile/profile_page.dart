@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../../constants.dart';
 import '../../size_config.dart';
+import 'components/list_reviews.dart';
 import 'components/user_profile_list.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -47,14 +48,8 @@ class ProfilePage extends StatelessWidget {
                           children: [],
                         ),
                       ),
-                      width: MediaQuery
-                          .of(context)
-                          .size
-                          .width,
-                      height: MediaQuery
-                          .of(context)
-                          .size
-                          .height,
+                      width: 500,
+                      height: 890,
                     ),
                     painter: HeaderCurvedContainer(),
                   ),
@@ -76,7 +71,7 @@ class ProfilePage extends StatelessWidget {
                                   return buildUserProfileList(context, model);
                                   break;
                                 case 1:
-                                  return Container();
+                                  return ListReviewsWidget();
                                   break;
                                 case 2:
                                   return WriteReviewWidget();
@@ -104,7 +99,7 @@ class ProfilePage extends StatelessWidget {
         tag: '${model.selectedUser.username}',
         child: photoProfile(
             photo: model.selectedUser.photo,
-            size: MediaQuery.of(context).size.width / 2));
+            size: 400 / 2));
   }
 
   Widget _buildBottomNavBar(Model model) {
