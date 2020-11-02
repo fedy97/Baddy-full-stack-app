@@ -1,5 +1,6 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:polimi_app/components/alert_service.dart';
 import 'package:polimi_app/components/custom_input_decoration.dart';
@@ -11,6 +12,7 @@ import 'package:polimi_app/services/apis.dart';
 import 'package:provider/provider.dart';
 
 import '../../size_config.dart';
+import 'components/date_picker.dart';
 
 class UpdateProfile extends StatelessWidget {
   static String routeName = "/update-profile";
@@ -21,13 +23,13 @@ class UpdateProfile extends StatelessWidget {
   static String phone;
   static String city;
   static String gender;
+  static DateTime birth;
+  static String nationality;
 
   TextFormField _textFormField(
       {String initialValue, String hintText, String icon, Function onChanged}) {
     return TextFormField(
-      style: TextStyle(
-        color: kSecondaryColor,
-      ),
+      style: GoogleFonts.montserrat(color: kSecondaryColor),
       //put empty string if init value is null
       initialValue: initialValue ?? '',
       onChanged: onChanged,
@@ -35,7 +37,7 @@ class UpdateProfile extends StatelessWidget {
     );
   }
 
-  Form _textFormFieldCalling(Model model, BuildContext context) {
+  Widget _textFormFieldCalling(Model model, BuildContext context) {
     return Form(
         key: _formKey,
         child: Column(
@@ -81,9 +83,15 @@ class UpdateProfile extends StatelessWidget {
               icon: "Phone",
             ),
             SizedBox(height: getProportionateScreenHeight(12)),
-            _textFormField(
-              hintText: 'Birth',
-              icon: "Phone",
+            MyTextFieldDatePicker(
+              labelText: "Birth",
+              prefixIcon: Icon(Icons.date_range),
+              suffixIcon: Icon(Icons.arrow_drop_down),
+              lastDate: DateTime(DateTime.now().year - 18, 1),
+              initialDate: model.user.birth,
+              onDateChanged: (selectedDate) {
+                birth = selectedDate;
+              },
             ),
             SizedBox(height: getProportionateScreenHeight(20)),
             DefaultButton(
@@ -91,24 +99,30 @@ class UpdateProfile extends StatelessWidget {
                 press: (startLoading, stopLoading, btnState) async {
                   try {
                     startLoading();
-                    //Utils.showProgress(context);
+
                     model.user.firstName = firstName ?? model.user.firstName;
                     model.user.lastName = lastName ?? model.user.lastName;
+                    model.user.phone = phone ?? model.user.phone;
+                    model.user.gender = gender ?? model.user.gender;
+                    model.user.nationality =
+                        nationality ?? model.user.nationality;
+                    model.user.city = city ?? model.user.city;
+                    model.user.birth = birth ?? model.user.birth;
+
                     await Apis.updateProfile(
                         model.user.jwt, model.user.toMap());
                     stopLoading();
-                    //TODO update this
+                    //TODO update this to show also error returned
                     AlertService().showAlert(
                       context: context,
                       message: 'Profilo aggiornato',
                       type: AlertType.success,
                     );
-                    //Utils.showSnack(key: _scaffoldKey, text: "Utente Aggiornato!");
                   } catch (e) {
                     stopLoading();
                     AlertService().showAlert(
                       context: context,
-                      message: 'Controlla i dati inseriti',
+                      message: 'Please check your connection',
                       type: AlertType.error,
                     );
                   }
@@ -204,7 +218,6 @@ class UpdateProfile extends StatelessWidget {
                 child: Stack(
                   alignment: Alignment.topCenter,
                   children: [
-                    //TODO the problem of rebuilding is caused by mediaquery here
                     CustomPaint(
                       child: Container(
                         width: 500,

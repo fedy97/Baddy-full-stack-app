@@ -64,7 +64,8 @@ abstract class User with ChangeNotifier {
       "phone": phone,
       "available": available,
       "nationality": nationality,
-      "birth": birth
+      "birth": birth?.toString()
+      //"gender": gender
     };
   }
 }

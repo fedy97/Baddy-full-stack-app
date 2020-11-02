@@ -50,8 +50,10 @@ class StandardUser extends User {
     var gender = user["gender"];
     var nationality = user["nationality"];
     var birth = user["birth"];
+    var birthParsed = birth == null ? null : DateTime.parse(birth);
 
     return StandardUser(
+        birth: birthParsed,
         available: available,
         city: city,
         firstName: firstName,
@@ -69,5 +71,9 @@ class StandardUser extends User {
 
   /// {user: {role: admin, photo: default.jpg, ratingsQuantity: 0, _id: 5f831769ecb6ae1f908d073d, username: admin, email: admin@gmail.com,
   /// createdAt: 2020-10-11T14:32:09.726Z, __v: 0, id: 5f831769ecb6ae1f908d073d}, iat: 1602446717, exp: 1605038717}
-
+/**
+ * {status: success, user: {available: false, role: admin, photo: https://firebasestorage.googleapis.com/v0/b/baddy-f34f0.appspot.com/o/admin%2F1604328292670%2Fphoto.jpg?alt=media&token=a8c29af3-9e5a-441c-b192-bcaaa874286f,
+ * ratingsQuantity: 0, _id: 5f9f29e49f806429c4094109, username: admin, email: admin@gmail.com, createdAt: 2020-11-01T21:34:28.582Z, __v: 0,
+ * birth: 2000-01-01T00:00:00.000Z, firstName: gfdg, lastName: null, nationality: null, phone: null, id: 5f9f29e49f806429c4094109}}
+ */
 }
