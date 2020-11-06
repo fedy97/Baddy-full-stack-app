@@ -56,24 +56,24 @@ class Apis {
       @required String username,
       @required int timestamp,
       @required String jwt}) async {
-    String path = _createPath(username, timestamp.toString());
-    final storageRef = FirebaseStorage.instance.ref().child(path);
-    final uploadTask = storageRef.putFile(File(image.path), StorageMetadata());
-    final snapshot = await uploadTask.onComplete;
-    if (snapshot.error != null) throw snapshot.error;
-    String url = await snapshot.ref.getDownloadURL();
-
     try {
+      File imageFile = File(image.path);
+      String path = _createPath(username, timestamp.toString());
+      final storageRef = FirebaseStorage.instance.ref().child(path);
+      await storageRef.putFile(imageFile);
+      final url = await storageRef.getDownloadURL();
       var dio = Dio();
       Response response = await dio.patch(URL + usersRoute + "/updateDetails",
           data: {"photo": url},
           options: Options(headers: {'Authorization': 'Bearer $jwt'}));
+      return url;
     } on DioError catch (e) {
       print(e.response);
       return "default.jpg";
+    } catch (e) {
+      print(e);
+      return "default.jpg";
     }
-
-    return url;
   }
 
   static String _createPath(String username, String timestamp) {

@@ -8,7 +8,6 @@ const userSchema = new Schema({
         lastName: String,
         price: Number,
         gender: {
-            enum: ['male', 'female', 'other'],
             type: String
         },
         birth: {

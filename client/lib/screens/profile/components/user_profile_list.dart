@@ -9,7 +9,8 @@ Widget _field(
     String title,
     String value,
     IconData icon,
-    bool isPhone}) {
+    bool isPhone,
+    int index}) {
   return GestureDetector(
       onTap: () async {
         if (isPhone != null) {
@@ -25,7 +26,7 @@ Widget _field(
         height: 60,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(22),
-          color: kPrimaryColor,
+          color: index.isEven ? kPrimaryColor : kSecondaryColor,
           boxShadow: [kDefaultShadow],
         ),
         child: Container(
@@ -66,65 +67,74 @@ Widget _field(
 
 Widget buildUserProfileList(BuildContext context, Model model) {
   return SingleChildScrollView(
-    padding: const EdgeInsets.only(bottom: 20),
+      padding: const EdgeInsets.only(bottom: 20),
       child: Column(
-    children: [
-      _field(
-          context: context,
-          title: "Nome",
-          value: model.selectedUser.firstName,
-          icon: Icons.person),
-      SizedBox(
-        height: 20,
-      ),
-      _field(
-          context: context,
-          title: "Cognome",
-          value: model.selectedUser.lastName,
-          icon: Icons.person),
-      SizedBox(
-        height: 20,
-      ),
-      _field(
-          context: context,
-          title: "Phone",
-          value: model.selectedUser.phone,
-          icon: Icons.phone,
-          isPhone: true),
-      SizedBox(
-        height: 20,
-      ),
-      _field(
-          context: context,
-          title: "City",
-          value: model.selectedUser.city,
-          icon: Icons.location_city),
-      SizedBox(
-        height: 20,
-      ),
-      _field(
-          context: context,
-          title: "Nationality",
-          value: model.selectedUser.nationality,
-          icon: Icons.place),
-      SizedBox(
-        height: 20,
-      ),
-      _field(
-          context: context,
-          title: "Gender",
-          value: model.selectedUser.gender,
-          icon: Icons.place),
-      SizedBox(
-        height: 20,
-      ),
-      _field(
-          context: context,
-          title: "Age",
-          value: model.selectedUser.birth != null ? _calculateAge(model.selectedUser.birth) : "",
-          icon: Icons.accessibility_sharp)
-    ],
-  ));
+        children: [
+          _field(
+              index: 0,
+              context: context,
+              title: "Nome",
+              value: model.selectedUser.firstName,
+              icon: Icons.person),
+          SizedBox(
+            height: 20,
+          ),
+          _field(
+              index: 1,
+              context: context,
+              title: "Cognome",
+              value: model.selectedUser.lastName,
+              icon: Icons.person),
+          SizedBox(
+            height: 20,
+          ),
+          _field(
+              index: 2,
+              context: context,
+              title: "Phone",
+              value: model.selectedUser.phone,
+              icon: Icons.phone,
+              isPhone: true),
+          SizedBox(
+            height: 20,
+          ),
+          _field(
+              index: 3,
+              context: context,
+              title: "City",
+              value: model.selectedUser.city,
+              icon: Icons.location_city),
+          SizedBox(
+            height: 20,
+          ),
+          _field(
+              index: 4,
+              context: context,
+              title: "Nationality",
+              value: model.selectedUser.nationality,
+              icon: Icons.place),
+          SizedBox(
+            height: 20,
+          ),
+          _field(
+              index: 5,
+              context: context,
+              title: "Gender",
+              value: model.selectedUser.gender,
+              icon: Icons.place),
+          SizedBox(
+            height: 20,
+          ),
+          _field(
+              index: 6,
+              context: context,
+              title: "Age",
+              value: model.selectedUser.birth != null
+                  ? _calculateAge(model.selectedUser.birth)
+                  : "",
+              icon: Icons.accessibility_sharp)
+        ],
+      ));
 }
 
 String _calculateAge(DateTime birthDate) {
