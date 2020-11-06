@@ -13,7 +13,7 @@ abstract class User with ChangeNotifier {
   String lastName;
   String phone;
   String city;
-  Role role;
+  String role;
   int ratingsQuantity;
   var ratingsAverage;
   String photo;
@@ -59,14 +59,15 @@ abstract class User with ChangeNotifier {
 
   Map toMap() {
     return {
+      "role": role,
       "lastName": lastName,
       "firstName": firstName,
       "phone": phone,
       "available": available,
       "nationality": nationality,
       "birth": birth?.toString(),
-      //TODO finish this
-      //"gender": gender
+      "gender": gender,
+      "city": city
     };
   }
 }

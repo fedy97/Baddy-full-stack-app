@@ -54,10 +54,6 @@ class Utils {
         context, MaterialPageRoute(builder: (context) => loadingWidget()));
   }
 
-  static Role stringToRole({String string}) {
-    return Role.values.firstWhere((element) => element.toString() == string);
-  }
-
   static void popEverythingAndPush({BuildContext context, String routeName}) {
     Navigator.of(context)
         .pushNamedAndRemoveUntil(routeName, (Route<dynamic> route) => false);

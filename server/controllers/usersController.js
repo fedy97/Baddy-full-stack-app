@@ -22,7 +22,7 @@ const functions = {
     updateDetails: catchAsync(async (req, res, next) => {
         if (req.body.photo == null) {
             //if you become 'other' you must specify phone and city
-            if (req.body.role != null && req.body.role === 'other') {
+            if (req.body.role != null && req.body.role === 'other' && req.body.available) {
                 if (req.body.phone == null && req.user.phone == null)
                     return next(new AppError('you must specify your phone number!', 400));
                 if (req.body.city == null && req.user.city == null)

@@ -46,7 +46,7 @@ class HomePage extends StatelessWidget {
       centerTitle: false,
       title: Text('Benvenuto, ${model.user.username}', style: GoogleFonts.montserrat(),),
       actions: <Widget>[
-        IconButton(
+        model.user.role == 'user' ? SizedBox.shrink() : IconButton(
           icon: SvgPicture.asset(
             "assets/icons/User_Icon.svg",
             color: Colors.white,
