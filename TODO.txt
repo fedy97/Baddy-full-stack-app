@@ -1,0 +1,10 @@
+//TODO
+notifiche push firebase
+documentazione DD
+bug schermata nera
+posizionamento testi
+test
+valutare la parte del multithreading 
+altro??
+
+
