@@ -118,3 +118,10 @@ typings/
 
 # Obfuscation related
 /client/app.*.map.json
+
+# LaTeX related
+*.aux
+*.out
+*.toc
+*.synctex.gz
+dd.pdf
