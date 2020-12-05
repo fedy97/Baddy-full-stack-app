@@ -11,9 +11,11 @@ class ListReviewsWidget extends StatelessWidget {
       future: model.getReviewsByUser,
       builder: (context, snap) {
         if (!snap.hasData) return SizedBox.shrink();
-        return Container(
-          height: MediaQuery.of(context).size.height / 2 - 20,
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 20),
+          //or use Column with children ...list.map((review) { return ReviewCard()})
           child: ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemCount: model.selectedUser.reviewsAboutMe['length'],
             itemBuilder: (context, index) => ReviewCard(

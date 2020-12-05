@@ -57,6 +57,8 @@ class UpdateProfile extends StatelessWidget {
       case 2:
         return null;
         break;
+      default:
+        return null;
     }
   }
 
@@ -80,8 +82,8 @@ class UpdateProfile extends StatelessWidget {
                     cornerRadius: 20.0,
                     activeBgColor: kSecondaryColor,
                     activeFgColor: Colors.white,
-                    inactiveBgColor: kPrimaryColor,
-                    inactiveFgColor: Colors.white,
+                    inactiveBgColor: Colors.white,
+                    inactiveFgColor: kPrimaryColor,
                     labels: ['YES', 'NO'],
                     icons: [FontAwesomeIcons.check, FontAwesomeIcons.times],
                     onToggle: (index) {
@@ -91,7 +93,7 @@ class UpdateProfile extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: getProportionateScreenHeight(12)),
+            SizedBox(height: getProportionateScreenHeight(20)),
             ToggleSwitch(
               initialLabelIndex: model.user.gender == null
                   ? 2
@@ -100,8 +102,8 @@ class UpdateProfile extends StatelessWidget {
               minHeight: 60,
               cornerRadius: 50.0,
               activeFgColor: Colors.white,
-              inactiveBgColor: kPrimaryColor,
-              inactiveFgColor: Colors.white,
+              inactiveBgColor: Colors.white,
+              inactiveFgColor: kPrimaryColor,
               fontSize: 20,
               labels: ['M', 'F', 'X'],
               icons: [

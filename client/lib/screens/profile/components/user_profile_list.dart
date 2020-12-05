@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:polimi_app/models/model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -66,7 +67,7 @@ Widget _field(
 }
 
 Widget buildUserProfileList(BuildContext context, Model model) {
-  return SingleChildScrollView(
+  return Padding(
       padding: const EdgeInsets.only(bottom: 20),
       child: Column(
         children: [
@@ -121,7 +122,7 @@ Widget buildUserProfileList(BuildContext context, Model model) {
               context: context,
               title: "Gender",
               value: model.selectedUser.gender,
-              icon: Icons.place),
+              icon: FontAwesomeIcons.transgender),
           SizedBox(
             height: 20,
           ),

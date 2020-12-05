@@ -67,46 +67,49 @@ class _WriteReviewWidgetState extends State<WriteReviewWidget> {
         _buildReviewFormField(),
         FormError(errors: errors),
         SizedBox(
-          height: getProportionateScreenHeight(50),
+          height: getProportionateScreenHeight(30),
         ),
-        DefaultButton(
-          press: (start, stop, state) async {
-            if (_formKey.currentState.validate()) {
-              try {
-                start();
-                Review currReview = Review(
-                    review: _review,
-                    rating: _currRate,
-                    userReviewed: model.selectedUser);
-                Map result =
-                    await Apis.sendReview(model.user.jwt, currReview.toMap());
-                stop();
-                if (result["status"] != "error")
-                  AlertService().showAlert(
-                    context: context,
-                    message: 'Recensione inviata',
-                    type: AlertType.success,
-                  );
-                else {
+        Padding(
+          padding: const EdgeInsets.only(bottom: 20),
+          child: DefaultButton(
+            press: (start, stop, state) async {
+              if (_formKey.currentState.validate()) {
+                try {
+                  start();
+                  Review currReview = Review(
+                      review: _review,
+                      rating: _currRate,
+                      userReviewed: model.selectedUser);
+                  Map result =
+                      await Apis.sendReview(model.user.jwt, currReview.toMap());
+                  stop();
+                  if (result["status"] != "error")
+                    AlertService().showAlert(
+                      context: context,
+                      message: 'Recensione inviata',
+                      type: AlertType.success,
+                    );
+                  else {
+                    AlertService().showAlert(
+                      context: context,
+                      message: 'Something went wrong',
+                      type: AlertType.error,
+                    );
+                  }
+                } catch (e) {
+                  stop();
                   AlertService().showAlert(
                     context: context,
                     message: 'Something went wrong',
                     type: AlertType.error,
                   );
                 }
-              } catch (e) {
                 stop();
-                AlertService().showAlert(
-                  context: context,
-                  message: 'Something went wrong',
-                  type: AlertType.error,
-                );
               }
-              stop();
-            }
-          },
-          text: "Invia",
-        )
+            },
+            text: "Invia",
+          ),
+        ),
       ],
     );
   }
