@@ -46,6 +46,7 @@ dependencies:
   url_launcher: ^5.7.10
   toggle_switch: ^0.1.8
   font_awesome_flutter: ^8.10.0
+  firebase_messaging: ^7.0.3
 
 dev_dependencies:
   flutter_test:
