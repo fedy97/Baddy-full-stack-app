@@ -45,7 +45,7 @@ class Apis {
       return response.data;
     } on DioError catch (e) {
       print(e.response);
-      if (e.response.data["error"]["statusCode"] == 401)
+      if (e.response.data["error"]["statusCode"] == 401 || e.response.data["error"]["statusCode"] == 500)
         await AccessManager.signOut();
       return null;
     }
