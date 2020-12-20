@@ -1,5 +1,6 @@
 const fs = require('fs');
 const mongoose = require('mongoose');
+const fcmAdmin = require('firebase-admin');
 const colors = require('colors');
 const dotenv = require('dotenv');
 
@@ -10,6 +11,12 @@ dotenv.config({path: __dirname.split("config")[0] + "config.env"});
 const User = require('../models/user');
 const Review = require("../models/review");
 
+const serviceAccount = require("../baddy-f34f0-firebase-adminsdk-sjzl7-2d48ddf636.json");
+
+fcmAdmin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "https://baddy-f34f0.firebaseio.com"
+});
 // Connect to DB
 mongoose.connect(process.env.DB_URL, {
     useNewUrlParser: true,

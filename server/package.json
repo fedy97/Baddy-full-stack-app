@@ -31,7 +31,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.7",
     "morgan": "^1.10.0",
-    "validator": "^13.1.17"
+    "validator": "^13.1.17",
+    "firebase-admin": "^9.4.2"
   },
   "devDependencies": {
     "eslint": "^7.7.0",
