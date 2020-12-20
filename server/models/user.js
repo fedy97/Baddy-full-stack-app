@@ -66,6 +66,10 @@ const userSchema = new Schema({
         ratingsQuantity: {
             type: Number,
             default: 0
+        },
+        registrationToken:{
+            type: String,
+            trim: true
         }
     },
     {

@@ -16,7 +16,8 @@ var functions = {
                 newUser = await User.create({
                     username: req.body.username,
                     password: req.body.password,
-                    email: req.body.email
+                    email: req.body.email,
+                    registrationToken: req.registrationToken
                 });
             //if not a user, it is a "other", so city and phone must be provided
             else if (req.body.phone != null && req.body.city != null)
@@ -29,7 +30,8 @@ var functions = {
                     role: "other",
                     firstName: req.body.firstName,
                     lastName: req.body.lastName,
-                    available: true
+                    available: true,
+                    registrationToken: req.registrationToken
                 });
             else
                 return next(new AppError('You have to provide phone and city too!', 400));

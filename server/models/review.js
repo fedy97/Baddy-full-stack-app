@@ -83,6 +83,25 @@ reviewSchema.statics.calcAverageRatings = async function (userReviewed) {
  */
 reviewSchema.post('save', async function () {
     // this -> current Review document, this.constructor -> Review model
+    let message = {
+        notification: {
+            title: `New review`,
+            body: `${this.user.firstName} ${this.user.lastName} has just reviewed your profile`
+        },
+        token: this.userReviewed.registrationToken
+    };
+
+    // Send a message to the device corresponding to the provided
+    // registration token.
+    fcmAdmin.messaging().send(message)
+        .then((response) => {
+            // Response is a message ID string.
+            console.log('Successfully sent message:', response);
+        })
+        .catch((error) => {
+            console.log('Error sending message:', error);
+        });
+
     await this.constructor.calcAverageRatings(this.userReviewed);
 });
 
