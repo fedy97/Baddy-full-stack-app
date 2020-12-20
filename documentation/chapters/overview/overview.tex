@@ -1,0 +1,141 @@
+\documentclass[../../dd.tex]{subfiles}
+
+% Document
+\begin{document}
+\chapter{General Overview}
+\section{Concept}
+    \textit{Baddy} is a cross-platform application that allows people to find a caregiver for the elders.
+    The application requires both end users and caregivers to authenticate with their email, filling a customized form
+    based on the role of the user.
+    Those data are mandatory in order to use the application.
+    The main components of the project are:
+    \begin{itemize}
+        \item A client that queries the database to fetch data of users, but also send data to it,
+        like pictures or new user data.
+        \item A server that listens to requests and links the client to the database with all the needed logic, like
+        the authentication part for example.
+    \end{itemize}
+\section{Core Features}
+    In this section, a list of the core functionalities of the application is exploited.
+    The features are divided by screen where they are present, allowing the reader
+    to easily understand them and where they could be found in the application.
+    \subsection{Splash Screen}
+    This is a welcome page screen that pops up only for the very first time a new user opens the application.
+    It briefly describes all the functionalities contained in the app.
+
+    \subsection{Authentication Screens}
+    \begin{itemize}
+        \item Allows the user to authenticate using his/her email and password.
+        \item Allows the user to register his/her-self in the application.
+    \end{itemize}
+
+    \subsection{Homepage}
+    \begin{itemize}
+        \item Allows the user to search for a caregiver, by specifying the city.
+        \item Shows all the information of the caregivers, including name, city, price/h and average rating
+        \item Allows to navigate to the profile page if logged in as caregiver
+        \item Allows to log out the user.
+    \end{itemize}
+
+    \subsection{Update Profile Screen}
+    \begin{itemize}
+        \item Allows the caregiver to change his personal information, such as birth, gender, nationality,
+        city, availability, name, surname, phone number.
+        \item Allows the caregiver to update his profile photo.
+    \end{itemize}
+
+    \subsection{Profile Screen}
+    \begin{itemize}
+        \item Allows users to check for specific information about a caregiver, such as birth, gender, nationality,
+        city, availability, name, surname, phone number.
+        \item Allows users to check for reviews written by other users about the specific caregiver.
+        \item Allows users to write a review about the specific caregiver.
+    \end{itemize}
+
+\section{Functional Requirements}
+    \subsection{General Requirements}
+    \begin{itemize}
+        \item The app can be used by everyone who needs to find a caregiver, and also all caregivers can use
+        tha application in order to find new clients.
+        \item The app needs user auth, so it has also to provide a registration form.
+        \item The app needs internet connection in order to communicate with the server.
+        \item The server must accept requests from the client app.
+    \end{itemize}
+
+    \subsection{Splash Requirements}
+    \begin{itemize}
+        \item Splash screen should be visible only the first time the user opens the application.
+        \item Splash screen should contain a text followed by an image that explains the purpose of the app.
+        \item A swipe left/right should be present in order to switch between 3 different splash screens.
+    \end{itemize}
+
+    \subsection{Authentication Requirements}
+    \begin{itemize}
+        \item Login screen should be accessible only to users not currently logged in.
+        \item Authentication screens should allow users to register or login using
+        email and password.
+        If the user wants to sign up as a caregiver, additional information is required: phone number and city.
+        \item Authentication screens should redirect the user to the Homepage
+        if the authentication is successful.
+    \end{itemize}
+
+    \subsection{Homepage Requirements}
+    \begin{itemize}
+        \item \textit{The homepage} should contain a search box for the city, and a list of caregivers.
+        \item Each list tile should contain name, surname, city, photo, price/h, and average rating of the caregiver.
+        \item As soon as the user type something in the search box, list tiles that do not match the current string should disappear.
+        \item Whenever the user taps on the list tile, the \textit{Profile Screen} should appear.
+        \item The app bar should contain the name of the logged user plus 2 action buttons, the first to update the profile
+        (only if logged in as caregiver, otherwise is hidden), and the second to logout.
+    \end{itemize}
+
+    \subsection{Update Profile Requirements}
+    \begin{itemize}
+        \item \textit{Update Profile Page} should be visible only by the caregiver.
+        \item \textit{Update Profile Page} should allow the caregiver to update his information, so that all the other users can see the changes.
+        \item The date should be inserted in the right format.
+        \item Gender can be chosen between 3 options only: male, female, transgender.
+        \item The caregiver must be adult in order to use the application, so the birthdate must be compliant with that.
+        \item The caregiver must be able to update his photo, either by using the camera or the gallery.
+    \end{itemize}
+
+    \subsection{Profile Requirements}
+    \begin{itemize}
+        \item \textit{The profile} should display the photo of the selected caregiver.
+        \item \textit{The profile} should display all the information that can be inserted in the \textit{Update Profile Screen}.
+        \item A bottom bar must be visible in order to swap tabs, the first tab contains information about the caregiver, the second tab
+        contains a list of reviews written for the current caregiver, and the third one contains a form to write the review with the possibility
+        to choose how many stars give to the caregiver.
+        \item Caregiver are not allowed to write reviews.
+    \end{itemize}
+
+\section{Non-Functional Requirements}
+These are the non-functional requirements that specify criteria that can be
+used to judge the operations of the application.
+    \begin{itemize}
+        \item \textbf{Availability} the services must be always up and running.
+        In case of failure it must be restored as soon as possible.
+        \item \textbf{Extensibility} the application was developed trying to keep a simple
+        structure in order to allow further extensions easily.
+        \item \textbf{Maintainability} the code must be clear, readable and with explicative
+        comments to allow future maintenance.
+        \item \textbf{Eye catching UI} nowadays is very important to have a cleaned
+        and simple design.
+        The application was developed following the Apple
+        Human Interface Guidelines.
+        \item \textbf{Portability} cross-platform implementation allows to use the application both in Android and iOS systems;
+        \item \textbf{Reliability} all the data must be trusted, and they could not be modified
+        by anyone.
+        The remote database must be protected and the connection
+        between client and server must be handled with an HTTPS protocol.
+        \item \textbf{Scalability} the system (considering client and server) should always
+        be available to be used.
+        System failures and server-side crashes must be avoided;
+        \item \textbf{Usability} the application was developed to make the user interface as
+        simple as possible keeping all the functionalities needed to provide the
+        best user experience.
+
+    \end{itemize}
+
+
+\end{document}
