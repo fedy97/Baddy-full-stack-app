@@ -18,16 +18,16 @@ class _BodyState extends State<Body> {
   String resp;
   List<Map<String, String>> splashData = [
     {
-      "text": "Welcome to ...!",
-      "image": "assets/images/splash_1.png"
+      "text": "Welcome to Baddy!",
+      "image": "assets/images/elders1.jpg"
     },
     {
       "text":
-          "Some text here \nother text here",
-      "image": "assets/images/splash_2.png"
+          "Find your perfect caregiver!",
+      "image": "assets/images/elders2.jpg"
     },
     {
-      "text": "Some text here \nother text here",
+      "text": "Find new clients to take care!",
       "image": "assets/images/splash_3.png"
     },
   ];
