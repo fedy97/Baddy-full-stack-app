@@ -39,6 +39,20 @@ const functions = {
             success: true,
             data: user
         });
+    }),
+
+    updateRegistrationToken: catchAsync(async (req, res, next) => {
+        if (req.body.registrationToken == null) {
+            return next(new AppError('Registration token must be properly valued', 400));
+        }
+        const validRegistrationToken = {registrationToken: req.body.registrationToken}
+        await User.findByIdAndUpdate(req.user._id, validRegistrationToken, {
+            runValidators: true
+        });
+
+        res.status(200).json({
+            success: true
+        });
     })
 }
 

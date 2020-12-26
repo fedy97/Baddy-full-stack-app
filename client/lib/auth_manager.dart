@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:polimi_app/services/apis.dart';
@@ -41,12 +42,16 @@ class AuthManager extends StatelessWidget {
               model.user = loggedUser;
               //check if jwt has expired
               if (DateTime.fromMillisecondsSinceEpoch(payload["exp"] * 1000)
-                      .isAfter(DateTime.now()) && logOnce != "nextTimeRelog") {
+                      .isAfter(DateTime.now()) &&
+                  logOnce != "nextTimeRelog") {
                 var storage = FlutterSecureStorage();
                 if (remember == "false")
                   storage.write(key: 'logOnce', value: "nextTimeRelog");
                 else
                   storage.write(key: 'logOnce', value: "keepMeLogged");
+                //update firebase token
+                putRegistrationToken(str);
+
                 return HomePage();
               } else {
                 var storage = FlutterSecureStorage();
@@ -84,5 +89,13 @@ class AuthManager extends StatelessWidget {
     jwtRemember["remember"] = remember;
     jwtRemember["logOnce"] = logOnce;
     return jwtRemember;
+  }
+
+  Future<void> putRegistrationToken(String jwt) async {
+    String clientToken = FirebaseMessaging.instance.getToken().then((token) {
+      print("Token Init: " + token.toString());
+    }).toString();
+
+    await Apis.updateRegistrationToken(jwt, clientToken);
   }
 }

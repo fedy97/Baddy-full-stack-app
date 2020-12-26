@@ -19,6 +19,9 @@ router.patch('/updateDetails',
     //usersController.resizeUserPhoto,
     usersController.updateDetails);
 
+router.put('/registrationToken',
+    usersController.updateRegistrationToken);
+
 router.patch('/updateMyPassword', authController.updatePassword);
 
 router.get('/available', usersController.getAvailableUsers);
