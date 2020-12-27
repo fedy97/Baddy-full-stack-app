@@ -125,3 +125,4 @@ typings/
 *.toc
 *.synctex.gz
 dd.pdf
+*.lof
