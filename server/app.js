@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const helmet = require('helmet');
 const cors = require('cors');
 const connectDb = require('./config/db')
+const initFirebase = require('./config/firebase')
 const dotenv = require('dotenv').config({path: __dirname + "/config.env"});
 const {globalErrorHandler, notFound} = require('./controllers/errorController')
 const usersRoutes = require('./routes/usersRoutes');
@@ -11,6 +12,8 @@ const reviewsRoutes = require('./routes/reviewsRoutes');
 const app = express();
 
 connectDb();
+initFirebase();
+
 
 if (process.env.NODE_ENV === 'development')
     app.use(morgan('dev'))
