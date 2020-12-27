@@ -43,6 +43,7 @@ class Apis {
       Response response = await dio.put(URL + usersRoute + "/registrationToken",
           data: jsonEncode(body),
           options: Options(headers: {'Authorization': 'Bearer $jwt'}));
+      print("Called " + URL + usersRoute + "/registrationToken with $jwt");
       return response.data;
     } on DioError catch (e) {
       print(e.response);
