@@ -1,5 +1,5 @@
 const fcmAdmin = require('firebase-admin');
-const serviceAccount = require("baddy-f34f0-firebase-adminsdk-sjzl7-2d48ddf636.json");
+const serviceAccount = require("../baddy-f34f0-firebase-adminsdk-sjzl7-2d48ddf636.json");
 
 const initFirebase = () => {
     try {
