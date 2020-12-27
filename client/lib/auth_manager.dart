@@ -91,11 +91,9 @@ class AuthManager extends StatelessWidget {
     return jwtRemember;
   }
 
-  Future<void> putRegistrationToken(String jwt) async {
-    String clientToken = FirebaseMessaging.instance.getToken().then((token) {
-      print("Token Init: " + token.toString());
-    }).toString();
-
+  void putRegistrationToken(String jwt) async {
+    String clientToken = await FirebaseMessaging.instance.getToken();
+    print("FCM Token" + clientToken);
     await Apis.updateRegistrationToken(jwt, clientToken);
   }
 }

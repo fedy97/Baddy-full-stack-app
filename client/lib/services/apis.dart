@@ -36,15 +36,15 @@ class Apis {
     }
   }
 
-  static Future<Map> updateRegistrationToken(String jwt, String registrationToken) async {
+  static void updateRegistrationToken(String jwt, String registrationToken) async {
     var body = {'registrationToken': registrationToken};
     try {
       var dio = Dio();
-      Response response = await dio.put(URL + usersRoute + "/registrationToken",
+      await dio.put(URL + usersRoute + "/registrationToken",
           data: jsonEncode(body),
           options: Options(headers: {'Authorization': 'Bearer $jwt'}));
+      print(jsonEncode(body));
       print("Called " + URL + usersRoute + "/registrationToken with $jwt");
-      return response.data;
     } on DioError catch (e) {
       print(e.response);
       return null;
