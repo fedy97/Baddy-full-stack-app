@@ -74,12 +74,13 @@ class ProfilePage extends StatelessWidget {
                                   return ListReviewsWidget();
                                   break;
                                 case 2:
-                                  return WriteReviewWidget();
+                                  return model.user.role != 'other' ? WriteReviewWidget() : Text('Not allowed');
                                   break;
                                 default:
                                   return Container();
                               }
                             },
+                            // call the Selector builder only if currentProfilePage changes
                             selector: (_, model) => model.currentProfilePage),
                       ],
                     ),
