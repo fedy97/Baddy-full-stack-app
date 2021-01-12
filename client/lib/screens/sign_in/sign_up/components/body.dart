@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:polimi_app/components/socal_card.dart';
+import 'package:polimi_app/components/social_card.dart';
 
 import '../../../../constants.dart';
 import '../../../../size_config.dart';

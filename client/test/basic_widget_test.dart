@@ -9,7 +9,7 @@ import 'package:polimi_app/components/form_error.dart';
 import 'package:polimi_app/components/no_account_text.dart';
 import 'package:polimi_app/components/rating_stars.dart';
 import 'package:polimi_app/components/search_box.dart';
-import 'package:polimi_app/components/socal_card.dart';
+import 'package:polimi_app/components/social_card.dart';
 import 'package:polimi_app/constants.dart';
 import 'package:polimi_app/models/user/standardUser.dart';
 import 'package:polimi_app/screens/complete_profile/components/complete_profile_form.dart';

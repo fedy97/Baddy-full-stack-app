@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:polimi_app/components/no_account_text.dart';
-import 'package:polimi_app/components/socal_card.dart';
+import 'package:polimi_app/components/social_card.dart';
 import 'package:polimi_app/constants.dart';
 
 import '../../../size_config.dart';
