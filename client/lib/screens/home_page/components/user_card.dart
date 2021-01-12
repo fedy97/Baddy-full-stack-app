@@ -63,7 +63,7 @@ class UserCard extends StatelessWidget {
               left: 0,
               child: SizedBox(
                 height: 136,
-                // our image take 200 width, thats why we set out total width - 200
+                // our image take 200 width, that's why we set out total width - 200
                 width: MediaQuery.of(context).size.width - 200,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

@@ -4,6 +4,7 @@ import 'package:polimi_app/components/custom_button_role.dart';
 import 'package:polimi_app/constants.dart';
 import 'package:polimi_app/screens/choose_role_page/choose_role_page.dart';
 import 'package:polimi_app/screens/complete_profile/complete_profile_screen.dart';
+import 'package:polimi_app/screens/complete_profile/components/complete_profile_form.dart';
 
 void main() {
 
@@ -48,8 +49,8 @@ void main() {
         findsOneWidget);
   });
 
-  testWidgets('Compete profile page widget test', (WidgetTester tester) async {
-
+  testWidgets('Complete profile page widget test', (WidgetTester tester) async {
+    final termsAndCondition = "By continuing your confirm that you agree \nwith our Term and Condition";
     await tester.pumpWidget(buildTestableWidget(CompleteProfileScreen()));
 
     expect(
@@ -62,10 +63,16 @@ void main() {
     expect(
         find.byWidgetPredicate(
                 (widget) =>
-            widget is AppBar && (widget.title as Text).data == 'Complete Profile',
-            description: "AppBar with static text"),
+            widget is CompleteProfileForm,
+            description: "Custom form to edit user data"),
         findsOneWidget);
 
+    expect(
+        find.byWidgetPredicate(
+                (widget) =>
+            widget is Text && widget.data == termsAndCondition,
+            description: "Text widget with T&C"), //mandatory to show terms and conditions
+        findsOneWidget);
   });
 }
 
