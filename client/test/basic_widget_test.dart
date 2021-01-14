@@ -1,5 +1,6 @@
 import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:polimi_app/components/custom_button_role.dart';
@@ -11,9 +12,14 @@ import 'package:polimi_app/components/rating_stars.dart';
 import 'package:polimi_app/components/search_box.dart';
 import 'package:polimi_app/components/social_card.dart';
 import 'package:polimi_app/constants.dart';
+import 'package:polimi_app/models/review.dart';
 import 'package:polimi_app/models/user/standardUser.dart';
 import 'package:polimi_app/screens/complete_profile/components/complete_profile_form.dart';
 import 'package:polimi_app/screens/home_page/components/user_card.dart';
+import 'package:polimi_app/screens/profile/components/review_card.dart';
+import 'package:polimi_app/screens/profile/components/write_review.dart';
+import 'package:polimi_app/screens/sign_in/sign_up/components/sign_up_form.dart';
+import 'package:polimi_app/screens/update_profile/update_profile_page.dart';
 
 void main() {
   //test Default button behaviour
@@ -234,6 +240,7 @@ void main() {
 
   testWidgets('Complete profile form widget test', (WidgetTester tester) async {
     final fieldsNumber = 4;
+    final fieldTitles = ["City", "Phone Number", "Last Name", "First Name"];
     final buttonLabel = "Register";
     await tester
         .pumpWidget(buildTestableWidgetWithScaffold(CompleteProfileForm()));
@@ -243,6 +250,10 @@ void main() {
             description: "Text form field"),
         findsNWidgets(
             fieldsNumber)); //expecting 4 form fields to enter first name, last name, phone number and city
+
+    fieldTitles.forEach((el) {
+      expect(find.text(el), findsOneWidget);
+    });
 
     expect(
         find.byWidgetPredicate((widget) => widget is FormError,
@@ -256,17 +267,21 @@ void main() {
         findsOneWidget);
   });
 
-  testWidgets('Complete profile form widget test', (WidgetTester tester) async {
+  testWidgets('Sign up form widget test', (WidgetTester tester) async {
     final fieldsNumber = 4;
-    final buttonLabel = "Register";
-    await tester
-        .pumpWidget(buildTestableWidgetWithScaffold(CompleteProfileForm()));
+    final fieldTitles = ["Username", "Mail", "Password", "Confirm Password"];
+    final buttonLabel = "Continue";
+    await tester.pumpWidget(buildTestableWidgetWithScaffold(SignUpForm()));
 
     expect(
         find.byWidgetPredicate((widget) => widget is TextFormField,
             description: "Text form field"),
         findsNWidgets(
-            fieldsNumber)); //expecting 4 form fields to enter first name, last name, phone number and city
+            fieldsNumber)); //expecting 4 form fields to enter name, email, password and confirm password
+
+    fieldTitles.forEach((el) {
+      expect(find.text(el), findsOneWidget);
+    });
 
     expect(
         find.byWidgetPredicate((widget) => widget is FormError,
@@ -276,6 +291,27 @@ void main() {
     expect(
         find.byWidgetPredicate(
             (widget) => widget is DefaultButton && widget.text == buttonLabel,
+            description: "Default button with text Register"),
+        findsOneWidget);
+  });
+
+  testWidgets('Update profile widget test', (WidgetTester tester) async {
+    final fieldTitles = ["Nome", "Cognome", "Phone", "City", "Nationality"];
+    final buttonLabel = "Aggiorna";
+    await tester.pumpWidget(buildTestableWidget(UpdateProfile()));
+
+    fieldTitles.forEach((el) {
+      expect(find.text(el), findsOneWidget);
+    });
+
+    expect(
+        find.byWidgetPredicate((widget) => widget is FormError,
+            description: "Customizable form error widget"),
+        findsOneWidget);
+
+    expect(
+        find.byWidgetPredicate(
+                (widget) => widget is DefaultButton && widget.text == buttonLabel,
             description: "Default button with text Register"),
         findsOneWidget);
   });
@@ -337,11 +373,91 @@ void main() {
 
     expect(
         find.byWidgetPredicate(
-                (widget) =>
-            widget is Text &&
+            (widget) =>
+                widget is Text &&
                 widget.data == "Nome: ${expectedDisplayedName.toUpperCase()}",
             description: "Text with user's name"), //should cut the name
         findsOneWidget);
+  });
+
+  testWidgets('Review card widget test', (WidgetTester tester) async {
+    final index = 0;
+    final reviewerUsername = "reviewerUsername";
+
+    final reviewedUser = StandardUser(
+        birth: new DateTime.now(),
+        gender: "M",
+        username: "testUser",
+        firstName: "firstName",
+        lastName: "lastName",
+        phone: "phone",
+        city: "city",
+        role: "role",
+        ratingsQuantity: 3,
+        ratingsAverage: 3.0);
+
+    await tester.pumpWidget(buildTestableWidgetWithScaffold(ReviewCard(
+      itemIndex: index,
+      review: Review(
+          createdAt: DateTime.now(),
+          userReviewed: reviewedUser,
+          userReviewer: StandardUser(username: reviewerUsername),
+          rating: 3.5),
+    )));
+
+    expect(
+        find.byWidgetPredicate(
+            (widget) =>
+                widget is Text && widget.data == "Username: $reviewerUsername",
+            description: "Text with reviewer username"),
+        findsOneWidget);
+
+    expect(
+        find.byWidgetPredicate(
+            (widget) =>
+                widget is Row &&
+                ((widget.children.elementAt(0) is Text) &&
+                    (widget.children.elementAt(0) as Text).data == "Vote:" &&
+                    (widget.children.elementAt(2) as IconTheme).child
+                        is RatingStars),
+            //Rating stars behavior already tested, just need to check if place correctly
+            description: "Row with Vote: 'RatingStars'"),
+        findsOneWidget);
+
+    expect(
+        find.byWidgetPredicate(
+            (widget) =>
+                widget is Row &&
+                ((widget.children.elementAt(0) is Text) &&
+                    (widget.children.elementAt(0) as Text).data == "Review:" &&
+                    (widget.children.elementAt(2) is GestureDetector)),
+            description: "Row with Vote: 'RatingStars'"),
+        findsOneWidget);
+  });
+
+  testWidgets('Write review widget test', (WidgetTester tester) async {
+    final buttonLabel = "Invia";
+
+    await tester.pumpWidget(buildTestableWidget(WriteReviewWidget()));
+
+    expect(
+        find.byWidgetPredicate((widget) => widget is RatingBar,
+            description: "Rating bar with static content"),
+        findsOneWidget);
+
+    expect(
+        find.byWidgetPredicate((widget) => widget is FormError, //already tested
+            description: "Customizable form error widget"),
+        findsOneWidget);
+
+    expect(
+        find.byWidgetPredicate(
+            (widget) =>
+                widget is DefaultButton &&
+                (widget.text == buttonLabel && widget.press != null),
+            description: "Customizable form error widget"),
+        findsOneWidget);
+
   });
 }
 
