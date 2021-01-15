@@ -311,7 +311,7 @@ void main() {
 
     expect(
         find.byWidgetPredicate(
-                (widget) => widget is DefaultButton && widget.text == buttonLabel,
+            (widget) => widget is DefaultButton && widget.text == buttonLabel,
             description: "Default button with text Register"),
         findsOneWidget);
   });
@@ -457,7 +457,6 @@ void main() {
                 (widget.text == buttonLabel && widget.press != null),
             description: "Customizable form error widget"),
         findsOneWidget);
-
   });
 }
 
