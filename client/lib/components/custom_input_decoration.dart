@@ -21,7 +21,7 @@ InputDecoration customInputDecoration({String iconName, @required String title})
       ),
     ),
     labelText: title,
-    hintText: "Inserisci",
+    hintText: "Insert here",
     labelStyle: GoogleFonts.montserrat(color: kPrimaryColor),
     hintStyle: GoogleFonts.montserrat(color: kPrimaryColor),
     floatingLabelBehavior: FloatingLabelBehavior.always,

@@ -39,9 +39,9 @@ class AlertService {
 
   String _chooseTitle(AlertType type) {
     if (type == AlertType.success) {
-      return "Successo";
+      return "Success";
     } else if (type == AlertType.error) {
-      return "Errore";
+      return "Error";
     } else {
       return "Warning";
     }

@@ -59,7 +59,7 @@ Widget profileText() {
         gradient: kPrimaryGradientColor,
         boxShadow: [kDefaultShadow]),
     child: Text(
-      'Profilo',
+      'Account',
       style: GoogleFonts.montserrat(
           color: Colors.white, fontSize: getProportionateScreenWidth(30)),
     ),

@@ -36,7 +36,7 @@ void main() {
         find.byWidgetPredicate(
             (widget) =>
                 widget is Text &&
-                widget.data == "Nome: ${testUser.firstName.toUpperCase()}",
+                widget.data == "Name: ${testUser.firstName.toUpperCase()}",
             description: "Text with user's name"), //should not cut the name
         findsOneWidget);
 
@@ -44,7 +44,7 @@ void main() {
         find.byWidgetPredicate(
             (widget) =>
                 widget is Text &&
-                widget.data == "Citta: ${testUser.city.toUpperCase()}",
+                widget.data == "City: ${testUser.city.toUpperCase()}",
             description: "Text with user's city"), //should not cut the name
         findsOneWidget);
 
@@ -64,7 +64,7 @@ void main() {
         find.byWidgetPredicate(
             (widget) =>
                 widget is Text &&
-                widget.data == "Nome: ${expectedDisplayedName.toUpperCase()}",
+                widget.data == "Name: ${expectedDisplayedName.toUpperCase()}",
             description: "Text with user's name"), //should cut the name
         findsOneWidget);
   });

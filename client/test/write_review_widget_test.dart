@@ -7,7 +7,7 @@ import 'package:polimi_app/screens/profile/components/write_review.dart';
 
 void main() {
   testWidgets('Write review widget test', (WidgetTester tester) async {
-    final buttonLabel = "Invia";
+    final buttonLabel = "Send";
 
     await tester.pumpWidget(buildTestableWidget(WriteReviewWidget()));
 

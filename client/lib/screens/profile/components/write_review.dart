@@ -86,7 +86,7 @@ class _WriteReviewWidgetState extends State<WriteReviewWidget> {
                   if (result["status"] != "fail")
                     AlertService().showAlert(
                       context: context,
-                      message: 'Recensione inviata',
+                      message: 'Review completed!',
                       type: AlertType.success,
                     );
                   else {
@@ -107,7 +107,7 @@ class _WriteReviewWidgetState extends State<WriteReviewWidget> {
                 stop();
               }
             },
-            text: "Invia",
+            text: "Send",
           ),
         ),
       ],
@@ -139,7 +139,7 @@ class _WriteReviewWidgetState extends State<WriteReviewWidget> {
             return null;
           },
           decoration:
-              customInputDecoration(title: "Recensione", iconName: "Star"),
+              customInputDecoration(title: "Review", iconName: "Star"),
         ));
   }
 }

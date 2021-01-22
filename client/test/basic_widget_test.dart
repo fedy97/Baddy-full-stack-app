@@ -72,7 +72,7 @@ void main() {
 
   testWidgets('Search box test', (WidgetTester tester) async {
     //Matching parameters
-    final String defaultHintText = 'Cerca per citta\'';
+    final String defaultHintText = 'Search by city\'';
 
     await tester.pumpWidget(buildTestableWidgetWithScaffold(SearchBox()));
 
@@ -296,8 +296,8 @@ void main() {
   });
 
   testWidgets('Update profile widget test', (WidgetTester tester) async {
-    final fieldTitles = ["Nome", "Cognome", "Phone", "City", "Nationality"];
-    final buttonLabel = "Aggiorna";
+    final fieldTitles = ["First Name", "LastName", "Phone", "City", "Nationality"];
+    final buttonLabel = "Update";
     await tester.pumpWidget(buildTestableWidget(UpdateProfile()));
 
     fieldTitles.forEach((el) {
@@ -347,7 +347,7 @@ void main() {
         find.byWidgetPredicate(
             (widget) =>
                 widget is Text &&
-                widget.data == "Nome: ${testUser.firstName.toUpperCase()}",
+                widget.data == "Name: ${testUser.firstName.toUpperCase()}",
             description: "Text with user's name"), //should not cut the name
         findsOneWidget);
 
@@ -355,7 +355,7 @@ void main() {
         find.byWidgetPredicate(
             (widget) =>
                 widget is Text &&
-                widget.data == "Citta: ${testUser.city.toUpperCase()}",
+                widget.data == "City: ${testUser.city.toUpperCase()}",
             description: "Text with user's city"), //should not cut the name
         findsOneWidget);
 
@@ -375,7 +375,7 @@ void main() {
         find.byWidgetPredicate(
             (widget) =>
                 widget is Text &&
-                widget.data == "Nome: ${expectedDisplayedName.toUpperCase()}",
+                widget.data == "Name: ${expectedDisplayedName.toUpperCase()}",
             description: "Text with user's name"), //should cut the name
         findsOneWidget);
   });
@@ -436,7 +436,7 @@ void main() {
   });
 
   testWidgets('Write review widget test', (WidgetTester tester) async {
-    final buttonLabel = "Invia";
+    final buttonLabel = "Send";
 
     await tester.pumpWidget(buildTestableWidget(WriteReviewWidget()));
 

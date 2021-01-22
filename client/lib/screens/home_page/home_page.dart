@@ -44,7 +44,7 @@ class HomePage extends StatelessWidget {
     return AppBar(
       elevation: 0,
       centerTitle: false,
-      title: Text('Benvenuto, ${model.user.username}', style: GoogleFonts.montserrat(),),
+      title: Text('Welcome, ${model.user.username}', style: GoogleFonts.montserrat(),),
       actions: <Widget>[
         model.user.role == 'user' ? SizedBox.shrink() : IconButton(
           icon: SvgPicture.asset(
@@ -65,8 +65,8 @@ class HomePage extends StatelessWidget {
               context: context,
               headerAnimationLoop: false,
               animType: AnimType.BOTTOMSLIDE,
-              btnOkText: "Esci",
-              btnCancelText: "Cancella",
+              btnOkText: "Logout",
+              btnCancelText: "Delete",
               btnOkColor: Colors.red,
               btnCancelColor: kSecondaryColor,
               btnCancelOnPress: () async {},
@@ -75,8 +75,8 @@ class HomePage extends StatelessWidget {
                 Utils.popEverythingAndPush(
                     context: context, routeName: AuthManager.routeName);
               },
-              title: 'Esci',
-              desc: 'Sei sicuro?',
+              title: 'Logout',
+              desc: 'Are you sure?',
             )..show();
           },
         ),

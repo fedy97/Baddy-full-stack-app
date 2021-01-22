@@ -6,8 +6,8 @@ import 'package:polimi_app/screens/update_profile/update_profile_page.dart';
 
 void main() {
   testWidgets('Update profile widget test', (WidgetTester tester) async {
-    final fieldTitles = ["Nome", "Cognome", "Phone", "City", "Nationality"];
-    final buttonLabel = "Aggiorna";
+    final fieldTitles = ["First Name", "LastName", "Phone", "City", "Nationality"];
+    final buttonLabel = "Update";
     await tester.pumpWidget(buildTestableWidget(UpdateProfile()));
 
     fieldTitles.forEach((el) {

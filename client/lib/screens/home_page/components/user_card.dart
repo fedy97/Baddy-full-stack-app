@@ -75,7 +75,7 @@ class UserCard extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: kDefaultPadding),
                       child: Text(
-                        "Nome: ${user.firstName.length >= 10 ? user.firstName.toUpperCase().substring(0,9) : user.firstName.toUpperCase()}",
+                        "Name: ${user.firstName.length >= 10 ? user.firstName.toUpperCase().substring(0,9) : user.firstName.toUpperCase()}",
                         style: GoogleFonts.montserrat(color: kSecondaryColor, fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -86,7 +86,7 @@ class UserCard extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: kDefaultPadding),
                       child: Text(
-                        "Citta: ${user.city.toUpperCase()}",
+                        "City: ${user.city.toUpperCase()}",
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 15,

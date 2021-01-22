@@ -48,13 +48,13 @@ class ChooseRolePage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Cosa sei?',
+                        'Who are you?',
                         style: TextStyle(
                             fontSize: getProportionateScreenWidth(40),
                             color: kSecondaryColor),
                       ),
                       CustomButtonRole(
-                        descr: 'Badante',
+                        descr: 'Caregiver',
                         image: 'doctor.png',
                         onTap: () {
                           //put read if inside a tap function, otherwise watch
@@ -70,7 +70,7 @@ class ChooseRolePage extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 24, vertical: 26),
                   child: CustomButtonRole(
-                    descr: 'Cliente',
+                    descr: 'Customer',
                     image: 'user.png',
                     onTap: () {
                       context.read<Model>().isRegisteringAsStandard = true;

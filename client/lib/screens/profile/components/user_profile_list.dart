@@ -74,7 +74,7 @@ Widget buildUserProfileList(BuildContext context, Model model) {
           _field(
               index: 0,
               context: context,
-              title: "Nome",
+              title: "First Name",
               value: model.selectedUser.firstName,
               icon: Icons.person),
           SizedBox(
@@ -83,7 +83,7 @@ Widget buildUserProfileList(BuildContext context, Model model) {
           _field(
               index: 1,
               context: context,
-              title: "Cognome",
+              title: "Last Name",
               value: model.selectedUser.lastName,
               icon: Icons.person),
           SizedBox(

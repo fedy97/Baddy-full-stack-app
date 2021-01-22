@@ -48,6 +48,8 @@ dependencies:
   font_awesome_flutter: ^8.10.0
   firebase_messaging: ^8.0.0-dev.10
   firebase_core: 0.5.3
+  get: ^3.24.0
+  overlay_support: ^1.0.5
 
 dev_dependencies:
   flutter_test:

@@ -123,7 +123,7 @@ class UpdateProfile extends StatelessWidget {
               onChanged: (value) {
                 firstName = value;
               },
-              hintText: 'Nome',
+              hintText: 'First Name',
               icon: "User",
             ),
             SizedBox(height: getProportionateScreenHeight(12)),
@@ -132,7 +132,7 @@ class UpdateProfile extends StatelessWidget {
               onChanged: (value) {
                 lastName = value;
               },
-              hintText: 'Cognome',
+              hintText: 'Last Name',
               icon: "User",
             ),
             SizedBox(height: getProportionateScreenHeight(12)),
@@ -175,7 +175,7 @@ class UpdateProfile extends StatelessWidget {
             ),
             SizedBox(height: getProportionateScreenHeight(20)),
             DefaultButton(
-                text: "Aggiorna",
+                text: "Update",
                 press: (startLoading, stopLoading, btnState) async {
                   try {
                     startLoading();
@@ -196,7 +196,7 @@ class UpdateProfile extends StatelessWidget {
                     //TODO update this to show also error returned
                     AlertService().showAlert(
                       context: context,
-                      message: 'Profilo aggiornato',
+                      message: 'Profile updated',
                       type: AlertType.success,
                     );
                   } catch (e) {
