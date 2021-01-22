@@ -86,8 +86,8 @@ reviewSchema.post('save', async function () {
     // this -> current Review document, this.constructor -> Review model
     let message = {
         notification: {
-            title: `New review`,
-            body: `${this.user.username} has just reviewed your profile`
+            title: `${this.user.username} has just reviewed your profile`,
+            body: this.body
         },
         token: this.userReviewed.registrationToken
     };
