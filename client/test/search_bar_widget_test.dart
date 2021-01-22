@@ -6,7 +6,7 @@ import 'package:polimi_app/components/search_box.dart';
 void main() {
   testWidgets('Search box test', (WidgetTester tester) async {
     //Matching parameters
-    final String defaultHintText = 'Search by city\'';
+    final String defaultHintText = 'Search by city';
 
     await tester.pumpWidget(buildTestableWidgetWithScaffold(SearchBox()));
 

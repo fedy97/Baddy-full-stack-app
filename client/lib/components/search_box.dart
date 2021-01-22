@@ -33,7 +33,7 @@ class SearchBox extends StatelessWidget {
           //the line under the field will show if this is not none
           focusedBorder: InputBorder.none,
           icon: SvgPicture.asset("assets/icons/search.svg"),
-          hintText: 'Search by city\'',
+          hintText: 'Search by city',
           hintStyle: TextStyle(color: Colors.white),
         ),
       ),
