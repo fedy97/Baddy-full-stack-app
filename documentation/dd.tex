@@ -25,6 +25,10 @@
 \usepackage[dvipsnames]{xcolor}
 \usepackage{listings}
 \usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{color}
 
 %%%%%%%%%%%%
 % DOC STYLES
@@ -75,6 +79,31 @@
 
 \providecommand{\atd}{.}
 
+
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\usepackage{listings}
+\lstset{%
+numbers=left,
+frame=single,
+basicstyle=\small,
+numbers=left,
+numberstyle=\tiny,
+numbersep=15pt,tabsize=4,
+flexiblecolumns=true,
+keywordstyle=\color{blue},
+commentstyle=\color{dkgreen},
+stringstyle=\color{mauve},
+numberstyle=\tiny\color{gray},
+language=Java,
+breaklines=true,
+breakatwhitespace=true,
+morekeywords={*,num,String,var,library,get,set} ,
+}
+
 %BODY
 \begin{document}
     \begin{titlepage}
@@ -119,4 +148,5 @@
     \subfile{chapters/architectural_design/architectural_design.tex}
     \subfile{chapters/user_interface_design/user_interface_design.tex}
     \subfile{chapters/testing/testing.tex}
+
 \end{document}
