@@ -9,6 +9,7 @@ dotenv.config({path: __dirname.split("config")[0] + "config.env"});
 // Load models
 const User = require('../models/user');
 const Review = require("../models/review");
+const Message = require("../models/message")
 
 // Connect to DB
 mongoose.connect(process.env.DB_URL, {
