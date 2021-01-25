@@ -87,7 +87,7 @@ reviewSchema.post('save', async function () {
     let message = {
         notification: {
             title: `${this.user.username} has just reviewed your profile`,
-            body: this.review
+            body: 'frf'
         },
         token: this.userReviewed.registrationToken
     };
