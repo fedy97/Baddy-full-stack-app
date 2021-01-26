@@ -28,10 +28,10 @@ class SplashContent extends StatelessWidget {
           textAlign: TextAlign.center,
           style: GoogleFonts.montserrat(color: kPrimaryColor, ),
         ),
-        SizedBox(height: 50,),
+        SizedBox(height: 10,),
         Image.asset(
           image,
-          height: getProportionateScreenHeight(350),
+          height: getProportionateScreenHeight(300),
           width: getProportionateScreenWidth(350),
         ),
       ],
