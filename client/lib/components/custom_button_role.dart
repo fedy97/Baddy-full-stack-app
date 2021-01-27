@@ -40,7 +40,7 @@ class CustomButtonRole extends StatelessWidget {
                   children: [
                     Image.asset('assets/images/$image'),
                     SizedBox(
-                      width: 45,
+                      width: 20,
                     ),
                     Text(
                       '$descr',

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:polimi_app/components/profile_widgets.dart';
 import 'package:polimi_app/models/model.dart';
 import 'package:polimi_app/screens/profile/components/write_review.dart';
+import 'package:polimi_app/screens/update_profile/update_profile_page.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants.dart';
@@ -31,6 +32,19 @@ class ProfilePage extends StatelessWidget {
               bottomNavigationBar: _buildBottomNavBar(model),
               resizeToAvoidBottomInset: false,
               appBar: AppBar(
+                actions: [
+                  model.selectedUser != model.user ? SizedBox.shrink() :
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: IconButton(
+                      icon: Icon(Icons.edit),
+                      color: Colors.white,
+                      onPressed: () {
+                        Navigator.pushNamed(context, UpdateProfile.routeName);
+                      },
+                    ),
+                  ),
+                ],
                 iconTheme: IconThemeData(
                   color: Colors.white, //change your color here
                 ),

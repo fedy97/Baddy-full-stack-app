@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:polimi_app/models/model.dart';
+import 'package:polimi_app/screens/profile/profile_page.dart';
 import 'package:polimi_app/screens/update_profile/update_profile_page.dart';
 import 'package:polimi_app/services/access_manager.dart';
 import 'package:polimi_app/services/apis.dart';
@@ -46,13 +47,24 @@ class HomePage extends StatelessWidget {
       centerTitle: false,
       title: Text('Welcome, ${model.user.username}', style: GoogleFonts.montserrat(),),
       actions: <Widget>[
+        IconButton(
+          onPressed: () async {
+            Map response = await Apis.getAvailableUsers(model.user.jwt);
+            model.storeAvailableUsers(response);
+          },
+          icon: Icon(Icons.refresh),
+          color: Colors.white,
+        ),
         model.user.role == 'user' ? SizedBox.shrink() : IconButton(
           icon: SvgPicture.asset(
             "assets/icons/User_Icon.svg",
             color: Colors.white,
           ),
           onPressed: () async {
-            Navigator.pushNamed(context, UpdateProfile.routeName);
+            model.setSelectedUser(model.user);
+            await Navigator.pushNamed(context, ProfilePage.routeName);
+            model.selectedUser.reviewsAboutMe = null;
+            model.setSelectedUser(null);
           },
         ),
         IconButton(
@@ -66,7 +78,7 @@ class HomePage extends StatelessWidget {
               headerAnimationLoop: false,
               animType: AnimType.BOTTOMSLIDE,
               btnOkText: "Logout",
-              btnCancelText: "Delete",
+              btnCancelText: "Back",
               btnOkColor: Colors.red,
               btnCancelColor: kSecondaryColor,
               btnCancelOnPress: () async {},

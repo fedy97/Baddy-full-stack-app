@@ -1,9 +1,9 @@
-import '../enum/role.dart';
 import 'user.dart';
 
 class StandardUser extends User {
   StandardUser(
       {birth,
+      price,
       gender,
       username,
       firstName,
@@ -19,6 +19,7 @@ class StandardUser extends User {
       nationality})
       : super(
             birth: birth,
+            price: price,
             gender: gender,
             username: username,
             firstName: firstName,
@@ -38,6 +39,7 @@ class StandardUser extends User {
     Map user = payload;
     var role = user['role'];
     var photo = user["photo"];
+    var price = user["price"].toString();
     var ratingsQuantity = user["ratingsQuantity"];
     var username = user["username"];
     var ratingsAverage = user["ratingsAverage"];
@@ -59,6 +61,7 @@ class StandardUser extends User {
         firstName: firstName,
         lastName: lastName,
         jwt: jwtToStore,
+        price: price,
         phone: phone,
         photo: photo,
         nationality: nationality,

@@ -49,6 +49,7 @@ dependencies:
   firebase_messaging: ^8.0.0-dev.10
   firebase_core: 0.5.3
   overlay_support: ^1.0.5
+  tuple: ^1.0.3
 
 dev_dependencies:
   flutter_test:
