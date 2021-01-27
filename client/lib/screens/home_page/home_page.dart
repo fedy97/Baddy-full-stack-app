@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:polimi_app/models/model.dart';
+import 'package:polimi_app/screens/message_page/message_page.dart';
 import 'package:polimi_app/screens/profile/profile_page.dart';
 import 'package:polimi_app/screens/update_profile/update_profile_page.dart';
 import 'package:polimi_app/services/access_manager.dart';
@@ -24,6 +25,12 @@ class HomePage extends StatelessWidget {
           //Utils.hideKeyboard(context: context);
         },
         child: Scaffold(
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              Navigator.pushNamed(context, MessagePage.routeName);
+            },
+            child: Icon(Icons.mail_outline),
+          ),
         appBar: buildAppBar(context),
         backgroundColor: kPrimaryColor,
         body: FutureBuilder(

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:polimi_app/models/message.dart';
 import 'package:polimi_app/models/review.dart';
 import 'package:polimi_app/models/user/standardUser.dart';
 import 'package:polimi_app/models/user/user.dart';
@@ -70,6 +71,25 @@ class Model extends ChangeNotifier {
       return true;
     } else
       return true;
+  }
+
+  Future<bool> get getMessagesByUser async {
+    if (_user.messagesForMe == null) {
+      Map messages = await Apis.getCaregiverMessages(_user.username, _user.jwt);
+      _user.messagesForMe = Map();
+      _user.messagesForMe['length'] = messages['results'];
+      _user.messagesForMe['messages'] = _buildMessages(messages['messages']);
+      return true;
+    } else
+      return true;
+  }
+
+  List<Message> _buildMessages(List r) {
+    var messages = List<Message>();
+    r.forEach((message) {
+      messages.add(new Message.fromMap(message, this));
+    });
+    return messages;
   }
 
   List<Review> _buildReviews(List r) {

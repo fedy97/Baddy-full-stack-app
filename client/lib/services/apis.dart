@@ -111,10 +111,35 @@ class Apis {
     }
   }
 
+  static Future<Map> sendMessage(String jwt, Map body) async {
+    try {
+      var dio = Dio();
+      Response response = await dio.post(URL + messagesRoute + "/",
+          data: jsonEncode(body),
+          options: Options(headers: {'Authorization': 'Bearer $jwt'}));
+      return response.data;
+    } on DioError catch (e) {
+      print(e.response);
+      return e.response.data;
+    }
+  }
+
   static Future<Map> getUserReviews(String username, String jwt) async {
     try {
       var dio = Dio();
       Response response = await dio.get(URL + reviewsRoute + "/user/$username",
+          options: Options(headers: {'Authorization': 'Bearer $jwt'}));
+      return response.data;
+    } on DioError catch (e) {
+      print(e.response);
+      return e.response.data;
+    }
+  }
+
+  static Future<Map> getCaregiverMessages(String usernameCaregiver, String jwt) async {
+    try {
+      var dio = Dio();
+      Response response = await dio.get(URL + messagesRoute + "/user/$usernameCaregiver",
           options: Options(headers: {'Authorization': 'Bearer $jwt'}));
       return response.data;
     } on DioError catch (e) {

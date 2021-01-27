@@ -17,8 +17,8 @@ abstract class User with ChangeNotifier {
   String photo;
   String jwt;
 
-  //store reviews about me
   Map reviewsAboutMe;
+  Map messagesForMe;
 
   User(
       {@required this.jwt,

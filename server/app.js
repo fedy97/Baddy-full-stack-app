@@ -8,6 +8,7 @@ const dotenv = require('dotenv').config({path: __dirname + "/config.env"});
 const {globalErrorHandler, notFound} = require('./controllers/errorController')
 const usersRoutes = require('./routes/usersRoutes');
 const reviewsRoutes = require('./routes/reviewsRoutes');
+const messagesRoutes = require('./routes/messagesRoutes');
 
 
 const app = express();
@@ -33,7 +34,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/v1/users', usersRoutes);
 app.use('/api/v1/reviews', reviewsRoutes);
-//TODO add other routes here
+app.use('/api/v1/messages', messagesRoutes)
 
 app.use(notFound);
 

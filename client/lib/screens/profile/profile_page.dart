@@ -2,6 +2,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:polimi_app/components/profile_widgets.dart';
 import 'package:polimi_app/models/model.dart';
+import 'package:polimi_app/screens/profile/components/write_message.dart';
 import 'package:polimi_app/screens/profile/components/write_review.dart';
 import 'package:polimi_app/screens/update_profile/update_profile_page.dart';
 import 'package:provider/provider.dart';
@@ -90,6 +91,9 @@ class ProfilePage extends StatelessWidget {
                                 case 2:
                                   return model.user.role != 'other' ? WriteReviewWidget() : Text('Not allowed');
                                   break;
+                                case 3:
+                                  return model.user.role != 'other' ? WriteMessageWidget() : Text('Not allowed');
+                                  break;
                                 default:
                                   return Container();
                               }
@@ -135,6 +139,11 @@ class ProfilePage extends StatelessWidget {
         ),
         Icon(
           Icons.add,
+          size: 30,
+          color: Colors.white,
+        ),
+        Icon(
+          Icons.messenger_outline,
           size: 30,
           color: Colors.white,
         ),
