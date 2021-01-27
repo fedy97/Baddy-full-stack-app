@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:polimi_app/models/review.dart';
-
-import '../enum/role.dart';
 
 abstract class User with ChangeNotifier {
   DateTime birth;
@@ -12,6 +9,7 @@ abstract class User with ChangeNotifier {
   String firstName;
   String lastName;
   String phone;
+  String price;
   String city;
   String role;
   int ratingsQuantity;
@@ -29,6 +27,7 @@ abstract class User with ChangeNotifier {
       @required this.photo,
       @required this.ratingsQuantity,
       @required this.available,
+      this.price,
       this.birth,
       this.nationality,
       this.gender,
@@ -63,6 +62,7 @@ abstract class User with ChangeNotifier {
       "lastName": lastName,
       "firstName": firstName,
       "phone": phone,
+      "price": price,
       "available": available,
       "nationality": nationality,
       "birth": birth?.toString(),

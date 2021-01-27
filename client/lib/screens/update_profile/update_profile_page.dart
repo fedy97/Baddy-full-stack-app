@@ -24,6 +24,7 @@ class UpdateProfile extends StatelessWidget {
   static String firstName;
   static String lastName;
   static String phone;
+  static String price;
   static String city;
   static String gender;
   static DateTime birth;
@@ -33,7 +34,7 @@ class UpdateProfile extends StatelessWidget {
   TextFormField _textFormField(
       {String initialValue, String hintText, String icon, Function onChanged}) {
     return TextFormField(
-      keyboardType: hintText == 'Phone' ? TextInputType.number : TextInputType.text,
+      keyboardType: (hintText == 'Phone' || hintText == 'Price') ? TextInputType.number : TextInputType.text,
       style: GoogleFonts.montserrat(color: kSecondaryColor),
       //put empty string if init value is null
       initialValue: initialValue ?? '',
@@ -146,6 +147,15 @@ class UpdateProfile extends StatelessWidget {
             ),
             SizedBox(height: getProportionateScreenHeight(12)),
             _textFormField(
+              initialValue: model.user.price != null ? model.user.price.toString() : '',
+              onChanged: (value) {
+                price = value;
+              },
+              hintText: 'Price',
+              icon: "Gift Icon",
+            ),
+            SizedBox(height: getProportionateScreenHeight(12)),
+            _textFormField(
               initialValue: model.user.city,
               onChanged: (value) {
                 city = value;
@@ -179,7 +189,7 @@ class UpdateProfile extends StatelessWidget {
                 press: (startLoading, stopLoading, btnState) async {
                   try {
                     startLoading();
-
+                    model.user.price = price ?? model.user.price;
                     model.user.firstName = firstName ?? model.user.firstName;
                     model.user.lastName = lastName ?? model.user.lastName;
                     model.user.phone = phone ?? model.user.phone;
