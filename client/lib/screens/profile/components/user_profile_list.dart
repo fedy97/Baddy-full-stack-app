@@ -100,6 +100,16 @@ Widget buildUserProfileList(BuildContext context, Model model) {
             height: 20,
           ),
           _field(
+              index: 2,
+              context: context,
+              title: "Price",
+              value: model.selectedUser.price,
+              icon: Icons.monetization_on_outlined,
+              isPhone: false),
+          SizedBox(
+            height: 20,
+          ),
+          _field(
               index: 3,
               context: context,
               title: "City",
