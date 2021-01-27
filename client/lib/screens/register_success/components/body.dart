@@ -4,7 +4,6 @@ import 'package:polimi_app/constants.dart';
 import 'package:polimi_app/services/utils.dart';
 
 import '../../../auth_manager.dart';
-import '../../../size_config.dart';
 
 class Body extends StatelessWidget {
   @override

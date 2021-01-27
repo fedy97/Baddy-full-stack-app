@@ -36,7 +36,8 @@ class Apis {
     }
   }
 
-  static void updateRegistrationToken(String jwt, String registrationToken) async {
+  static void updateRegistrationToken(
+      String jwt, String registrationToken) async {
     var body = {'registrationToken': registrationToken};
     try {
       var dio = Dio();
@@ -60,7 +61,8 @@ class Apis {
       return response.data;
     } on DioError catch (e) {
       print(e.response);
-      if (e.response.data["error"]["statusCode"] == 401 || e.response.data["error"]["statusCode"] == 500)
+      if (e.response.data["error"]["statusCode"] == 401 ||
+          e.response.data["error"]["statusCode"] == 500)
         await AccessManager.signOut();
       return null;
     }
@@ -78,7 +80,7 @@ class Apis {
       await storageRef.putFile(imageFile);
       final url = await storageRef.getDownloadURL();
       var dio = Dio();
-      Response response = await dio.patch(URL + usersRoute + "/updateDetails",
+      await dio.patch(URL + usersRoute + "/updateDetails",
           data: {"photo": url},
           options: Options(headers: {'Authorization': 'Bearer $jwt'}));
       return url;

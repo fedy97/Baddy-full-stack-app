@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -6,8 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:polimi_app/constants.dart';
 import 'package:polimi_app/screens/sign_in/sign_in_screen.dart';
-import 'package:polimi_app/services/utils.dart';
-import 'package:polimi_app/size_config.dart';
 
 class OnboardingPage extends StatefulWidget {
   static final style = GoogleFonts.montserrat();

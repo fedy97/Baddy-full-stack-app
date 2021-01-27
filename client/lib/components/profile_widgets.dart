@@ -72,8 +72,7 @@ Widget photoProfile({@required String photo, @required double size}) {
       borderRadius: BorderRadius.circular(300.0),
       child: (photo == null || photo == 'default.jpg')
           ? Image.asset('assets/images/girl.png')
-          : CachedNetworkImage(
-              fit: BoxFit.cover,
+          : CachedNetworkImage(fit: BoxFit.cover,
               imageUrl: photo,
               placeholder: (context, url) => CircularProgressIndicator(),
               errorWidget: (context, url, error) => Icon(Icons.error),
