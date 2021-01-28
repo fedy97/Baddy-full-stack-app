@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const fcmAdmin = require('firebase-admin');
+
 const messageSchema = new mongoose.Schema(
     {
         message: {
@@ -37,6 +39,27 @@ messageSchema.pre(/^find/, function (next) {
         select: 'username photo',
     });
     next();
+});
+
+messageSchema.post('save', async function () {
+    let message = {
+        notification: {
+            title: `${this.user.username} has just sent you a message`,
+            body: this.message
+        },
+        token: this.userMessaged.registrationToken
+    };
+
+    // Send a message to the device corresponding to the provided
+    // registration token.
+    fcmAdmin.messaging().send(message)
+        .then((response) => {
+            // Response is a message ID string.
+            console.log('Successfully sent message:', response);
+        })
+        .catch((error) => {
+            console.log('Error sending message:', error);
+        });
 });
 
 const Message = mongoose.model('Message', messageSchema);
