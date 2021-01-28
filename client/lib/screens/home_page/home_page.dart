@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:polimi_app/models/model.dart';
 import 'package:polimi_app/screens/message_page/message_page.dart';
 import 'package:polimi_app/screens/profile/profile_page.dart';
-import 'package:polimi_app/screens/update_profile/update_profile_page.dart';
 import 'package:polimi_app/services/access_manager.dart';
 import 'package:polimi_app/services/apis.dart';
 import 'package:polimi_app/services/utils.dart';
@@ -17,6 +16,7 @@ import 'components/body.dart';
 
 class HomePage extends StatelessWidget {
   static String routeName = '/products';
+
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<Model>(context, listen: false);
@@ -25,26 +25,29 @@ class HomePage extends StatelessWidget {
           //Utils.hideKeyboard(context: context);
         },
         child: Scaffold(
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              Navigator.pushNamed(context, MessagePage.routeName);
-            },
-            child: Icon(Icons.mail_outline),
-          ),
-        appBar: buildAppBar(context),
-        backgroundColor: kPrimaryColor,
-        body: FutureBuilder(
-            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-              if (!snapshot.hasData)
-                return Utils.loadingWidget();
-              else if (snapshot.data != null) {
-                model.storeAvailableUsers(snapshot.data);
-                return Body();
-              } else
-                return Text('lol');
-            },
-            future: Apis.getAvailableUsers(model.user.jwt)) //Body(),
-    ));
+            floatingActionButton: model.user.role != 'other'
+                ? SizedBox.shrink()
+                : FloatingActionButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, MessagePage.routeName);
+                    },
+                    child: Icon(Icons.mail_outline),
+                  ),
+            appBar: buildAppBar(context),
+            backgroundColor: kPrimaryColor,
+            body: FutureBuilder(
+                builder:
+                    (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                  if (!snapshot.hasData)
+                    return Utils.loadingWidget();
+                  else if (snapshot.data != null) {
+                    model.storeAvailableUsers(snapshot.data);
+                    return Body();
+                  } else
+                    return Text('lol');
+                },
+                future: Apis.getAvailableUsers(model.user.jwt)) //Body(),
+            ));
   }
 
   AppBar buildAppBar(BuildContext context) {
@@ -52,7 +55,10 @@ class HomePage extends StatelessWidget {
     return AppBar(
       elevation: 0,
       centerTitle: false,
-      title: Text('Welcome, ${model.user.username}', style: GoogleFonts.montserrat(),),
+      title: Text(
+        'Welcome, ${model.user.username}',
+        style: GoogleFonts.montserrat(),
+      ),
       actions: <Widget>[
         IconButton(
           onPressed: () async {
@@ -62,18 +68,20 @@ class HomePage extends StatelessWidget {
           icon: Icon(Icons.refresh),
           color: Colors.white,
         ),
-        model.user.role == 'user' ? SizedBox.shrink() : IconButton(
-          icon: SvgPicture.asset(
-            "assets/icons/User_Icon.svg",
-            color: Colors.white,
-          ),
-          onPressed: () async {
-            model.setSelectedUser(model.user);
-            await Navigator.pushNamed(context, ProfilePage.routeName);
-            model.selectedUser.reviewsAboutMe = null;
-            model.setSelectedUser(null);
-          },
-        ),
+        model.user.role == 'user'
+            ? SizedBox.shrink()
+            : IconButton(
+                icon: SvgPicture.asset(
+                  "assets/icons/User_Icon.svg",
+                  color: Colors.white,
+                ),
+                onPressed: () async {
+                  model.setSelectedUser(model.user);
+                  await Navigator.pushNamed(context, ProfilePage.routeName);
+                  model.selectedUser.reviewsAboutMe = null;
+                  model.setSelectedUser(null);
+                },
+              ),
         IconButton(
           icon: SvgPicture.asset(
             "assets/icons/Log_out.svg",
