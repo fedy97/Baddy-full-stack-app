@@ -77,6 +77,7 @@ class AccessManager {
     //return await _firebaseAuth.signOut();
     var storage = FlutterSecureStorage();
     await storage.delete(key: "remember");
+    await storage.write(key: 'logOnce', value: "loggedOut");
     return await storage.write(key: 'jwt', value: "invalid.value");
   }
 }
