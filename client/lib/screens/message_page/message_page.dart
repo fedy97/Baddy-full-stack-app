@@ -10,9 +10,9 @@ class MessagePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(
-          color: Colors.white, //change your color here
+          color: kPrimaryColor, //change your color here
         ),
-        backgroundColor: kPrimaryColor,
+        backgroundColor: Colors.white,
         elevation: 0.0,
       ),
       body: ListMessagesWidget(),

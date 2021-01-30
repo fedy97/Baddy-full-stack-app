@@ -31,7 +31,9 @@ class AuthManager extends StatelessWidget {
             var jwt = str.split(".");
             var remember = snapshot.data["remember"];
             var logOnce = snapshot.data["logOnce"];
+            print('log once is:' + logOnce.toString());
             if (jwt.length != 3) {
+              print('jwt invalid, return signinscreen');
               //jwt format not valid, like `invalid.value`
               return SignInScreen();
             } else {
@@ -43,7 +45,8 @@ class AuthManager extends StatelessWidget {
               //check if jwt has expired
               if (DateTime.fromMillisecondsSinceEpoch(payload["exp"] * 1000)
                       .isAfter(DateTime.now()) &&
-                  logOnce != "nextTimeRelog") {
+                  logOnce.toString() != "nextTimeRelog") {
+                print('returning home page');
                 var storage = FlutterSecureStorage();
                 if (remember == "false")
                   storage.write(key: 'logOnce', value: "nextTimeRelog");
@@ -51,14 +54,14 @@ class AuthManager extends StatelessWidget {
                   storage.write(key: 'logOnce', value: "keepMeLogged");
                 //update firebase token
                 putRegistrationToken(str);
-
                 return HomePage();
               } else {
+                print('not pressed rememeber me');
                 var storage = FlutterSecureStorage();
                 //goes here if jwt is expired or user did not press remember me
                 AccessManager.signOut();
-                storage.write(key: 'logOnce', value: "nextLogIamIn");
               }
+              print('return sign innnnn');
               //goes here as soon as the above log out is triggered
               return SignInScreen();
             }
@@ -91,7 +94,7 @@ class AuthManager extends StatelessWidget {
     return jwtRemember;
   }
 
-  void putRegistrationToken(String jwt) async {
+  Future putRegistrationToken(String jwt) async {
     String clientToken = await FirebaseMessaging.instance.getToken();
     //print("FCM Token" + clientToken);
     await Apis.updateRegistrationToken(jwt, clientToken);

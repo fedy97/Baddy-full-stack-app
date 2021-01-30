@@ -36,7 +36,7 @@ class Apis {
     }
   }
 
-  static void updateRegistrationToken(
+  static Future updateRegistrationToken(
       String jwt, String registrationToken) async {
     var body = {'registrationToken': registrationToken};
     try {
