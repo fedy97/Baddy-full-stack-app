@@ -152,7 +152,7 @@ class UpdateProfile extends StatelessWidget {
                 price = value;
               },
               hintText: 'Price',
-              icon: "Gift Icon",
+              icon: "Cash",
             ),
             SizedBox(height: getProportionateScreenHeight(12)),
             _textFormField(
@@ -161,7 +161,7 @@ class UpdateProfile extends StatelessWidget {
                 city = value;
               },
               hintText: 'City',
-              icon: "Phone",
+              icon: "Location point",
             ),
             SizedBox(height: getProportionateScreenHeight(12)),
             _textFormField(
@@ -170,7 +170,7 @@ class UpdateProfile extends StatelessWidget {
                 nationality = value;
               },
               hintText: 'Nationality',
-              icon: "Phone",
+              icon: "Location point",
             ),
             SizedBox(height: getProportionateScreenHeight(12)),
             MyTextFieldDatePicker(
