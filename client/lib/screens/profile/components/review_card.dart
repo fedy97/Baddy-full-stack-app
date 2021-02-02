@@ -76,7 +76,7 @@ class ReviewCard extends StatelessWidget {
                                 color: kSecondaryColor, fontSize: 16),
                           ),
                           SizedBox(
-                            width: 30,
+                            width: 10,
                           ),
                           IconTheme(
                             data: IconThemeData(
