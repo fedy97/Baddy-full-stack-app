@@ -110,7 +110,7 @@ class UserCard extends StatelessWidget {
                             ),
                           ),
                           child: Text(
-                            user.price != "null" ? "${user.price}€/h" : "/",
+                            user.price != "null" ? "${user.price}€" : "/",
                             style: TextStyle(color: Colors.white),
                           ),
                         ),
