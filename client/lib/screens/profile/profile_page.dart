@@ -113,7 +113,6 @@ class ProfilePage extends StatelessWidget {
 
   Widget _circleAvatar(BuildContext context) {
     final model = Provider.of<Model>(context, listen: false);
-    //TODO correct rebuild error on will pop, when writing a review this will throw error
     return Hero(
         tag: '${model.selectedUser.username}',
         child: photoProfile(

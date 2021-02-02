@@ -68,7 +68,7 @@ class _WriteMessageWidgetState extends State<WriteMessageWidget> {
                   Map result =
                       await Apis.sendMessage(model.user.jwt, currMessage.toMap());
                   stop();
-                  if (result["status"] != "fail")
+                  if (result["status"] != "error")
                     AlertService().showAlert(
                       context: context,
                       message: 'Message Sent!',
