@@ -35,7 +35,8 @@ class AuthManager extends StatelessWidget {
             if (jwt.length != 3) {
               print('jwt invalid, return signinscreen');
               //jwt format not valid, like `invalid.value`
-              return SignInScreen();
+              //change this
+              return SplashScreen();
             } else {
               //jwt formatted correctly, let's decode it
               var payload = json.decode(
@@ -63,7 +64,8 @@ class AuthManager extends StatelessWidget {
               }
               print('return sign innnnn');
               //goes here as soon as the above log out is triggered
-              return SignInScreen();
+              //change this
+              return SplashScreen();
             }
           } else {
             //jwt missing
@@ -96,7 +98,7 @@ class AuthManager extends StatelessWidget {
 
   Future putRegistrationToken(String jwt) async {
     String clientToken = await FirebaseMessaging.instance.getToken();
-    //print("FCM Token" + clientToken);
+    print("FCM Token" + clientToken);
     await Apis.updateRegistrationToken(jwt, clientToken);
   }
 }
