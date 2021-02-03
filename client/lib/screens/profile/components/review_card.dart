@@ -19,7 +19,7 @@ class ReviewCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 160,
+      height: 136,
       child: InkWell(
         child: Stack(
           alignment: Alignment.bottomCenter,
@@ -46,7 +46,7 @@ class ReviewCard extends StatelessWidget {
               left: 0,
               child: SizedBox(
                 height: 136,
-                width: MediaQuery.of(context).size.width - 200,
+                width: MediaQuery.of(context).size.width,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
