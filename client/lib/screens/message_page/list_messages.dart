@@ -15,7 +15,6 @@ class ListMessagesWidget extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.all(20),
           child: ListView.builder(
-            physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemCount: model.user.messagesForMe['length'],
             itemBuilder: (context, index) => MessageCard(
