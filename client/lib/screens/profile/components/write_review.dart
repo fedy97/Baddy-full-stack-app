@@ -83,7 +83,6 @@ class _WriteReviewWidgetState extends State<WriteReviewWidget> {
                   Map result =
                       await Apis.sendReview(model.user.jwt, currReview.toMap());
                   stop();
-                  print(result["status"]);
                   if (result["status"] != "error")
                     AlertService().showAlert(
                       context: context,

@@ -23,7 +23,7 @@ class ProfilePage extends StatelessWidget {
       final model = Provider.of<Model>(context, listen: false);
       print('built profile page');
       return WillPopScope(
-        //when press the back button
+          //when press the back button
           onWillPop: () async {
             //do not rebuild the listview here, page is closing
             model.setCurrentProfilePage(0, false);
@@ -34,17 +34,19 @@ class ProfilePage extends StatelessWidget {
               resizeToAvoidBottomInset: false,
               appBar: AppBar(
                 actions: [
-                  model.selectedUser != model.user ? SizedBox.shrink() :
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: IconButton(
-                      icon: Icon(Icons.edit),
-                      color: Colors.white,
-                      onPressed: () {
-                        Navigator.pushNamed(context, UpdateProfile.routeName);
-                      },
-                    ),
-                  ),
+                  model.selectedUser != model.user
+                      ? SizedBox.shrink()
+                      : Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: IconButton(
+                            icon: Icon(Icons.edit),
+                            color: Colors.white,
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                  context, UpdateProfile.routeName);
+                            },
+                          ),
+                        ),
                 ],
                 iconTheme: IconThemeData(
                   color: Colors.white, //change your color here
@@ -89,10 +91,14 @@ class ProfilePage extends StatelessWidget {
                                   return ListReviewsWidget();
                                   break;
                                 case 2:
-                                  return model.user.role != 'other' ? WriteReviewWidget() : Text('Not allowed');
+                                  return model.user.role != 'other'
+                                      ? WriteReviewWidget()
+                                      : Text('Not allowed');
                                   break;
                                 case 3:
-                                  return model.user.role != 'other' ? WriteMessageWidget() : Text('Not allowed');
+                                  return model.user.role != 'other'
+                                      ? WriteMessageWidget()
+                                      : Text('Not allowed');
                                   break;
                                 default:
                                   return Container();
@@ -113,11 +119,12 @@ class ProfilePage extends StatelessWidget {
 
   Widget _circleAvatar(BuildContext context) {
     final model = Provider.of<Model>(context, listen: false);
-    return Hero(
-        tag: '${model.selectedUser.username}',
-        child: photoProfile(
-            photo: model.selectedUser.photo,
-            size: 400 / 2));
+    return Selector<Model, String>(
+        builder: (_, data, child) => Hero(
+            tag: '${model.selectedUser.username}',
+            child:
+                photoProfile(photo: model.selectedUser.photo, size: 400 / 2)),
+        selector: (_, model) => model.selectedUser.photo);
   }
 
   Widget _buildBottomNavBar(Model model) {

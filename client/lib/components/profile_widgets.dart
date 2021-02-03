@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:polimi_app/models/model.dart';
+import 'package:provider/provider.dart';
 
 import '../constants.dart';
 import '../size_config.dart';
@@ -68,24 +70,24 @@ Widget profileText() {
 
 Widget photoProfile({@required String photo, @required double size}) {
   return Container(
-    child: ClipRRect(
-      borderRadius: BorderRadius.circular(300.0),
-      child: (photo == null || photo == 'default.jpg')
-          ? Image.asset('assets/images/girl.png')
-          : CachedNetworkImage(fit: BoxFit.cover,
-              imageUrl: photo,
-              placeholder: (context, url) => CircularProgressIndicator(),
-              errorWidget: (context, url, error) => Icon(Icons.error),
-            ),
-    ),
-    width: size,
-    height: size,
-    padding: EdgeInsets.all(1.0),
-    decoration: BoxDecoration(
-      boxShadow: [kDefaultShadow],
-      border: Border.all(color: kSecondaryColor, width: 2),
-      shape: BoxShape.circle,
-      color: Colors.white,
-    ),
-  );
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(300.0),
+          child: (photo == null || photo == 'default.jpg')
+              ? Image.asset('assets/images/girl.png')
+              : CachedNetworkImage(fit: BoxFit.cover,
+            imageUrl: photo,
+            placeholder: (context, url) => CircularProgressIndicator(),
+            errorWidget: (context, url, error) => Icon(Icons.error),
+          ),
+        ),
+        width: size,
+        height: size,
+        padding: EdgeInsets.all(1.0),
+        decoration: BoxDecoration(
+          boxShadow: [kDefaultShadow],
+          border: Border.all(color: kSecondaryColor, width: 2),
+          shape: BoxShape.circle,
+          color: Colors.white,
+        ),
+      );
 }
