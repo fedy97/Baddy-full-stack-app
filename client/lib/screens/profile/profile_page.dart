@@ -145,6 +145,7 @@ class ProfilePage extends StatelessWidget {
         ),
         Icon(
           Icons.add,
+          key: Key("star"),
           size: 30,
           color: Colors.white,
         ),

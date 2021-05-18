@@ -21,6 +21,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = Provider.of<Model>(context, listen: false);
     return GestureDetector(
+      key: Key("homepage"),
         onTap: () {
           //Utils.hideKeyboard(context: context);
         },

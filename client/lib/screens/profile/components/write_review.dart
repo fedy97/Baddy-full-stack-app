@@ -72,6 +72,7 @@ class _WriteReviewWidgetState extends State<WriteReviewWidget> {
         Padding(
           padding: const EdgeInsets.only(bottom: 20),
           child: DefaultButton(
+            key: Key("send_review"),
             press: (start, stop, state) async {
               if (_formKey.currentState.validate()) {
                 try {
@@ -85,6 +86,7 @@ class _WriteReviewWidgetState extends State<WriteReviewWidget> {
                   stop();
                   if (result["status"] != "error")
                     AlertService().showAlert(
+                      key: "success_snack",
                       context: context,
                       message: 'Review completed!',
                       type: AlertType.success,
@@ -118,6 +120,7 @@ class _WriteReviewWidgetState extends State<WriteReviewWidget> {
     return Form(
         key: _formKey,
         child: TextFormField(
+          key: Key("write_review"),
           maxLines: 10,
           minLines: 5,
           style: TextStyle(

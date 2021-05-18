@@ -70,6 +70,7 @@ class ChooseRolePage extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 24, vertical: 26),
                   child: CustomButtonRole(
+                    key1: "customer_role_button",
                     descr: 'Customer',
                     image: 'user.png',
                     onTap: () {

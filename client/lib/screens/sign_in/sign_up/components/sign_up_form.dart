@@ -58,6 +58,7 @@ class _SignUpFormState extends State<SignUpForm> {
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
+            key: Key("signup_button"),
             text: "Continue",
             press: (start,stop,state) async {
               if (_formKey.currentState.validate()) {
@@ -107,6 +108,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
   TextFormField buildConfirmPassFormField() {
     return TextFormField(
+      key: Key("confirm_psw_textfield"),
       style: TextStyle(
         color: kSecondaryColor,
       ),
@@ -137,6 +139,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
   TextFormField buildPasswordFormField() {
     return TextFormField(
+      key: Key("password_textfield"),
       style: TextStyle(
         color: kSecondaryColor,
       ),
@@ -167,6 +170,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
   TextFormField buildEmailFormField() {
     return TextFormField(
+      key: Key("email_textfield"),
       style: TextStyle(
         color: kSecondaryColor,
       ),
@@ -198,6 +202,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
   TextFormField buildNameFormField() {
     return TextFormField(
+      key: Key("name_textfield"),
       style: TextStyle(
         color: kSecondaryColor,
       ),

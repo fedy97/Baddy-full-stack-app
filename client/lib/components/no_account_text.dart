@@ -20,6 +20,7 @@ class NoAccountText extends StatelessWidget {
           style: TextStyle(fontSize: getProportionateScreenWidth(16)),
         ),
         GestureDetector(
+          key: Key("goto_signup"),
           onTap: () => {
             Navigator.pushNamed(context, ChooseRolePage.routeName)
           },

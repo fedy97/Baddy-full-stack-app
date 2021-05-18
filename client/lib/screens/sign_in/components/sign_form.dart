@@ -74,7 +74,8 @@ class _SignFormState extends State<SignForm> {
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(20)),
           DefaultButton(
-            text: "Continue",
+            key: Key("login_button"),
+            text: "Login",
             press: (start,stop,state) async {
               if (_formKey.currentState.validate()) {
                 start();
@@ -110,6 +111,7 @@ class _SignFormState extends State<SignForm> {
 
   TextFormField buildPasswordFormField() {
     return TextFormField(
+      key: Key("password_login"),
       style: TextStyle(
         color: kSecondaryColor,
       ),
@@ -140,6 +142,7 @@ class _SignFormState extends State<SignForm> {
 
   TextFormField buildEmailFormField() {
     return TextFormField(
+      key: Key("name_login"),
       style: TextStyle(
         color: kSecondaryColor,
       ),

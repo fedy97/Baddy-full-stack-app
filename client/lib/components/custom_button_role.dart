@@ -8,17 +8,20 @@ class CustomButtonRole extends StatelessWidget {
   final Function onTap;
   final LinearGradient linearGradient;
   final Color textColor;
+  final String key1;
 
   CustomButtonRole(
       {@required this.descr,
       @required this.image,
       @required this.onTap,
       @required this.linearGradient,
-      @required this.textColor});
+      @required this.textColor,
+      this.key1});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+        key: Key(this.key1),
         onTap: onTap,
         child: Container(
           decoration: BoxDecoration(boxShadow: [kDefaultShadow]),

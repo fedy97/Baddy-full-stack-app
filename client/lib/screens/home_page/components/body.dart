@@ -17,9 +17,11 @@ class Body extends StatelessWidget {
       bottom: false,
       child: Column(
         children: <Widget>[
-          SearchBox(onChanged: (value) {
-            model.setFilter(value);
-          }),
+          SearchBox(
+              key: Key("search_box"),
+              onChanged: (value) {
+                model.setFilter(value);
+              }),
           SizedBox(height: kDefaultPadding / 2),
           Expanded(
             child: Stack(
@@ -37,23 +39,23 @@ class Body extends StatelessWidget {
                 ),
                 //rebuild only the listview. And only if filteredUsers.length changes,
                 //so if other attributes of Model changes, this will not rebuild.
-                Selector<Model, Tuple2<int,int>>(
-                  selector: (_, model) => Tuple2(model.filteredUsers.length, model.availableUsers.length),
-                  builder: (_, data, child) => ListView.builder(
-                    itemCount: data.item1,
-                    itemBuilder: (context, index) => UserCard(
-                      itemIndex: index,
-                      user: model.filteredUsers[index],
-                      press: () async {
-                        model.setSelectedUser(model.filteredUsers[index]);
-                        await Navigator.pushNamed(context, ProfilePage.routeName);
-                        model.selectedUser.reviewsAboutMe = null;
-                        model.setSelectedUser(null);
-                      },
-                    ),
-                  )
-                ),
-
+                Selector<Model, Tuple2<int, int>>(
+                    selector: (_, model) => Tuple2(model.filteredUsers.length,
+                        model.availableUsers.length),
+                    builder: (_, data, child) => ListView.builder(
+                          itemCount: data.item1,
+                          itemBuilder: (context, index) => UserCard(
+                            itemIndex: index,
+                            user: model.filteredUsers[index],
+                            press: () async {
+                              model.setSelectedUser(model.filteredUsers[index]);
+                              await Navigator.pushNamed(
+                                  context, ProfilePage.routeName);
+                              model.selectedUser.reviewsAboutMe = null;
+                              model.setSelectedUser(null);
+                            },
+                          ),
+                        )),
               ],
             ),
           ),
