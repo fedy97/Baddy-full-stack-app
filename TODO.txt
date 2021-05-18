@@ -1,8 +1,4 @@
 //TODO
-documentazione DD
-posizionamento testi
-test
-valutare la parte del multithreading
-add gps localization maybe?
-
-
+update update profile screen on dd
+fixare reviews list length username
+fix price null string

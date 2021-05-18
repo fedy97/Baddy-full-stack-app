@@ -50,10 +50,14 @@ dependencies:
   firebase_core: 0.5.3
   overlay_support: ^1.0.5
   tuple: ^1.0.3
+  intl: ^0.16.1
 
 dev_dependencies:
-  flutter_test:
+  flutter_driver:
     sdk: flutter
+  test:
+  #flutter_test:
+  #  sdk: flutter
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
