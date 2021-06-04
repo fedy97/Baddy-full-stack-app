@@ -20,8 +20,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<Model>(context, listen: false);
+    //Utils.determinePosition().then((value) => print(value));
     return GestureDetector(
-      key: Key("homepage"),
+        key: Key("homepage"),
         onTap: () {
           //Utils.hideKeyboard(context: context);
         },

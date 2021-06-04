@@ -58,7 +58,7 @@ void main() {
       return result;
     }
 
-    test("test continue botton splash screen", () async {
+    test("test continue button splash screen", () async {
       await driver.runUnsynchronized(() async {
         await driver.tap(continue_splash);
         await Future.delayed(Duration(seconds: 2));

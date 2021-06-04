@@ -12,6 +12,8 @@ abstract class User with ChangeNotifier {
   String price;
   String city;
   String role;
+  double lat;
+  double long;
   int ratingsQuantity;
   var ratingsAverage;
   String photo;
@@ -27,6 +29,8 @@ abstract class User with ChangeNotifier {
       @required this.photo,
       @required this.ratingsQuantity,
       @required this.available,
+      this.lat,
+      this.long,
       this.price,
       this.birth,
       this.nationality,
