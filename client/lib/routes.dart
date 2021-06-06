@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:polimi_app/screens/choose_role_page/choose_role_page.dart';
 import 'package:polimi_app/screens/complete_profile/complete_profile_screen.dart';
+import 'package:polimi_app/screens/map_page/map_page.dart';
 import 'package:polimi_app/screens/message_page/message_page.dart';
 import 'package:polimi_app/screens/profile/profile_page.dart';
 import 'package:polimi_app/screens/update_profile/update_profile_page.dart';
@@ -24,6 +25,7 @@ final completeProfile = CompleteProfileScreen();
 final updateProfile = UpdateProfile();
 final profile = ProfilePage();
 final messages = MessagePage();
+final map = MapPage();
 
 final Map<String, WidgetBuilder> routes = {
   HomePage.routeName: (context) => home,
@@ -36,5 +38,6 @@ final Map<String, WidgetBuilder> routes = {
   CompleteProfileScreen.routeName: (context) => completeProfile,
   UpdateProfile.routeName: (context) => updateProfile,
   ProfilePage.routeName: (context) => profile,
-  MessagePage.routeName: (context) => messages
+  MessagePage.routeName: (context) => messages,
+  MapPage.routeName: (context) => map
 };
