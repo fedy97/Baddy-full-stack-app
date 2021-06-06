@@ -67,9 +67,15 @@ const userSchema = new Schema({
             type: Number,
             default: 0
         },
-        registrationToken:{
+        registrationToken: {
             type: String,
             trim: true
+        },
+        lat: {
+            type: Number
+        },
+        long: {
+            type: Number
         }
     },
     {

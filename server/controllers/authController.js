@@ -31,6 +31,8 @@ var functions = {
                     firstName: req.body.firstName,
                     lastName: req.body.lastName,
                     available: true,
+                    lat: req.body.latitude,
+                    long: req.body.longitude,
                     registrationToken: req.registrationToken
                 });
             else
