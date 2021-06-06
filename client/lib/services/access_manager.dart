@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -49,7 +51,9 @@ class AccessManager {
       String name,
       String surname,
       String city,
-      String phone}) async {
+      String phone,
+      double lat,
+      double long}) async {
     var signUpUrl = URL + usersRoute + "/signup";
     try {
       Response response = await Dio().post(signUpUrl, data: {
@@ -60,7 +64,9 @@ class AccessManager {
         "city": city,
         "phone": phone,
         "firstName": name,
-        "lastName": surname
+        "lastName": surname,
+        "latitude": lat,
+        "longitude": long
       });
 
       var storage = FlutterSecureStorage();
