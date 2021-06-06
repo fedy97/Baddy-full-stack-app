@@ -72,10 +72,12 @@ const userSchema = new Schema({
             trim: true
         },
         lat: {
-            type: Number
+            type: Number,
+            strict: false
         },
         long: {
-            type: Number
+            type: Number,
+            strict: false
         }
     },
     {
