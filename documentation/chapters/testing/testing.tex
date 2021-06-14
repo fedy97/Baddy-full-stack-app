@@ -13,7 +13,7 @@
 	forms and other frequently used components have been developed first and immediately \textbf{unit-tested}.
 
 	\section{Testing}
-	To implement the system, we decided to test the application mainly through debug on both emulators and real devices. The only exception is the \textbf{mobile application}, for which we also performed unit testing on the main UI components. In particular separable widgets used by multiple components of the application have been tested using a particular type of test supported by Flutter, the widget tests.
+	To implement the system, we decided to test the application mainly through debug on both emulators and real devices. The only exception is the \textbf{mobile application}, for which we also performed unit testing on the main UI components and subsequent integration testing to verify the compatibility among them. In particular separable widgets used by multiple components of the application have been tested using a particular type of test supported by Flutter, the widget tests. We then developed a special integration test suite using the Flutter driver to verify the correct behavior of the application as a whole.
 
 	\subsection{Widget tests}
 	Widget tests are simply \textbf{unit-tests} performed in an environment that allows to test the behaviour of a widget class. The goal of this approach is to verify that the tested  widget’s \textbf{UI} looks and interacts as expected. This operations involves multiple classes and requires a test environment able to support the entire widget lifecycle. In the specific context of the application, the tests carried out verified the behavior of the widget by injecting an input and verifying the presence of the expected elements through the finder. A \textbf{finder} is a class provided by the test environment used to locate widgets and elements inside the pumped widget. If the finder is able to locate the expected element with the expected features and properties the test is passed.\\
@@ -31,7 +31,7 @@
 
 	 \begin{figure}[H]
         \centering
-        \includegraphics[scale=1.35]{../../assets/widget_tests.png}
+        \includegraphics[scale=1.25]{../../assets/widget_tests.png}
         \caption{Performed widget tests}\label{fig:widget-tests}
     \end{figure}
 
