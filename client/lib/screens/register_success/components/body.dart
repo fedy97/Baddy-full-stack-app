@@ -24,6 +24,7 @@ class Body extends StatelessWidget {
         SizedBox(
           width: MediaQuery.of(context).size.width * 0.6,
           child: DefaultButton(
+            key: Key("success_button"),
             text: "Home Page",
             press: (start, stop, state) {
               Utils.popEverythingAndPush(context: context, routeName: AuthManager.routeName);

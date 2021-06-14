@@ -16,8 +16,12 @@ class StandardUser extends User {
       photo,
       jwt,
       available,
+      lat,
+      long,
       nationality})
       : super(
+            lat: lat,
+            long: long,
             birth: birth,
             price: price,
             gender: gender,
@@ -53,8 +57,12 @@ class StandardUser extends User {
     var nationality = user["nationality"];
     var birth = user["birth"];
     var birthParsed = birth == null ? null : DateTime.parse(birth);
+    var lat = user['lat'];
+    var long = user['long'];
 
     return StandardUser(
+        long: long,
+        lat: lat,
         birth: birthParsed,
         available: available,
         city: city,

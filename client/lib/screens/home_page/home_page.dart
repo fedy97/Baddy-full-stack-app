@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:polimi_app/models/model.dart';
+import 'package:polimi_app/screens/map_page/map_page.dart';
 import 'package:polimi_app/screens/message_page/message_page.dart';
 import 'package:polimi_app/screens/profile/profile_page.dart';
 import 'package:polimi_app/services/access_manager.dart';
@@ -12,7 +13,9 @@ import 'package:provider/provider.dart';
 
 import '../../auth_manager.dart';
 import '../../constants.dart';
+import 'components/actionButton.dart';
 import 'components/body.dart';
+import 'components/expandedFab.dart';
 
 class HomePage extends StatelessWidget {
   static String routeName = '/products';
@@ -21,18 +24,24 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = Provider.of<Model>(context, listen: false);
     return GestureDetector(
+        key: Key("homepage"),
         onTap: () {
           //Utils.hideKeyboard(context: context);
         },
         child: Scaffold(
-            floatingActionButton: model.user.role != 'other'
-                ? SizedBox.shrink()
-                : FloatingActionButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, MessagePage.routeName);
-                    },
-                    child: Icon(Icons.mail_outline),
-                  ),
+            floatingActionButton: ExpandableFab(
+              distance: 112.0,
+              children: [
+                ActionButton(
+                  onPressed: () => Navigator.pushNamed(context, MessagePage.routeName),
+                  icon: const Icon(Icons.mail_outline),
+                ),
+                ActionButton(
+                  onPressed: () => Navigator.pushNamed(context, MapPage.routeName),
+                  icon: const Icon(Icons.map),
+                )
+              ],
+            ),
             appBar: buildAppBar(context),
             backgroundColor: kPrimaryColor,
             body: FutureBuilder(

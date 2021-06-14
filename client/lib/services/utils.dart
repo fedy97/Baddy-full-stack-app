@@ -1,6 +1,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:polimi_app/constants.dart';
 import 'package:polimi_app/models/enum/role.dart';
 import 'package:polimi_app/size_config.dart';
@@ -41,6 +42,37 @@ class Utils {
     //    });
   }
 
+  static Future<Position> determinePosition({@required BuildContext context}) async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      await showAlertOneButton(context: context, content: "Turn on GPS in your settings", title: "GPS Disabled", buttonText: "Ok");
+      //return Future.error('Location services are disabled.');
+      return null;
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    // When we reach here, permissions are granted and we can
+    // continue accessing the position of the device.
+    return await Geolocator.getCurrentPosition();
+  }
+
   static Widget loadingWidget() {
     return Scaffold(
         backgroundColor: Colors.white,
@@ -59,7 +91,7 @@ class Utils {
         .pushNamedAndRemoveUntil(routeName, (Route<dynamic> route) => false);
   }
 
-  //depracated, use alert_service.dart instead
+  //deprecated, use alert_service.dart instead
   static void showSnack({GlobalKey<ScaffoldState> key, String text}) {
     key.currentState.showSnackBar(SnackBar(
       shape: RoundedRectangleBorder(

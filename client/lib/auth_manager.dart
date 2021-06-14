@@ -31,9 +31,8 @@ class AuthManager extends StatelessWidget {
             var jwt = str.split(".");
             var remember = snapshot.data["remember"];
             var logOnce = snapshot.data["logOnce"];
-            print('log once is:' + logOnce.toString());
+
             if (jwt.length != 3) {
-              print('jwt invalid, return signinscreen');
               //jwt format not valid, like `invalid.value`
               //change this
               return SplashScreen();
@@ -47,7 +46,6 @@ class AuthManager extends StatelessWidget {
               if (DateTime.fromMillisecondsSinceEpoch(payload["exp"] * 1000)
                       .isAfter(DateTime.now()) &&
                   logOnce.toString() != "nextTimeRelog") {
-                print('returning home page');
                 var storage = FlutterSecureStorage();
                 if (remember == "false")
                   storage.write(key: 'logOnce', value: "nextTimeRelog");
@@ -57,12 +55,10 @@ class AuthManager extends StatelessWidget {
                 putRegistrationToken(str);
                 return HomePage();
               } else {
-                print('not pressed rememeber me');
                 var storage = FlutterSecureStorage();
                 //goes here if jwt is expired or user did not press remember me
                 AccessManager.signOut();
               }
-              print('return sign innnnn');
               //goes here as soon as the above log out is triggered
               //change this
               return SplashScreen();

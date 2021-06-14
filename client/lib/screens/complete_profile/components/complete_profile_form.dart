@@ -56,10 +56,16 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
             text: "Register",
-            press: (start,stop,state) async {
+            press: (start, stop, state) async {
               if (_formKey.currentState.validate()) {
                 start();
                 try {
+                  var position =
+                      await Utils.determinePosition(context: context);
+                  if (position == null) {
+                    stop();
+                    return;
+                  }
                   _formKey.currentState.save();
                   Map map = context.read<Model>().tempValues;
                   Response response = await AccessManager.createOtherUser(
@@ -69,7 +75,9 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
                       city: city,
                       name: firstName,
                       surname: lastName,
-                      password: map["password"]);
+                      password: map["password"],
+                      lat: position.latitude,
+                      long: position.longitude);
                   stop();
                   if (response.data["status"] == "success")
                     Utils.popEverythingAndPush(

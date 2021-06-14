@@ -8,8 +8,10 @@ class AlertService {
     @required String message,
     @required AlertType type,
     @required BuildContext context,
+    String key
   }) {
     Flushbar(
+      key: Key(key),
       title: _chooseTitle(type),
       message: message,
       icon: Icon(

@@ -71,6 +71,7 @@ class _BodyState extends State<Body> {
                       ),
                       Spacer(flex: 3),
                       DefaultButton(
+                        key: Key("continue_splash"),
                         text: "Continue",
                         press: (start, stop, state) {
                           Utils.popEverythingAndPush(context: context, routeName: SignInScreen.routeName);

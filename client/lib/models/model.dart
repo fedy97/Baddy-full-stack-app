@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:polimi_app/models/message.dart';
 import 'package:polimi_app/models/review.dart';
@@ -64,24 +62,23 @@ class Model extends ChangeNotifier {
 
   Future<bool> get getReviewsByUser async {
     if (_selectedUser.reviewsAboutMe == null) {
-      Map reviews = await Apis.getUserReviews(_selectedUser.username, _user.jwt);
+      Map reviews =
+          await Apis.getUserReviews(_selectedUser.username, _user.jwt);
       _selectedUser.reviewsAboutMe = Map();
       _selectedUser.reviewsAboutMe['length'] = reviews['results'];
-      _selectedUser.reviewsAboutMe['reviews'] = _buildReviews(reviews['reviews']);
+      _selectedUser.reviewsAboutMe['reviews'] =
+          _buildReviews(reviews['reviews']);
       return true;
     } else
       return true;
   }
 
   Future<bool> get getMessagesByUser async {
-    if (_user.messagesForMe == null) {
-      Map messages = await Apis.getCaregiverMessages(_user.username, _user.jwt);
-      _user.messagesForMe = Map();
-      _user.messagesForMe['length'] = messages['results'];
-      _user.messagesForMe['messages'] = _buildMessages(messages['messages']);
-      return true;
-    } else
-      return true;
+    Map messages = await Apis.getCaregiverMessages(_user.username, _user.jwt);
+    _user.messagesForMe = Map();
+    _user.messagesForMe['length'] = messages['results'];
+    _user.messagesForMe['messages'] = _buildMessages(messages['messages']);
+    return true;
   }
 
   List<Message> _buildMessages(List r) {
