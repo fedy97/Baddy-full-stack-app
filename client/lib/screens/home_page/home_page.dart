@@ -30,13 +30,16 @@ class HomePage extends StatelessWidget {
         },
         child: Scaffold(
             floatingActionButton: ExpandableFab(
+              key: Key("expandable_fab"),
               distance: 112.0,
               children: [
                 ActionButton(
+                  key: Key("view_messages"),
                   onPressed: () => Navigator.pushNamed(context, MessagePage.routeName),
                   icon: const Icon(Icons.mail_outline),
                 ),
                 ActionButton(
+                  key: Key("view_map"),
                   onPressed: () => Navigator.pushNamed(context, MapPage.routeName),
                   icon: const Icon(Icons.map),
                 )
@@ -92,6 +95,7 @@ class HomePage extends StatelessWidget {
                 },
               ),
         IconButton(
+          key: Key("logout"),
           icon: SvgPicture.asset(
             "assets/icons/Log_out.svg",
             color: Colors.white,

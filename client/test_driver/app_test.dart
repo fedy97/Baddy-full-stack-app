@@ -4,7 +4,6 @@ import 'dart:math';
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 
-
 ///to run self driven tests, first open your emulator or connect device,
 ///then open terminal, navigate to ~/dima/client directory and run:
 ///-->" flutter drive --target=test_driver/app.dart "<--
@@ -15,6 +14,7 @@ void main() {
     const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
     final continue_splash = find.byValueKey("continue_splash");
     final login_button = find.byValueKey("login_button");
+    final logout_button = find.byValueKey("logout");
     final name_login = find.byValueKey("name_login");
     final password_login = find.byValueKey("password_login");
     final goto_signup = find.byValueKey("goto_signup");
@@ -32,11 +32,22 @@ void main() {
       matching: find.byType("UserCard"),
       firstMatchOnly: true,
     );
+
+    //To write a review
     final star = find.byValueKey("star");
     final send_review = find.byValueKey("send_review");
     final write_review = find.byValueKey("write_review");
     final success_snack = find.byValueKey("success_snack");
-    final back = find.byTooltip('Back');
+
+    final message = find.byValueKey("message");
+    final send_message = find.byValueKey("send_message");
+    final write_message = find.byValueKey("write_message");
+
+    final back = find.pageBack();
+
+    final expandable_fab = find.byValueKey("expandable_fab");
+    final view_map = find.byValueKey("view_map");
+    final view_messages = find.byValueKey("view_messages");
 
     FlutterDriver driver;
     setUpAll(() async {
@@ -58,12 +69,12 @@ void main() {
       return result;
     }
 
-    test("test continue button splash screen", () async {
-      await driver.runUnsynchronized(() async {
-        await driver.tap(continue_splash);
-        await Future.delayed(Duration(seconds: 2));
-      });
-    });
+    // test("test continue button splash screen", () async {
+    //   await driver.runUnsynchronized(() async {
+    //     await driver.tap(continue_splash);
+    //     await Future.delayed(Duration(seconds: 2));
+    //   });
+    // });
 
     // test("test login failure 1", () async {
     //   await driver.runUnsynchronized(() async {
@@ -72,53 +83,53 @@ void main() {
     //   });
     // });
 
-    //test("successful login as a user", () async {
-    //  await driver.runUnsynchronized(() async {
-    //    await driver.tap(name_login);
-    //    await Future.delayed(Duration(seconds: 1));
-    //    await driver.enterText("test22");
-    //    await Future.delayed(Duration(seconds: 1));
-    //    await driver.tap(password_login);
-    //    await Future.delayed(Duration(seconds: 1));
-    //    await driver.enterText("ffffff");
-    //    await Future.delayed(Duration(seconds: 1));
-    //    await driver.tap(login_button);
-    //    await Future.delayed(Duration(seconds: 1));
-    //  });
-    //});
-
-    test("test sign up", () async {
+    test("successful login as a user", () async {
       await driver.runUnsynchronized(() async {
-        user = randomString(6);
-        await driver.tap(goto_signup);
+        await driver.tap(name_login);
         await Future.delayed(Duration(seconds: 1));
-        await driver.tap(customer_role_button);
+        await driver.enterText("test22");
         await Future.delayed(Duration(seconds: 1));
-        await driver.tap(signup_button);
-        await Future.delayed(Duration(seconds: 1));
-        await driver.tap(name_textfield);
-        await Future.delayed(Duration(seconds: 1));
-        await driver.enterText(user);
-        await Future.delayed(Duration(seconds: 1));
-        await driver.tap(email_textfield);
-        await Future.delayed(Duration(seconds: 1));
-        await driver.enterText("0" + randomString(10) + "@testmail.com");
-        await Future.delayed(Duration(seconds: 1));
-        await driver.tap(password_textfield);
+        await driver.tap(password_login);
         await Future.delayed(Duration(seconds: 1));
         await driver.enterText("ffffff");
         await Future.delayed(Duration(seconds: 1));
-        await driver.tap(confirm_psw_textfield);
-        await Future.delayed(Duration(seconds: 1));
-        await driver.enterText("ffffff");
-        await Future.delayed(Duration(seconds: 1));
-        await driver.tap(signup_button);
-        await Future.delayed(Duration(seconds: 1));
-        await driver.tap(success_button);
-        await driver.waitFor(homepage);
+        await driver.tap(login_button);
         await Future.delayed(Duration(seconds: 1));
       });
     });
+
+    // test("test sign up", () async {
+    //   await driver.runUnsynchronized(() async {
+    //     user = randomString(6);
+    //     await driver.tap(goto_signup);
+    //     await Future.delayed(Duration(seconds: 1));
+    //     await driver.tap(customer_role_button);
+    //     await Future.delayed(Duration(seconds: 1));
+    //     await driver.tap(signup_button);
+    //     await Future.delayed(Duration(seconds: 1));
+    //     await driver.tap(name_textfield);
+    //     await Future.delayed(Duration(seconds: 1));
+    //     await driver.enterText(user);
+    //     await Future.delayed(Duration(seconds: 1));
+    //     await driver.tap(email_textfield);
+    //     await Future.delayed(Duration(seconds: 1));
+    //     await driver.enterText("0" + randomString(10) + "@testmail.com");
+    //     await Future.delayed(Duration(seconds: 1));
+    //     await driver.tap(password_textfield);
+    //     await Future.delayed(Duration(seconds: 1));
+    //     await driver.enterText("ffffff");
+    //     await Future.delayed(Duration(seconds: 1));
+    //     await driver.tap(confirm_psw_textfield);
+    //     await Future.delayed(Duration(seconds: 1));
+    //     await driver.enterText("ffffff");
+    //     await Future.delayed(Duration(seconds: 1));
+    //     await driver.tap(signup_button);
+    //     await Future.delayed(Duration(seconds: 1));
+    //     await driver.tap(success_button);
+    //     await driver.waitFor(homepage);
+    //     await Future.delayed(Duration(seconds: 1));
+    //   });
+    // });
 
     test("find caregiver by city", () async {
       await driver.runUnsynchronized(() async {
@@ -142,7 +153,56 @@ void main() {
         await driver.enterText("this is a automatic test review");
         await Future.delayed(Duration(seconds: 1));
         await driver.tap(send_review);
+        // await driver.waitFor(success_snack);
+        await Future.delayed(Duration(seconds: 1));
+      });
+    });
+
+    test("write a message to a caregiver", () async {
+      await driver.runUnsynchronized(() async {
+        await driver.tap(message);
+        await Future.delayed(Duration(seconds: 1));
+        await driver.tap(write_message);
+        await Future.delayed(Duration(seconds: 1));
+        await driver.enterText("this is a automatic test message");
+        await Future.delayed(Duration(seconds: 1));
+        await driver.tap(send_message);
         await driver.waitFor(success_snack);
+        await Future.delayed(Duration(seconds: 1));
+        await driver.tap(find.pageBack());
+        await Future.delayed(Duration(seconds: 1));
+      });
+    });
+
+    test("view message page", () async {
+      await driver.runUnsynchronized(() async {
+        await driver.waitFor(homepage);
+        await Future.delayed(Duration(seconds: 1));
+        await driver.tap(expandable_fab);
+        await Future.delayed(Duration(seconds: 1));
+        await driver.tap(view_messages);
+        await Future.delayed(Duration(seconds: 1));
+        await driver.tap(back);
+      });
+    });
+
+    test("view map page", () async {
+      await driver.runUnsynchronized(() async {
+        await driver.waitFor(homepage);
+        await Future.delayed(Duration(seconds: 1));
+        await driver.tap(expandable_fab);
+        await Future.delayed(Duration(seconds: 1));
+        await driver.tap(view_map);
+        await Future.delayed(Duration(seconds: 1));
+        await driver.tap(back);
+      });
+    });
+
+    test("logout", () async {
+      await driver.runUnsynchronized(() async {
+        await driver.waitFor(homepage);
+        await Future.delayed(Duration(seconds: 1));
+        await driver.tap(logout_button);
         await Future.delayed(Duration(seconds: 1));
       });
     });

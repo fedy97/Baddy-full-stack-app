@@ -57,6 +57,7 @@ class _WriteMessageWidgetState extends State<WriteMessageWidget> {
         Padding(
           padding: const EdgeInsets.only(bottom: 20),
           child: DefaultButton(
+            key: Key("send_message"),
             press: (start, stop, state) async {
               if (_formKey.currentState.validate()) {
                 try {
@@ -103,6 +104,7 @@ class _WriteMessageWidgetState extends State<WriteMessageWidget> {
     return Form(
         key: _formKey,
         child: TextFormField(
+          key: Key("write_message"),
           maxLines: 10,
           minLines: 5,
           style: TextStyle(

@@ -151,6 +151,7 @@ class ProfilePage extends StatelessWidget {
         ),
         Icon(
           Icons.messenger_outline,
+          key: Key("message"),
           size: 30,
           color: Colors.white,
         ),
