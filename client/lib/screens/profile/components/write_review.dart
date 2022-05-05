@@ -46,7 +46,7 @@ class _WriteReviewWidgetState extends State<WriteReviewWidget> {
     final model = Provider.of<Model>(context, listen: false);
     return Column(
       children: [
-        RatingBar.builder(
+        RatingBar(
           initialRating: 3,
           minRating: 1,
           direction: Axis.horizontal,
